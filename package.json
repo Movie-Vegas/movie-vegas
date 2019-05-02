@@ -1,0 +1,50 @@
+{
+  "name": "movie-vegas",
+  "version": "1.0.0",
+  "description": "movie vegas search App Engine",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "react-scripts test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "serve": "serve -s"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Movie-Vegas/movie-vegas.git"
+  },
+  "keywords": [
+    "Search-Engine"
+  ],
+  "author": "Dan Ayettey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Movie-Vegas/movie-vegas/issues"
+  },
+  "homepage": "https://github.com/Movie-Vegas/movie-vegas#readme",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-script": "^2.0.5",
+    "react-scripts": "^3.0.0",
+    "serve": "^11.0.0"
+  },
+  "development": [
+    "last 1 chrome version",
+    "last 1 safari version",
+    "last 1 firefox version",
+    "last 1  edge version"
+  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
