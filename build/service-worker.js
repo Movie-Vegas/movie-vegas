@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.0/workbox-sw.js");
 
 importScripts(
-  "/Movie-Vegas/movie-vegas/precache-manifest.ab4fee311d8cb9bd2968db3cca97d32e.js"
+  "/Movie-Vegas/movie-vegas/precache-manifest.9141388d9e3722893b903c4c10c1019b.js"
 );
 
 self.addEventListener('message', (event) => {

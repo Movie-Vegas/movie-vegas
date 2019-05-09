@@ -4,18 +4,12 @@ class Model {
     /**
      * model for Movie-vegas
      * declare class variables/attributes as private (local var and Accessor as a object literal);
-     * @type {{rating: string, likes: string, goodMovie: string, badMovie: string, result: string,
-     * favourites: string, movieList: Array, watchLater: string, setRating: Model.services.setRating,
-     * setLikes: Model.services.setLikes, setGoodMovie: Model.services.setGoodMovie, setBadMovie: Model.services.setBadMovie,
-     * setResult: Model.services.setResult, setFavourites: Model.services.setFavourites, addMovies: Model.services.addMovies,
-     * setWatchLater: Model.services.setWatchLater, getResult: (function(): string), getLikes: (function(): string), getGoodMovie:
-     * (function(): string), getBadMovie: (function(): string), getFavorites: (function(): string), getMovieList: (function(): Set<*>),
-     * getRating: (function(): string), getWatchLater: (function(): string)}}
+     * @type {{rating: string, likes: string, goodMovies: Array, badMovies: Array, result: string, favourites: string, movieList: Array, watchLater: string, setRating: Model.services.setRating, setLikes: Model.services.setLikes, addGoodMovies: Model.services.addGoodMovies, addBadMovies: Model.services.addBadMovies, setResult: Model.services.setResult, setFavourites: Model.services.setFavourites, addMovies: Model.services.addMovies, setWatchLater: Model.services.setWatchLater, getResult: (function(): string), getLikes: (function(): string), getGoodMovie: (function(): Set<*>), getBadMovie: (function(): Set<*>), getFavorites: (function(): string), getMovieList: (function(): Set<*>), getRating: (function(): string), getWatchLater: (function(): string)}}
      */
 
 
-
     services={
+
          rating:"",
          likes:"",
          goodMovies:[],
@@ -25,9 +19,45 @@ class Model {
          movieList:[],
          watchLater:"",
 
+
+        XHReq: function (method,query) {
+
+
+             let req=new XMLHttpRequest();
+                  req.withCredentials=false;
+
+                  req.open(method,"https://api.themoviedb.org/3"+
+                  query+"&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
+                  this.request= req;
+
+
+           } ,
+
+
+        getXHR(){
+         return this.request;
+        },
         setRating:function (rating) {
               this.rating=rating;
          },
+        setOverView:function (rating) {
+            this.rating=rating;
+        },
+        setTitle:function (rating) {
+            this.rating=rating;
+        },
+        setPoster:function (rating) {
+            this.rating=rating;
+        },
+        setReleaseDate:function (rating) {
+            this.rating=rating;
+        },
+        setVoteAverage:function (rating) {
+            this.rating=rating;
+        },
+        setVoteCount:function (rating) {
+            this.rating=rating;
+        },
         setLikes:function (likes) {
             this.likes=likes;
 
@@ -102,6 +132,8 @@ class Model {
 
 
     }
+
+
 
 }
 

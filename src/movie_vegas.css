@@ -1,10 +1,10 @@
 
-table td{
+table{
     border: thin solid gainsboro;
 }
 #search_glass{
     width: 7%;
-    height: 28px;
+    height: 30px;
     float: right;
     margin-top: 6px;
 }
@@ -18,6 +18,7 @@ table td{
  }
 #search_glass:hover{
     cursor: pointer;
+
 
 }
 
@@ -36,8 +37,95 @@ table td{
     margin-left:26%;
 
 }
+#search_box:hover{
+    background: #7bbffb;
+
+}
+.objects_entry_point{
+    border:none ;
 
 
+}
+.feelings:hover{
+    cursor: pointer;
+    background: #a3a3a3;
+    color: white;
+
+}
+
+td{
+    border: none;
+}
+
+.feelings{
+
+    margin-left: 18px;
+    text-align: center;
+    padding: 2px 6px;
+    border-radius:40px;
+    border: 1px solid #d5d5d5;
+
+}
+#movie_title{
+    margin-bottom: 10px;
+    margin-left: 20px;
+    text-indent: 16px;
+    text-align: left;
+
+}
+#items{
+    margin-top: 20px;
+    height: 140px;
+    width: 77%;
+    border-radius: 2px;
+    background: white;
+    margin-left: 11%;
+    box-shadow: 0 0 4px 0 gainsboro;
+
+}
+#footer{
+
+    bottom: 0;
+    position: absolute;
+    font-size: 10px;
+
+}
+#emotional{
+
+margin-top: 80px;
+float: left;
+
+
+}
+body{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+#scroll_list{
+
+      width: 100%;
+      height: 500px;
+      margin-top: 100px;
+      margin-left: -10px;
+      position: fixed;
+      border-bottom: thin solid gainsboro ;
+      overflow-y: scroll;
+
+}
+#menu{
+
+    padding: 10px 15px;
+    margin-right: 6px;
+    background: #7bbffb;
+    border-radius: 2px;
+    float: right;
+
+}
+#menu:hover{
+    cursor: pointer;
+    color: white;
+
+}
 @media screen and (max-width: 700px)  and (orientation: portrait) {
     #search_box {
 
@@ -58,9 +146,10 @@ table td{
 
     }
 }
+
  #heading_background{
 
-     box-shadow: 0px 1px 0px 0px  gainsboro;
+     box-shadow: 0 1px 0 0  gainsboro;
 
      position: fixed;
      top: -5px;
@@ -71,12 +160,12 @@ table td{
      padding-top: 20px;
 
  }
- #menus{
+ #menus_list{
      text-align: center;
      margin-left: 42px;
 
  }
- .header{
+ .menu_list{
      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
      "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
      color: #e2e2e2;
@@ -101,7 +190,24 @@ table td{
 
 
 }
-.header:hover{
+#movie_title{
+margin-top: 14px;
+
+}
+#rating_percentage{
+    background-color: gold;
+    padding: 8px 10px;
+    border-radius: 40px;
+}
+#overview{
+    height: 60px;
+    text-align: left;
+    margin-left: 164px;
+    margin-top: 24px;
+
+    font-weight: lighter;
+}
+.menu_list:hover{
     cursor: pointer;
     transition-timing-function: cubic-bezier(8,9,0,9);
     color: #7bbffb;
