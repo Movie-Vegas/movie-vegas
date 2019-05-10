@@ -5,7 +5,7 @@ import movie_vegas from "./movie_vegas.css"
 import React from "react";
 import ReactDom from "react-dom"
 import search_glass from "./search_glass.png";
-import  Mest from "./test.js"
+
 
 
 
@@ -109,29 +109,72 @@ class SearchBar extends React.Component{
     constructor(props){
         super(props) ;
         this.state={
-            searchData:""
+            searchData:"",
+            count:1
         };
         this.model=new Model();
         this.view=new View();
         this.control=new Control(this.view,this.model);
-
+        this.updateNext=this.updateNext.bind(this);
+        this.updatePrev= this.updatePrev.bind(this);
         this.updateState=this.updateState.bind(this);
     }
 
 
     updateState(e) {
-        let query="/search/movie?include_adult=false&page=1&query="+e.target.value +"&language=en-US";
+
+        let query="/search/movie?include_adult=false&page=1&query="+this.state.searchData+"&language=en-US";
         this.control.search("GET",query,{});
         this.control.updateView ();
-        this.setState({searchData:e.target.value});
+        if(e.target.value !==undefined){
+
+            this.setState({searchData:e.target.value});
+        }
+
+    }
+
+    updateNext() {
+
+        let query="/search/movie?include_adult=false&page="+this.state.count+"&query="+this.state.searchData+"&language=en-US";
+        this.control.search("GET",query,{});
+        this.control.updateView ();
+        if(this.state.searchData  !==undefined){
+
+            this.state.count++;
+            this.control.setCounter(this.state.count)
+
+            console.log(this.state.count)
+            this.setState({count:this.state.count});
+        }
+
+
+
     }
 
 
+    updatePrev() {
+
+        let query="/search/movie?include_adult=false&page="+this.state.count+"&query="+this.state.searchData+"&language=en-US";
+        this.control.search("GET",query,{});
+        this.control.updateView ();
+
+        if(this.state.searchData !==undefined && this.state.count >1){
+
+            this.state.count--;
+            console.log(this.state.count);
+            this.control.setCounter(this.state.count)
+            this.setState({count:this.state.count});
+        }
+
+
+
+    }
     render() {
         return (<div id="search_box">
             <div className="search_box" placeholder="Search...">
-                <input type="search"  ref="search_text_field" onChange={this.updateState} id="search_text_field"/>
-                <img id='search_glass' ref='search_glass'  onClick={this.updateState}  src={search_glass} alt="search"/>
+                <input type="search"  ref="search_text_field"  onKeyUp={this.updateState} onChange={this.updateState} id="search_text_field"/>
+                <span id="prev" onTouchStart={this.updatePrev} onClick={this.updatePrev} className="nav">{"<"}</span>
+                <span id="next" onClick={this.updateNext} onTouchStart={this.updateNext}className="nav">{">"}</span> <img id='search_glass' ref='search_glass'  onClick={this.updateState}  src={search_glass} alt="search"/>
             </div>
         </div>);
     }
@@ -142,10 +185,11 @@ class Menu extends React.Component{
     render() {
         return (  <div id="menu">
                 <span id="accents">=</span>
-            </div>
+               </div>
         );
     }
 }
+
 class MenuItems extends React.Component{
 
     render() {

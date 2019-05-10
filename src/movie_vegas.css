@@ -1,17 +1,41 @@
 
+
 table{
     border: thin solid gainsboro;
+}
+.total_pages{
+    font-size: 9px;
+}
+
+#search_result{
+
+    text-align: center;
 }
 #search_glass{
     width: 7%;
     height: 30px;
     float: right;
-    margin-top: 6px;
+    padding:   3px 0;
+
+
+    background:#f9f9f9 0;
+    border-radius: 1px;
+
+}
+#total_pages{
+    padding: 14px;
+    float: right;
+    font-size: 11px;
+    position: fixed;
+    margin-top: 230px;
+    border-radius: 0 2px 2px 0;
+    background: gold;
+
 }
  #search_text_field{
      border: none;
      font-size: large;
-     width: 546px;
+     width: 480px;
      height: 36px;
      font-family: "Source Sans Pro", Arial, sans-serif;
      border-radius: 4px;
@@ -24,7 +48,7 @@ table{
 
 
 #search_box{
-    background-color: gainsboro;
+    background-color: #ffffff;
     width: 600px;
     height: 36px;
     font-size: medium;
@@ -38,7 +62,7 @@ table{
 
 }
 #search_box:hover{
-    background: #7bbffb;
+    background: #f9f9f9;
 
 }
 .objects_entry_point{
@@ -73,7 +97,7 @@ td{
     text-align: left;
 
 }
-#items{
+#items, .req_error{
     margin-top: 20px;
     height: 140px;
     width: 77%;
@@ -162,22 +186,23 @@ body{
  }
  #menus_list{
      text-align: center;
-     margin-left: 42px;
+     margin-left: 38px;
 
  }
  .menu_list{
-     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
-     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
      color: #e2e2e2;
-     padding-right: 7%;
+     margin-right: 6%;
      font-size: 18px;
+     text-transform: uppercase;
+     font-weight: bold;
 
 
 
 
  }
 .table_header{
-    font-family: "Source Sans Pro", Arial, sans-serif;
+
     color: #a3a3a3;
     text-align: left;
     width: 10%;
@@ -190,14 +215,52 @@ body{
 
 
 }
+#pages{
+    padding: 10px;
+    background: inherit;
+    font-weight: bold;
+    position: fixed;
+    font-size: x-large;
+    float: right;
+}
+
+
+.nav{
+    background: #f9f9f9;
+     padding: 0 8px;
+    color: #7bbffb;
+    font-weight: bolder;
+    position: relative;
+    border-radius: 4px;
+    margin: 6px;
+}
+.nav:hover{
+    color: yellow;
+    cursor: pointer;
+
+}
+#pages:hover{
+
+    cursor: pointer;
+
+}
 #movie_title{
 margin-top: 14px;
 
 }
-#rating_percentage{
+#vote_average{
     background-color: gold;
-    padding: 8px 10px;
+    padding: 8px 8px;
+
+    font-size: 12px;
+    width: 10px;
+     font-weight: bold;
     border-radius: 40px;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+    overflow: hidden;
 }
 #overview{
     height: 60px;

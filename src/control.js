@@ -1,8 +1,5 @@
 import React from "react";
-import View from "./view"
-import Model from "./model";
-import TableData from './test'
-import {labeledStatement} from "@babel/types";
+
 
 class Control extends React.Component{
 
@@ -54,8 +51,8 @@ class Control extends React.Component{
             }
 
 
-            setWatchLater(watchLater) {
-                this.model.services.setWatchLater(watchLater);
+            setCounter(counter) {
+                this.model.services.setCount(counter);
 
             }
     /**The CORS request was attempted with the credentials flag set, but the server is configured using the wildcard ("*")
@@ -76,13 +73,15 @@ class Control extends React.Component{
 
                       if(this.isXhrInprogress){
 
-                          return (<div id="view_ready">{this.view.renderMovieDetails(this.model.services.getXHR(),'{}')}</div>);
+                          return (<div id="view_ready">{this.view.renderMovieDetails(this.model.services.getXHR(),
+                              this.model.services.getCounter(),'{}')}</div>);
 
 
 
 
                       }else {
-                          return (<div id="view_ready">{this.view. renderMovieDetails(this.model.services.getXHR(),'{}')}</div>);
+                          return (<div id="view_ready">{this.view. renderMovieDetails(this.model.services.getXHR(),
+                              this.model.services.getCounter(),'{}')}</div>);
 
                       }
 

@@ -18,6 +18,7 @@ class Model {
          favourites:"",
          movieList:[],
          watchLater:"",
+         counter:"",
 
 
         XHReq: function (method,query) {
@@ -32,7 +33,14 @@ class Model {
 
 
            } ,
+        setCount:function (counter) {
+            this.counter=counter;
+        },
 
+        getCounter:function(){
+             return this.counter;
+
+        },
 
         getXHR(){
          return this.request;
