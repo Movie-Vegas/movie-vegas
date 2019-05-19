@@ -12,16 +12,109 @@ table{
     text-align: center;
 }
 #search_glass{
-    width: 7%;
-    height: 30px;
+    width: 5.555%;
+    height: 22px;
+    border-radius: 0 4px 4px  0;
     float: right;
-    padding:   3px 0;
+     margin-right: -3px;
+    margin-top: -6px;
+    padding:   6px 0;
 
 
-    background:#f9f9f9 0;
-    border-radius: 1px;
+    background: #f1f1f1;
+
 
 }
+
+
+
+
+/****** Style Star Rating Widget *****/
+
+
+.rating_content{
+
+
+    border-radius: 0 2px 0 2px;
+    position: absolute;
+    background: #000000;
+    padding:8px 8px;
+    box-shadow: 0 0 4px 2px #c4c4c4;
+    margin-top: -36px;
+    border: none;
+    display: inline;
+    color:white;
+    z-index: 2;
+    left: 350px;
+}
+
+.rating_content:after{
+
+    content: close-quote;
+    border-radius: 0 2px 0 2px;
+    position: absolute;
+
+    padding: 10px 10px;
+    transform: rotate(40deg);
+    left: -6px;
+
+
+    background:  #000000;
+    margin-top: 0;
+    bottom: 10px;
+    color:white;
+
+
+
+}
+
+
+.rating_content > input { display: none;  }
+.rating_content > label:before {
+    margin: 5px;
+    font-size: 30px;
+
+
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\2605";
+}
+
+.rating_content > .half:before {
+    content: "\2605";
+    position: absolute;
+}
+
+.rating_content > label {
+    color: #ddd;
+    float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating_content > input:checked ~ label, /* show gold star when clicked */
+.rating_content:not(:checked) > label:hover, /* hover current star */
+.rating_content:not(:checked) > label:hover ~ label { color: #FFD700;  cursor: pointer; } /* hover previous stars in list */
+
+.rating_content > input:checked + label:hover, /* hover current star when changing rating */
+.rating_content> input:checked ~ label:hover,
+.rating_content > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating_content > input:checked ~ label:hover ~ label { color: #FFED85;  cursor: pointer; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #total_pages{
     padding: 14px;
     float: right;
@@ -31,17 +124,26 @@ table{
     border-radius: 0 2px 2px 0;
     background: gold;
 
-}
+} #total_pages_title{
+
+   margin: 0;
+    padding: 0;
+
+
+
+  }
  #search_text_field{
      border: none;
-     font-size: large;
-     width: 480px;
-     height: 36px;
+     font-size: medium;
+     font-weight: lighter;
+     width: 40px;
+     height: 28px;
      font-family: "Source Sans Pro", Arial, sans-serif;
-     border-radius: 4px;
+
  }
 #search_glass:hover{
     cursor: pointer;
+    background:  #f1f1f1;
 
 
 }
@@ -50,23 +152,32 @@ table{
 #search_box{
     background-color: #ffffff;
     width: 600px;
-    height: 36px;
+    padding: 2px;
+    height: 28px;
+    margin-top: -8px;
     font-size: medium;
+    margin-right: 110px;
     border-radius: 4px;
     border: thin solid #ffffff;
     box-shadow: 0 0 1px 1px gainsboro;
     font-family: "Source Sans Pro", Arial, sans-serif;
     text-indent: 3px;
-    margin-bottom: 30px;
-    margin-left:26%;
+    float: right;
 
 }
 #search_box:hover{
-    background: #f9f9f9;
+    background: #f1f1f1;
 
 }
 .objects_entry_point{
     border:none ;
+
+
+}
+.rating:hover{
+    cursor: pointer;
+    background: #a3a3a3;
+    color: white;
 
 
 }
@@ -75,25 +186,71 @@ table{
     background: #a3a3a3;
     color: white;
 
+
 }
 
 td{
     border: none;
 }
 
-.feelings{
+.favorite:hover{
+    cursor: pointer;
+    background: #a32897;
+    color: white;
+    width: 30px;
+    height: 28px;
+}
 
-    margin-left: 18px;
+.favorite{
+    background: gold;
+    float: left;
+
+    margin-top: 2px;
+    border-radius: 2px;
+
+    margin-right: 12px;
+    font-size: large;
+    color: #2c2c2c;
+
     text-align: center;
-    padding: 2px 6px;
-    border-radius:40px;
-    border: 1px solid #d5d5d5;
+    margin-left: 8px;
+
+    width: 30px;
+    height: 28px;
+
+    border: 1px solid #a0a0a0;
+
+}
+
+.feelings, .rating{
+    background: gold;
+    float: left;
+
+    margin-top: 2px;
+    border-radius: 2px;
+
+    margin-right: 12px;
+   font-size: large;
+    color: #2c2c2c;
+
+    text-align: center;
+     margin-left: 8px;
+
+    width: 30px;
+    height: 28px;
+
+    border: 1px solid #a0a0a0;
+
+}
+
+
+.movie_title{
+    margin-left: 10px;
 
 }
 #movie_title{
     margin-bottom: 10px;
     margin-left: 20px;
-    text-indent: 16px;
     text-align: left;
 
 }
@@ -103,7 +260,7 @@ td{
     width: 77%;
     border-radius: 2px;
     background: white;
-    margin-left: 11%;
+    margin-left: 14%;
     box-shadow: 0 0 4px 0 gainsboro;
 
 }
@@ -128,8 +285,8 @@ body{
 #scroll_list{
 
       width: 100%;
-      height: 500px;
-      margin-top: 100px;
+      height: 550px;
+      margin-top: 58px;
       margin-left: -10px;
       position: fixed;
       border-bottom: thin solid gainsboro ;
@@ -141,6 +298,8 @@ body{
     padding: 10px 15px;
     margin-right: 6px;
     background: #7bbffb;
+    margin-top: -6px;
+
     border-radius: 2px;
     float: right;
 
@@ -173,29 +332,33 @@ body{
 
  #heading_background{
 
-     box-shadow: 0 1px 0 0  gainsboro;
+     box-shadow: 0 0 4px 0 gainsboro;
 
      position: fixed;
      top: -5px;
      width: border-box;
      left: 0;
      right: 0;
-     background-color: #2a2a2a;
-     padding-top: 20px;
+     border: none;
+     background-color: #000000;
+
+     padding-top: 34px;
 
  }
  #menus_list{
      text-align: center;
-     margin-left: 38px;
+     margin-left: 58px;
 
  }
  .menu_list{
 
-     color: #e2e2e2;
-     margin-right: 6%;
-     font-size: 18px;
+     background: none;
+     float: left;
+     font-size: 16px;
      text-transform: uppercase;
-     font-weight: bold;
+     border: none;
+     color: gainsboro;
+     font-weight: revert;
 
 
 
@@ -227,12 +390,12 @@ body{
 
 .nav{
     background: #f9f9f9;
-     padding: 0 8px;
+    padding: 0 8px;
     color: #7bbffb;
     font-weight: bolder;
     position: relative;
     border-radius: 4px;
-    margin: 6px;
+    margin-left: 6px;
 }
 .nav:hover{
     color: yellow;
@@ -247,20 +410,28 @@ body{
 #movie_title{
 margin-top: 14px;
 
+
+}
+
+#company_name{
+    color:  crimson;
+    font-weight: bolder;
+    float: left;
+    font-size: large;
+    margin: 0 40px 0px 20px;
 }
 #vote_average{
-    background-color: gold;
-    padding: 8px 8px;
 
-    font-size: 12px;
-    width: 10px;
-     font-weight: bold;
-    border-radius: 40px;
+    background: gold;
+    float: left;
+    margin-top: -10px;
+    margin-left: 12px;
+    margin-right: 12px;
+    padding: 8px;
+    width: 20px;
+    text-align: center;
+     border-radius: 20px;
 
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-    overflow: hidden;
 }
 #overview{
     height: 60px;
@@ -272,6 +443,7 @@ margin-top: 14px;
 }
 .menu_list:hover{
     cursor: pointer;
+    border-bottom: 8px crimson solid ;
     transition-timing-function: cubic-bezier(8,9,0,9);
     color: #7bbffb;
 }

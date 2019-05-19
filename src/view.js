@@ -1,7 +1,5 @@
 import React from "react";
-import  or from  "./or.jpg";
 import ReactDOM from "react-dom";
-
 
 
 class View  extends React.Component{
@@ -15,8 +13,8 @@ class View  extends React.Component{
 
 
 
-
     renderMovieDetails(xhr,page,data) {
+        let  xDirection="",yDirection="",oldY=0,oldX=0;
          if(xhr!==undefined){
 
 
@@ -32,14 +30,7 @@ class View  extends React.Component{
                      let obj=this.responseText;
 
 
-                     if(page <= JSON.parse(obj).total_pages){
-                         ReactDOM.findDOMNode( document.getElementById('item')).
-                         querySelectorAll('table').forEach(function (val) {
-                             val.remove();
 
-                         });
-
-                     }
 
 
                      if(["", " "].includes(obj)){
@@ -47,7 +38,7 @@ class View  extends React.Component{
 
 
 
-                         alert("Hmm. We’re having trouble finding that site.\n" +
+                         alert("Hmm. We’re having trouble finding that Query.\n" +
                              "\n" +
                              "We can’t connect to the server at " + navigator.appName +
                              "\n" +
@@ -62,7 +53,14 @@ class View  extends React.Component{
 
 
                      }else {
+                         if(page <= JSON.parse(obj).total_pages){
+                             ReactDOM.findDOMNode( document.getElementById('item')).
+                             querySelectorAll('table').forEach(function (val) {
+                                 val.remove();
 
+                             });
+
+                         }
 
 
                      let stop = 0;
@@ -98,24 +96,160 @@ class View  extends React.Component{
                              let result = JSON.parse(obj).results;
                              for (let x in result) {
 
-                                 if (stop === 1) {
+                                 if (stop === 1 && result.hasOwnProperty(x)) {
                                      ReactDOM.findDOMNode( document.getElementById('req_error')).
                                      querySelectorAll('table').forEach(function (val) {
                                          val.remove();
 
                                      });
-                                  ;
+
                                      let img = "http://image.tmdb.org/t/p/w185/" + result[x].poster_path;
                                      ReactDOM.findDOMNode(document.getElementById('item')).innerHTML += `<table id='items'>
                                      <tbody><tr><tr><th ><img  style='float:left; width: 15%' src="${img}"/>
-                                     <div id='movie_title'><span id='vote_average'>${result[x].vote_average}</span>
-                                      <span class='movie_title'> ${result[x].original_title}</span></div></span> 
-                                      <div id='overview'>${result[x].overview.substr(0, 720)}<div> </div></div> 
-                                      <div id='emotional'> <span class='feelings'>&star;</span><span>Rating</span>
-                                      <span class='feelings'>&heartsuit;</span> <span>  Favorite</span><span class='feelings'>&#9016;</span>
-                                      <span>  Add to list</span><span class='feelings'>&#9003;</span> <span>  Remove</span>
+                                     <div id='movie_title'><div id='vote_average'><div>${result[x].vote_average}</div></div>
+                                      <span class='movie_title'> ${result[x].original_title}</span></div> 
+                                      <div id='overview'>${result[x].overview.substr(0, 720)}</div> 
+                                     <div id='emotional'> <div class="rating" title="Rating"><span class="rate">&star;</span></div>
+                                      <fieldset class="rating_content">
+                                   
+    <input type="radio" id="star5${x}" name="rating" value="5" />
+    <label class = "full" for="star5${x}" title="Awesome - 5 stars"> </label>
+    <input type="radio" id="star4half${x}" name="rating" value="4 and a half" />
+    <label class="half" for="star4half${x}" title="Pretty good - 4.5 stars"> </label>
+    <input type="radio" id="star4${x}" name="rating" value="4" />
+    <label class = "full" for="star4${x}" title="Pretty good - 4 stars"> </label>
+    <input type="radio" id="star3half${x}" name="rating" value="3 and a half" />
+    <label class="half" for="star3half${x}" title="Meh - 3.5 stars"> </label>
+    <input type="radio" id="star3${x}" name="rating" value="3" />
+    <label class = "full" for="star3${x}" title="Meh - 3 stars"> </label>
+    <input type="radio" id="star2half${x}" name="rating" value="2 and a half" />
+    <label class="half" for="star2half${x}" title="Kinda bad - 2.5 stars"> </label>
+    <input type="radio" id="star2${x}" name="rating" value="2" />
+    <label class = "full" for="star2${x}" title="Kinda bad - 2 stars"> </label>
+    <input type="radio" id="star1half${x}" name="rating" value="1 and a half" />
+    <label class="half" for="star1half${x}" title="Meh - 1.5 stars"> </label>
+    <input type="radio" id="star1${x}" name="rating" value="1" />
+    <label class = "full" for="star1${x}" title="Sucks big time - 1 star"> </label>
+    <input type="radio" id="starhalf${x}" name="rating" value="half" />
+    <label class="half" for="starhalf${x}" title="Sucks big time - 0.5 stars"> </label>
+
+      </fieldset><span> </span>
+                                      <div  class="favorite" title="Favorite"><span  class="favorite-text" > &heartsuit;<span></div> <div class='feelings' title="Add to list">&#9016;</div>
+                                      <div  class='feelings' title="Remove">&#9003;</div> <span> </span>
                                       </div> </th> </tr> <tr> <td width='400'> </td> </tr> </tr></tbody></table>`;
+
+
+
                                      ReactDOM.findDOMNode(document.getElementById('qty')).innerHTML = JSON.parse(obj).total_pages;
+                                     let ratingContent=document.getElementsByClassName("rating_content");
+                                     let favorite=document.querySelectorAll(".favorite");
+                                     let favoriteText=document.querySelectorAll(".favorite-text");
+                                     let rating=document.getElementsByClassName("rating");
+                                     let stars=document.getElementsByClassName("stars");
+                                     let ratingWidget=document.querySelectorAll(".rating-widget")  ;
+                                     let indexList=Array();
+
+
+
+                                         ['click','touch',"mouseleave","mouseenter"].forEach(function (event) {
+                                             for (let x in rating){
+                                                 /*
+                                                 favorite.item(Number(x)).addEventListener(event,function (event) {
+                                                     event.stopImmediatePropagation();
+                                                     event.preventDefault();
+                                                     event.stopPropagation();
+
+                                                       if(this.title==="Favorite" && ['click','touch'].includes(event.type)){
+                                                           favoriteText.item(Number(x)).innerHTML='&times;';
+                                                           this.title="Remove Favorite"
+                                                           return false;
+                                                       }else {
+
+                                                           if(this.title==="Remove Favorite" && ['click','touch'].includes(event.type)) {
+                                                               favoriteText.item(Number(x)).innerHTML='&heartsuit;';
+                                                               this.title="Favorite"
+
+                                                           }
+                                                           return false;
+
+                                                       }
+
+
+
+
+
+                                                 });*/
+                                                 rating.item(Number(x)).addEventListener(event,function () {
+
+                                               //  ratingContent.item(Number(x)).style.display="inline";
+
+
+
+                                             ratingContent.item(Number(x)).addEventListener(event,function (event) {
+                                                 event.preventDefault();
+                                                 event.stopImmediatePropagation();
+                                                 event.stopPropagation();
+
+
+
+
+
+
+                                                 if(event.type==="mouseleave"){
+
+
+                                                 //    ratingContent.item(Number(x)).style.display="none";
+
+                                                 }
+
+                                                 if(event.type==="mouseenter"){
+
+
+                                                     let dataList=new Set(indexList);
+                                                     for(let i=0;i<stars.length;i++){
+
+
+
+
+                                                    ['mouseenter','mouseleave'].forEach(function (val) {
+
+
+                                                    stars[i].addEventListener(val,function (event) {
+
+                                                        event.preventDefault();
+                                                        event.stopPropagation();
+                                                        event.stopImmediatePropagation();
+
+
+
+                                                    });
+
+                                                     })
+
+                                                     }
+
+                                                    // ratingContent.item(Number(x)).style.display="inline";
+
+                                                 }
+
+                                             });
+
+                                                 this.addEventListener(event,function (event) {
+                                                     event.preventDefault();
+                                                     if(event.type==="mouseleave"){
+
+                                                        // ratingContent.item(Number(x)).style.display="none";
+
+                                                     }
+
+                                                 });
+
+                                         })
+
+                                             }
+                                         });
+
+
 
 
                                      ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML="Total pages";
@@ -146,7 +280,7 @@ class View  extends React.Component{
 
                  }else {
 
-                     ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML="loading.."
+                     ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML="loading..."
 
                  }
 

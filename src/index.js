@@ -93,8 +93,8 @@ class MenuBar extends React.Component{
 
             <div id="heading_background">
                 <Menu/>
-                <SearchBar/>
-                <MenuItems/>
+               <span id="company_name">MOVIE VEGAS </span> <MenuItems/><SearchBar/>
+
 
 
             </div>
@@ -109,7 +109,7 @@ class SearchBar extends React.Component{
     constructor(props){
         super(props) ;
         this.state={
-            searchData:"",
+            searchData:1,
             count:1
         };
         this.model=new Model();
@@ -172,7 +172,7 @@ class SearchBar extends React.Component{
     render() {
         return (<div id="search_box">
             <div className="search_box" placeholder="Search...">
-                <input type="search"  ref="search_text_field"  onKeyUp={this.updateState} onChange={this.updateState} id="search_text_field"/>
+                <input type="search"  ref="search_text_field" placeholder="Search.." onKeyUp={this.updateState} onChange={this.updateState} id="search_text_field"/>
                 <span id="prev" onTouchStart={this.updatePrev} onClick={this.updatePrev} className="nav">{"<"}</span>
                 <span id="next" onClick={this.updateNext} onTouchStart={this.updateNext}className="nav">{">"}</span> <img id='search_glass' ref='search_glass'  onClick={this.updateState}  src={search_glass} alt="search"/>
             </div>
@@ -194,10 +194,10 @@ class MenuItems extends React.Component{
 
     render() {
         return (<div id="menus_list">
-            <span className="menu_list">Favorites</span>
-            <span className="menu_list">Lists</span>
-            <span className="menu_list">Watch Later</span>
-            <span className="menu_list">Likes</span>
+            <input type="button" className="menu_list" value="Favorites" />
+            <input type="button" className="menu_list" value="Lists"/>
+            <input type="button" className="menu_list" value="Watch Later"/>
+            <input type="button" className="menu_list" value="Likes" />
         </div>);
     }
 }
