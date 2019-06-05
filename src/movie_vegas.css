@@ -11,17 +11,32 @@ table{
 
     text-align: center;
 }
+.search-glass:before{
+    content: "\26B2" ;
+    font-size:2em;
+    transform: rotate(300deg);
+    margin-top: -12px;
+    display: inline-block;
+}
+.search-glass:hover{
+    color: white;
+
+
+}
 #search_glass{
     width: 5.555%;
-    height: 22px;
+    height: 14px;
     border-radius: 0 4px 4px  0;
     float: right;
-     margin-right: -3px;
-    margin-top: -6px;
+    text-transform: uppercase;
+
+    margin-right: -3px;
+    border: thin solid #000000;
+    margin-top: -3px;
     padding:   6px 0;
 
 
-    background: #f1f1f1;
+    background: #b8d5c3;
 
 
 }
@@ -40,12 +55,13 @@ table{
     background: #000000;
     padding:8px 8px;
     box-shadow: 0 0 4px 2px #c4c4c4;
-    margin-top: -36px;
+    margin-top: -30px;
     border: none;
-    display: inline;
+    margin-left: 46px;
     color:white;
     z-index: 2;
     left: 350px;
+    display: none;
 }
 
 .rating_content:after{
@@ -56,7 +72,7 @@ table{
 
     padding: 10px 10px;
     transform: rotate(40deg);
-    left: -6px;
+    left: -8px;
 
 
     background:  #000000;
@@ -67,7 +83,26 @@ table{
 
 
 }
+.rating_content:before{
 
+    content: close-quote;
+    border-radius: 0 2px 0 2px;
+    position: absolute;
+
+    padding: 20px 20px;
+    transform: rotate(40deg);
+    left: -6px;
+
+    margin-left: -12px;
+    opacity: 0;
+    background:  #000000;
+    margin-top: 0;
+    bottom: 10px;
+    color:white;
+
+
+
+}
 
 .rating_content > input { display: none;  }
 .rating_content > label:before {
@@ -120,7 +155,9 @@ table{
     float: right;
     font-size: 11px;
     position: fixed;
-    margin-top: 230px;
+    z-index: 1;
+    left: 0;
+    margin-top: 330px;
     border-radius: 0 2px 2px 0;
     background: gold;
 
@@ -136,14 +173,15 @@ table{
      border: none;
      font-size: medium;
      font-weight: lighter;
-     width: 40px;
-     height: 28px;
+     float: left;
+     width: 76%;
+     height: 22px;
      font-family: "Source Sans Pro", Arial, sans-serif;
 
  }
 #search_glass:hover{
     cursor: pointer;
-    background:  #f1f1f1;
+    background:  #2a2a2a;
 
 
 }
@@ -153,11 +191,11 @@ table{
     background-color: #ffffff;
     width: 600px;
     padding: 2px;
-    height: 28px;
+    height: 22px;
     margin-top: -8px;
     font-size: medium;
     margin-right: 110px;
-    border-radius: 4px;
+    border-radius: 2px;
     border: thin solid #ffffff;
     box-shadow: 0 0 1px 1px gainsboro;
     font-family: "Source Sans Pro", Arial, sans-serif;
@@ -246,6 +284,7 @@ td{
 
 .movie_title{
     margin-left: 10px;
+    font-weight: bolder;
 
 }
 #movie_title{
@@ -254,9 +293,59 @@ td{
     text-align: left;
 
 }
-#items, .req_error{
-    margin-top: 20px;
+
+.favoriteItems{
+    margin-top: 80px;
     height: 140px;
+    width: 77%;
+    border-radius: 2px;
+    background: white;
+    margin-left: 14%;
+    box-shadow: 0 0 4px 0 gainsboro;
+}
+
+#my_favorite{
+    margin-right: 10px;
+    font-size: larger;
+    font-weight: bold;
+}
+#number_of_like_Title, #number_of_favorite{
+    padding-bottom: 1px;
+    border-bottom: 2px solid crimson;
+}
+#number_of_favorite{
+    color: crimson;
+}
+#favorite_detail{
+    margin-left: 1%;
+
+
+
+
+}
+.favorite_box{
+    box-shadow: 0 0 4px 0 gainsboro;
+
+    position: fixed;
+    top: 64px;
+    width: border-box;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    padding-bottom: 4px;
+    margin-bottom: 2px;
+    border: none;
+
+    background-color: #f1f1f1;
+
+    padding-top: 4px;
+
+
+}
+
+.item, .req_error{
+    margin-top: 38px;
+    height: 10px;
     width: 77%;
     border-radius: 2px;
     background: white;
@@ -264,10 +353,12 @@ td{
     box-shadow: 0 0 4px 0 gainsboro;
 
 }
+
 #footer{
 
     bottom: 0;
     position: absolute;
+
     font-size: 10px;
 
 }
@@ -281,12 +372,13 @@ float: left;
 body{
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    background: #f1f1f1;
 }
 #scroll_list{
 
       width: 100%;
       height: 550px;
-      margin-top: 58px;
+      margin-top: 90px;
       margin-left: -10px;
       position: fixed;
       border-bottom: thin solid gainsboro ;
@@ -297,16 +389,18 @@ body{
 
     padding: 10px 15px;
     margin-right: 6px;
-    background: #7bbffb;
-    margin-top: -6px;
-
+    background: crimson;
+    color: white;
+    margin-top: -22px;
+    border: thin solid crimson;
     border-radius: 2px;
+    font-size: larger;
     float: right;
 
 }
 #menu:hover{
     cursor: pointer;
-    color: white;
+    color: #7bbffb;
 
 }
 @media screen and (max-width: 700px)  and (orientation: portrait) {
@@ -339,6 +433,7 @@ body{
      width: border-box;
      left: 0;
      right: 0;
+     padding-bottom: 10px;
      border: none;
      background-color: #000000;
 
@@ -348,22 +443,31 @@ body{
  #menus_list{
      text-align: center;
      margin-left: 58px;
+     border: none transparent ;
+
+
+
 
  }
  .menu_list{
 
      background: none;
      float: left;
-     font-size: 16px;
+     font-size: 13px;
      text-transform: uppercase;
      border: none;
      color: gainsboro;
      font-weight: revert;
+     margin-left: 14px;
 
 
 
 
  }
+ .menu_list:focus{
+    border-bottom: darkgoldenrod;
+    color: #7bbffb;
+}
 .table_header{
 
     color: #a3a3a3;
@@ -388,20 +492,50 @@ body{
 }
 
 
-.nav{
-    background: #f9f9f9;
-    padding: 0 8px;
-    color: #7bbffb;
-    font-weight: bolder;
-    position: relative;
-    border-radius: 4px;
-    margin-left: 6px;
-}
 .nav:hover{
-    color: yellow;
+     color: #33aad5;
     cursor: pointer;
 
+
 }
+.nav{
+    margin-top: -20px;
+    margin-left: 10px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+#prev:after{
+    content: "\21E6";
+    padding: 0;
+    color: cadetblue;
+    font-size: 38px;
+
+
+
+
+
+
+}
+#prev:hover{
+    color: crimson;
+
+}
+#next:hover{
+    color: crimson;
+}
+#next, #prev {
+    float: left;
+}
+#next:after{
+    content: "\21E8";
+    padding: 0;
+    color: cadetblue;
+
+    font-size: 38px;
+
+
+}
+
 #pages:hover{
 
     cursor: pointer;
@@ -412,23 +546,44 @@ margin-top: 14px;
 
 
 }
+#accents:before{
+    content:"\2630"
+}
+.logo:before{
+    content: "\2210";
+    color: #7bbffb;
+}
 
 #company_name{
     color:  crimson;
     font-weight: bolder;
+    padding-right: 10px;
+    padding-left: 10px;
+    text-align: center;
     float: left;
     font-size: large;
-    margin: 0 40px 0px 20px;
+    margin: 0 40px 0 20px;
+}
+.release_date{
+    font-size: smaller;
+    margin-left: 30px;
+    font-weight: normal;
+    padding-bottom: 1px;
+    border-bottom: 1px solid crimson;
+}
+.rating{
+    margin-right: 4px;
 }
 #vote_average{
 
     background: gold;
     float: left;
-    margin-top: -10px;
+    margin-top: -6px;
     margin-left: 12px;
     margin-right: 12px;
-    padding: 8px;
-    width: 20px;
+    font-weight: bold;
+    padding: 6px;
+    width: 22px;
     text-align: center;
      border-radius: 20px;
 
@@ -438,12 +593,19 @@ margin-top: 14px;
     text-align: left;
     margin-left: 164px;
     margin-top: 24px;
-
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: normal;
     font-weight: lighter;
 }
 .menu_list:hover{
     cursor: pointer;
-    border-bottom: 8px crimson solid ;
+    border-bottom: 6px crimson solid ;
+
     transition-timing-function: cubic-bezier(8,9,0,9);
     color: #7bbffb;
+}
+
+#favorite-menu{
+    border-bottom: 6px crimson solid ;
 }

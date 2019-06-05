@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="63bb542f-31b9-4790-8c41-8b080cb261c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="63bb542f-31b9-4790-8c41-8b080cb261c3" name="Default Changelist" comment="Implementation fo make favorite and delete favorite">
+      <change afterPath="$PROJECT_DIR$/src/icon.GIF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/control.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/movie_vegas.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/movie_vegas.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/view.js" afterDir="false" />
     </list>
@@ -17,26 +22,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/movie_vegas.css">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="259" column="15" lean-forward="true" selection-start-line="259" selection-start-column="15" selection-end-line="259" selection-end-column="15" />
+            <state relative-caret-position="-1406">
+              <caret line="26" column="16" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view.js">
+        <entry file="file://$PROJECT_DIR$/src/control.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1853">
-              <caret line="110" column="30" selection-start-line="110" selection-start-column="30" selection-end-line="110" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-                <element signature="n#div#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#!!top" />
-                <element signature="e#2730#2737#1" />
-                <element signature="e#2820#2827#1" />
-              </folding>
+            <state relative-caret-position="311">
+              <caret line="94" selection-start-line="94" selection-end-line="94" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/movie_vegas.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="315" column="1" selection-start-line="315" selection-start-column="1" selection-end-line="315" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -44,8 +61,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="172" column="35" selection-start-line="172" selection-start-column="25" selection-end-line="172" selection-end-column="35" />
+            <state relative-caret-position="4862">
+              <caret line="293" column="22" selection-start-line="293" selection-start-column="22" selection-end-line="293" selection-end-column="35" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -54,19 +71,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model.js">
+        <entry file="file://$PROJECT_DIR$/src/view.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="34" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/control.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="39">
+              <caret line="90" column="158" selection-start-line="90" selection-start-column="158" selection-end-line="90" selection-end-column="158" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -83,36 +94,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fe</find>
-      <find>forE</find>
-      <find>cons</find>
-      <find>for</find>
-      <find>rat</find>
-      <find>.rating_content</find>
-      <find>rating_content</find>
-      <find>.rating</find>
-      <find>.o</find>
-      <find>rating</find>
-      <find>feel</find>
-      <find>box</find>
-      <find>hea</find>
-      <find>sc</find>
-      <find>Fav</find>
-      <find>MenuItems</find>
-      <find>f</find>
-      <find>fa</find>
-      <find>menu_list</find>
-      <find>m</find>
-      <find>fav</find>
-      <find>me</find>
-      <find>search</find>
-      <find>company_name</find>
-      <find>head</find>
-      <find>sear</find>
-      <find>menu</find>
-      <find>.menu_list</find>
-      <find>searc</find>
+      <find>setC</find>
+      <find>getC</find>
+      <find>page</find>
+      <find>account</find>
+      <find>.req_error</find>
       <find>items</find>
+      <find>tr</find>
+      <find>th</find>
+      <find>total_pages</find>
+      <find>movie_title</find>
+      <find>movi</find>
+      <find>vote_average</find>
+      <find>movie_</find>
+      <find>overv</find>
+      <find>re</find>
+      <find>rele</find>
+      <find>ite</find>
+      <find>menu</find>
+      <find>lef</find>
+      <find>posi</find>
+      <find>com</find>
+      <find>favorite_box</find>
+      <find>after</find>
+      <find>console</find>
+      <find>alert</find>
+      <find>aler</find>
+      <find>fav</find>
+      <find>it</find>
+      <find>item</find>
+      <find>number</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -131,32 +142,32 @@
       <list>
         <option value="$PROJECT_DIR$/model.js" />
         <option value="$PROJECT_DIR$/src/view.jsx" />
-        <option value="$PROJECT_DIR$/public/index.css" />
         <option value="$PROJECT_DIR$/src/app.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/text2.js" />
         <option value="$PROJECT_DIR$/src/test.js" />
-        <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/src/index.html" />
         <option value="$PROJECT_DIR$/src/model.js" />
         <option value="$PROJECT_DIR$/src/control.js" />
-        <option value="$PROJECT_DIR$/src/index.html" />
-        <option value="$PROJECT_DIR$/src/view.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/public/index.css" />
         <option value="$PROJECT_DIR$/src/movie_vegas.css" />
+        <option value="$PROJECT_DIR$/src/view.js" />
+        <option value="$PROJECT_DIR$/public/index.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="x" value="583" />
+    <option name="width" value="697" />
+    <option name="height" value="728" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -179,21 +190,20 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558271195769" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559721144002" />
     <property name="js.last.introduce.type" value="CONST" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
@@ -205,6 +215,7 @@
       <recent name="C:\Users\Ayettey\Desktop\movie-vegas\public" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ayettey\Desktop\movie-vegas\public" />
       <recent name="C:\Users\Ayettey\Desktop\movie-vegas\src" />
     </key>
   </component>
@@ -285,20 +296,34 @@
       <workItem from="1557270432566" duration="200936000" />
       <workItem from="1557994152736" duration="24612000" />
       <workItem from="1558094555902" duration="30613000" />
-      <workItem from="1558235817700" duration="31881000" />
+      <workItem from="1558235817700" duration="110619000" />
+      <workItem from="1558636093048" duration="3547000" />
+      <workItem from="1558669729174" duration="3234000" />
+      <workItem from="1558716327933" duration="3861000" />
+      <workItem from="1558955246483" duration="1290000" />
+      <workItem from="1558963230152" duration="1256000" />
+      <workItem from="1559036809777" duration="3012000" />
+      <workItem from="1559115129270" duration="1279000" />
+      <workItem from="1559116611563" duration="3836000" />
+      <workItem from="1559305310557" duration="3317000" />
+      <workItem from="1559384492322" duration="24007000" />
+      <workItem from="1559421225779" duration="67514000" />
+      <workItem from="1559562489093" duration="267000" />
+      <workItem from="1559563309494" duration="31910000" />
+      <workItem from="1559683563979" duration="7841000" />
+      <workItem from="1559693439655" duration="7948000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="537081000" />
+    <option name="totallyTimeSpent" value="779938000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="JRebel" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.7844828" weight="0.09152799" />
-      <window_info id="Structure" order="2" sideWeight="0.21551724" side_tool="true" weight="0.09152799" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.7379135" visible="true" weight="0.17246597" />
+      <window_info active="true" id="Structure" order="2" sideWeight="0.2620865" side_tool="true" visible="true" weight="0.17246597" />
       <window_info id="Designer" order="3" />
       <window_info id="Image Layers" order="4" />
       <window_info id="Capture Tool" order="5" />
@@ -314,16 +339,18 @@
       <window_info anchor="bottom" id="Log Viewer" order="5" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" />
-      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.49848714" weight="0.40614334" />
+      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.49319214" weight="0.32935154" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="12" />
-      <window_info anchor="bottom" id="Terminal" order="13" weight="0.8583618" />
+      <window_info anchor="bottom" id="Terminal" order="13" sideWeight="0.49924356" weight="0.8583618" />
       <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="15" sideWeight="0.5015129" side_tool="true" weight="0.40614334" />
+      <window_info anchor="bottom" id="Event Log" order="15" sideWeight="0.50680786" side_tool="true" weight="0.40614334" />
       <window_info anchor="bottom" id="Database Changes" order="16" />
       <window_info anchor="bottom" id="Version Control" order="17" weight="0.32993197" />
+      <window_info anchor="bottom" id="Java Regex Tester" order="18" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="19" visible="true" weight="0.32935154" />
       <window_info anchor="right" id="SciView" order="0" weight="0.30030257" />
       <window_info anchor="right" id="Code Consultant" order="1" />
       <window_info anchor="right" id="LuaJ" order="2" />
@@ -337,48 +364,6 @@
       <window_info anchor="right" id="Palette&#9;" order="10" />
       <window_info anchor="right" id="Theme Preview" order="11" />
     </layout>
-    <layout-to-restore>
-      <window_info id="JRebel" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.7844828" visible="true" weight="0.09152799" />
-      <window_info id="Structure" order="2" sideWeight="0.21551724" side_tool="true" visible="true" weight="0.09152799" />
-      <window_info id="Designer" order="3" />
-      <window_info id="Image Layers" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="UI Designer" order="6" />
-      <window_info id="Favorites" order="7" side_tool="true" />
-      <window_info id="npm" order="8" side_tool="true" />
-      <window_info id="Learn" order="9" />
-      <window_info anchor="bottom" id="Anonymous Apex" order="0" />
-      <window_info anchor="bottom" id="JRebel Console" order="1" side_tool="true" />
-      <window_info anchor="bottom" id="SOQL Query" order="2" />
-      <window_info anchor="bottom" id="JRebel Executor" order="3" />
-      <window_info anchor="bottom" id="Tail" order="4" />
-      <window_info anchor="bottom" id="Log Viewer" order="5" />
-      <window_info anchor="bottom" id="Message" order="6" />
-      <window_info anchor="bottom" id="Find" order="7" />
-      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.49848714" visible="true" weight="0.40614334" />
-      <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="12" />
-      <window_info anchor="bottom" id="Terminal" order="13" weight="0.8583618" />
-      <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="15" sideWeight="0.5015129" side_tool="true" visible="true" weight="0.40614334" />
-      <window_info anchor="bottom" id="Database Changes" order="16" />
-      <window_info anchor="bottom" id="Version Control" order="17" weight="0.32993197" />
-      <window_info anchor="right" id="SciView" order="0" weight="0.30030257" />
-      <window_info anchor="right" id="Code Consultant" order="1" />
-      <window_info anchor="right" id="LuaJ" order="2" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="3" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="4" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="5" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="6" />
-      <window_info anchor="right" id="Palette" order="7" />
-      <window_info anchor="right" id="Capture Analysis" order="8" />
-      <window_info anchor="right" id="Database" order="9" />
-      <window_info anchor="right" id="Palette&#9;" order="10" />
-      <window_info anchor="right" id="Theme Preview" order="11" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -424,6 +409,10 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Implementation fo make favorite and delete favorite" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementation fo make favorite and delete favorite" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/platform-impl.jar!/resources/html5-schema/html5/tables.rnc">
       <provider selected="true" editor-type-id="text-editor">
@@ -441,13 +430,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app.js" />
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="17174" column="12" selection-start-line="17174" selection-start-column="12" selection-end-line="17174" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="104">
@@ -457,20 +439,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/text2.js" />
     <entry file="file://$PROJECT_DIR$/src/test.js" />
-    <entry file="file://$PROJECT_DIR$/public/index.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/platform-impl.jar!/resources/html5-schema/html5/common.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="122" column="21" lean-forward="true" selection-start-line="122" selection-start-column="21" selection-end-line="122" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
         </state>
       </provider>
     </entry>
@@ -485,20 +457,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/base/MvpPresenter.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/base/BasePresenter.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/base/BaseActivity.java" />
-    <entry file="file://$PROJECT_DIR$/src/model.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="34" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/control.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/platform-impl.jar!/resources/html5-schema/html5/web-forms2.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
@@ -506,43 +464,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/star-off.svg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view.js">
+    <entry file="file://$PROJECT_DIR$/src/star-off.svg" />
+    <entry file="file://$PROJECT_DIR$/src/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1853">
-          <caret line="110" column="30" selection-start-line="110" selection-start-column="30" selection-end-line="110" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="n#div#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#!!top" />
-            <element signature="e#2730#2737#1" />
-            <element signature="e#2820#2827#1" />
-          </folding>
+        <state relative-caret-position="102">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="45" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.html">
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="23" selection-start-line="23" selection-end-line="62" selection-end-column="70" />
+        <state relative-caret-position="17">
+          <caret line="1008" column="14" selection-start-line="1008" selection-start-column="14" selection-end-line="1008" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="10748" column="4" selection-start-line="10748" selection-start-column="4" selection-end-line="10748" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="172" column="35" selection-start-line="172" selection-start-column="25" selection-end-line="172" selection-end-column="35" />
+        <state relative-caret-position="4862">
+          <caret line="293" column="22" selection-start-line="293" selection-start-column="22" selection-end-line="293" selection-end-column="35" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Documents/webapps/tytecPortal/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1406">
+          <caret line="26" column="16" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/control.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="94" selection-start-line="94" selection-end-line="94" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/movie_vegas.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="259" column="15" lean-forward="true" selection-start-line="259" selection-start-column="15" selection-end-line="259" selection-end-column="15" />
+        <state relative-caret-position="119">
+          <caret line="315" column="1" selection-start-line="315" selection-start-column="1" selection-end-line="315" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="39">
+          <caret line="90" column="158" selection-start-line="90" selection-start-column="158" selection-end-line="90" selection-end-column="158" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
         </state>
       </provider>
     </entry>

@@ -1,6 +1,7 @@
 
 
 class Model {
+
     /**
      * model for Movie-vegas
      * declare class variables/attributes as private (local var and Accessor as a object literal);
@@ -8,9 +9,13 @@ class Model {
      */
 
 
+
+
     services={
 
          rating:"",
+         sessionId:"",
+         token:"",
          likes:"",
          goodMovies:[],
          badMovies:[],
@@ -19,16 +24,52 @@ class Model {
          movieList:[],
          watchLater:"",
          counter:"",
+         account:"",
+         isXhrInProgress:"",
+         page:"",
 
 
-        XHReq: function (method,query) {
+        setIsXhrInProgress(isXhrInProgress){
+            this.isXhrInProgress=isXhrInProgress;
+        },
+
+        getIsXhrInProgress(){
+            return this.isXhrInProgress;
+        },
+        setPage(page){
+            this.page=page;
+        },
+        getPage(){
+            return this.page;
+        },
+         setAccount(account){
+             this.account=account;
+         },
+         getAccount(){
+             return this.account;
+         },
+        setSessionId(sessionId){
+            this.sessionId=sessionId;
+        },
+
+        getSessionId(){
+            return this.sessionId;
+        },
+        setToken(token){
+             this.token=token;
+        },
+
+        getToken(){
+             return this.token;
+        },
+
+        XHRequest: function (method,url,key,flag) {
 
 
              let req=new XMLHttpRequest();
-                  req.withCredentials=false;
+                  req.withCredentials=flag;
 
-                  req.open(method,"https://api.themoviedb.org/3"+
-                  query+"&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
+                  req.open(method,"https://api.themoviedb.org/3"+url+"&api_key="+key);
                   this.request= req;
 
 
