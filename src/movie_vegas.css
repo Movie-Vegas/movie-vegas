@@ -109,8 +109,6 @@ table{
     margin: 5px;
     font-size: 30px;
 
-
-    font-family: FontAwesome;
     display: inline-block;
     content: "\2605";
 }
@@ -259,8 +257,22 @@ td{
     border: 1px solid #a0a0a0;
 
 }
+.movie_player{
+    display: none;
+    margin-top: 20px;
+    background: #000000;
+    text-align: center;
+    color: #aaa;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: radial-gradient(#111111, hsl(0, 0%, 0%));
 
-.feelings, .rating{
+}
+.watch_trailer:hover{
+    cursor: pointer;
+    background: #a3a3a3;
+    color: white;
+}
+.feelings, .rating, .watch_trailer{
     background: gold;
     float: left;
 
@@ -282,17 +294,6 @@ td{
 }
 
 
-.movie_title{
-    margin-left: 10px;
-    font-weight: bolder;
-
-}
-#movie_title{
-    margin-bottom: 10px;
-    margin-left: 20px;
-    text-align: left;
-
-}
 
 .favoriteItems{
     margin-top: 80px;
@@ -304,17 +305,122 @@ td{
     box-shadow: 0 0 4px 0 gainsboro;
 }
 
-#my_favorite{
-    margin-right: 10px;
-    font-size: larger;
-    font-weight: bold;
+#user_query{
+    margin-left: 10px;
+
 }
-#number_of_like_Title, #number_of_favorite{
+.video_player {
+
+    box-shadow: 0 0 1px 0 #03071a;
+    background: rgb(0, 0, 0);
+    position: fixed;
+    display: none;
+    top: 93px;
+    width: border-box;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    padding-bottom: 64px;
+
+    border: none;
+    text-align: center;
+
+
+
+    padding-top: 60px;
+
+}
+#video_1{
+    text-align: center;
+    border: 1px solid #252525;
+    margin-top: -10px;
+    border-radius: 6px;
+
+    background: #868686;
+
+    background: rgba(177, 210, 255, 0.5);
+
+
+}
+
+
+.video_player textarea { width: 100%; height: 100%; }
+
+/* Show the controls (hidden at the start by default) */
+
+.video-vegas {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+#user_query_details{
+    float: right;
+    margin-left: 10px;
+    font-size: medium;
+    color: #979797;
+    font-weight: lighter;
+    margin-right: 170px
+}
+#number_of_likes, #number_of_favorite{
     padding-bottom: 1px;
     border-bottom: 2px solid crimson;
+
 }
-#number_of_favorite{
+#movie_count{
     color: crimson;
+    font-weight:bold ;
+}
+.close_player:after{
+    content: "X";
+    font-size: small;
+
+}
+.close_player{
+
+    color: beige;
+    position: fixed;
+    cursor: pointer;
+    right: 30px;
+    border: none;
+    background: #3e3e3e;
+
+    border-radius: 20px;
+    padding: 4px 9px 4px 9px;
+}
+
+
+.close_player:hover{
+    box-shadow:white 0 0 2px 2px;
+    color: crimson;
+}
+
+.trailer{
+    margin-top: 50px;
+    background:black;
+    cursor: pointer;
+    margin-left: 3%;
+}
+.movie_player{
+    box-shadow: 0 0 4px 0 gainsboro;
+
+    position: fixed;
+    text-align: center;
+
+    width: border-box;
+    left: 0;
+    right: 0;
+
+    bottom: 0;
+    height: 520px;
+    z-index: 10;
+    padding-bottom: 10px;
+    border: none;
+    background-color:black ;
+
+
+
+    padding-top: 34px;
 }
 #favorite_detail{
     margin-left: 1%;
@@ -323,9 +429,9 @@ td{
 
 
 }
-.favorite_box{
-    box-shadow: 0 0 4px 0 gainsboro;
-
+.info_box{
+    box-shadow: 0 0 2px 0 rgb(3, 7, 26);
+    background: #0d0d0d;
     position: fixed;
     top: 64px;
     width: border-box;
@@ -336,7 +442,8 @@ td{
     margin-bottom: 2px;
     border: none;
 
-    background-color: #f1f1f1;
+
+
 
     padding-top: 4px;
 
@@ -356,9 +463,24 @@ td{
 
 #footer{
 
-    bottom: 0;
-    position: absolute;
 
+
+    box-shadow: 0 0 2px 0 rgb(3, 7, 26);
+    background: #0d0d0d;
+    position: fixed;
+    bottom: 0;
+    width: border-box;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    padding-bottom: 4px;
+    color: #797979;
+        border: none;
+
+
+
+
+    padding-top: 4px;
     font-size: 10px;
 
 }
@@ -372,12 +494,15 @@ float: left;
 body{
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    background: #f1f1f1;
+
+    color: #444444;
+
+
 }
 #scroll_list{
 
       width: 100%;
-      height: 550px;
+      height: 533px;
       margin-top: 90px;
       margin-left: -10px;
       position: fixed;
@@ -555,7 +680,9 @@ margin-top: 14px;
 }
 
 #company_name{
-    color:  crimson;
+    color: #ae0000;
+
+
     font-weight: bolder;
     padding-right: 10px;
     padding-left: 10px;

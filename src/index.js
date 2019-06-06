@@ -198,6 +198,7 @@ class MenuItems extends React.Component{
         let model=control.model.services;
         let key="a8ac0ce418f28d6ec56424ebad76ed12&";
         let session_id="968092a83b4016a49c3ddde1cc030d149fc6ba0b";
+        let favorites=document.querySelector("#favorite-menu");
 
 
         control.setXHRequest("GET", "/account?session_id="+session_id ,key,false);
@@ -212,6 +213,8 @@ class MenuItems extends React.Component{
 
                 control.setAccount(this.responseText);
                 state.account=this.responseText;
+                favorites.click();
+
 
 
 

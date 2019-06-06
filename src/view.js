@@ -37,9 +37,8 @@ class View  extends React.Component{
 
                             let  results= JSON.parse(this.responseText).results;
                             let isResults = true;
-                            const top=20;
                                  let item=document.querySelectorAll('.item');
-                                 let numberOfFavorite= document.querySelector("#number_of_favorite");
+                                 let  movie_count= document.querySelector("#movie_count");
                                  item.forEach(function (val,key,parent) {
 
 
@@ -80,15 +79,8 @@ class View  extends React.Component{
                                                                                if (xhr.readyState === xhr.DONE) {
 
 
-
-
-                                                                                       // val.style.visibility='hidden';
-                                                                                 //  var link = document.getElementById('favorite-menu');
-                                                                                  //link.click();
-                                                                                  // var ul = document.querySelector('ul');
-
                                                                                    if(key===index){
-                                                                                       numberOfFavorite.textContent=""+Number(numberOfFavorite.textContent)-1;
+                                                                                       movie_count.textContent=""+Number( movie_count.textContent)-1;
                                                                                        while (val.firstChild){
                                                                                            val.firstChild.remove();
                                                                                            val.style.opacity=0;
@@ -351,14 +343,41 @@ class View  extends React.Component{
 
 
         },
-        watchTrailer:function () {
+        watchTrailer:function (xhr,index,element) {
+
+
+
+            let data = JSON.stringify({
+
+            });
+
+            xhr = new XMLHttpRequest();
+
+            xhr.addEventListener("readystatechange", function () {
+                if (xhr.readyState === xhr.DONE) {
+                    let srcKey="SUXWAEX2jlg";
+                    let scr="https://www.youtube.com/watch?v="+srcKey;
+
+                     element.forEach(function (val,key,parent) {
+
+                         val.src=scr;
+                         alert(val.src)
+
+                     });
+
+                    console.log(xhr.responseText);
+                }
+            });
+
+
+
+            xhr.open("GET", "http://api.themoviedb.org/3/movie/157336/videos?api_key=a8ac0ce418f28d6ec56424ebad76ed12&append_to_response=videos");
+            xhr.responseType="text";
+
+            xhr.send(data);
+
 
         }
-        ,
-        rate:function () {
-
-        }
-
         ,
         removeRating:function () {
 
@@ -525,9 +544,10 @@ class View  extends React.Component{
                                      </fieldset><span> </span>
                                       <div  class="favorite" title="Favorite"><span  class="favorite-text" > &heartsuit;<span></div> 
                                       <div class='feelings' title="Add to list">&#9016;</div>
-                                      <div  class='feelings' title="Watch trailer">&#9783;</div> <span> </span>
+                                      <div  class='watch_trailer' title="Watch trailer">&#9783;</div> <span> </span>
                                       </div> </td> </tr><tbody>
-                                      </table>`;
+                                      </table> 
+                                      `;
 
 
 
@@ -535,20 +555,69 @@ class View  extends React.Component{
 
                                      //favorite
                                      ReactDOM.findDOMNode(document.getElementById('qty')).innerHTML = response.total_pages;
-                                     let numberOfFavorite= document.querySelector("#number_of_favorite");
-                                         numberOfFavorite.textContent=""+response.total_results;
+                                     let movieCount= document.querySelector("#movie_count");
+                                     movieCount.textContent=""+response.total_results;
                                      let ratingContent=document.getElementsByClassName("rating_content");
                                      let favorite=document.querySelectorAll(".favorite");
                                      let favoriteText=document.querySelectorAll(".favorite-text");
                                      let rating=document.getElementsByClassName("rating");
                                      let stars=document.getElementsByClassName("stars");
                                      let ratingWidget=document.querySelectorAll(".rating-widget")  ;
+                                     let player=document.querySelectorAll(".video_player");
+                                     let watchTrailer=document.querySelectorAll(".watch_trailer");
+                                     let closePlayer=document.querySelectorAll(".close_player");
+                                     let moveSource=document.querySelectorAll(".movie_trailer");
                                      let indexList=Array();
 
 
 
                                      ['click','touch','mouseenter','mouseleave'].forEach(function (event) {
 
+
+
+                                         player.forEach(function (value, key, parent) {
+
+                                             watchTrailer.forEach(function (val, key, parent) {
+
+                                                 val.addEventListener(event,function (ev) {
+                                                     ev.stopImmediatePropagation();
+                                                     ev.stopPropagation();
+                                                     ev.preventDefault();
+
+                                                     if(ev.type==="click"){
+                                                         value.style.display="inline-block";
+                                                         utilities.watchTrailer(xhr,key,moveSource);
+
+                                                         return false;
+                                                     }
+
+
+                                                 })
+
+                                             });
+                                             closePlayer.forEach(function (value, key, parent) {
+
+                                                 value.addEventListener(event,function (ev) {
+                                                     ev.preventDefault();
+                                                     ev.stopPropagation();
+                                                     ev.stopImmediatePropagation();
+
+                                                     if(ev.type==="click"){
+                                                         player.forEach(function (value,index, parent) {
+                                                             if(index===key){
+                                                                 value.style.display="none";
+
+                                                                 return false;
+                                                             }
+
+                                                         })
+                                                     }
+
+                                                 })
+
+                                             }) ;
+
+                                         });
                                          favorite.forEach(function (el,key,parent) {
 
 
@@ -568,83 +637,87 @@ class View  extends React.Component{
 
 
                                          });
-                                         return false;
-                                     });
-
-                                    /*
-                                     for (let x in rating){
-                                         rating.item(Number(x)).addEventListener(event,function (ev) {
 
 
 
-                                             if(ev.type==="click"){
-
-                                                 ratingContent.item(Number(x)).style.display="none";
-
-                                             } if(ev.type==="mouseenter"){
-
-                                                 ratingContent.item(Number(x)).style.display="inline";
-
-                                             }
-
-                                             ratingContent.item(Number(x)).addEventListener(event,function (event) {
-                                                 event.preventDefault();
-                                                 event.stopImmediatePropagation();
-                                                 event.stopPropagation();
+                                         for (let x in rating){
+                                             rating.item(Number(x)).addEventListener(event,function (ev) {
 
 
 
-
-                                                 if(event.type==="mouseleave"){
+                                                 if(ev.type==="click"){
 
                                                      ratingContent.item(Number(x)).style.display="none";
 
-                                                 }
-
-                                                 if(event.type==="mouseenter"){
-
-                                                     for(let i=0;i<stars.length;i++){
-
-
-
-
-                                                         ['mouseenter','mouseleave'].forEach(function (val) {
-
-
-                                                             stars[i].addEventListener(val,function (event) {
-
-                                                                 event.preventDefault();
-                                                                 event.stopPropagation();
-                                                                 event.stopImmediatePropagation();
-
-
-
-                                                             });
-
-                                                         })
-
-                                                     }
+                                                 } if(ev.type==="mouseenter"){
 
                                                      ratingContent.item(Number(x)).style.display="inline";
 
                                                  }
 
-                                             });
+                                                 ratingContent.item(Number(x)).addEventListener(event,function (event) {
+                                                     event.preventDefault();
+                                                     event.stopImmediatePropagation();
+                                                     event.stopPropagation();
 
-                                             this.addEventListener(event,function (event) {
-                                                 event.preventDefault();
-                                                 if(event.type==="mouseleave"){
 
-                                                     // ratingContent.item(Number(x)).style.display="none";
 
-                                                 }
 
-                                             });
+                                                     if(event.type==="mouseleave"){
 
-                                         })
+                                                         ratingContent.item(Number(x)).style.display="none";
 
-                                     }
-                                     */
+                                                     }
+
+                                                     if(event.type==="mouseenter"){
+
+                                                         for(let i=0;i<stars.length;i++){
+
+
+
+
+                                                             ['mouseenter','mouseleave'].forEach(function (val) {
+
+
+                                                                 stars[i].addEventListener(val,function (event) {
+
+                                                                     event.preventDefault();
+                                                                     event.stopPropagation();
+                                                                     event.stopImmediatePropagation();
+
+
+
+                                                                 });
+
+                                                             })
+
+                                                         }
+
+                                                         ratingContent.item(Number(x)).style.display="inline";
+
+                                                     }
+
+                                                 });
+
+                                                 this.addEventListener(event,function (event) {
+                                                     event.preventDefault();
+                                                     if(event.type==="mouseleave"){
+
+                                                         // ratingContent.item(Number(x)).style.display="none";
+
+                                                     }
+
+                                                 });
+
+                                             })
+
+                                         }
+                                         return false;
+                                     });
+
+
+
+
 
 
 
@@ -700,9 +773,27 @@ class View  extends React.Component{
                   <div>
 
 
-                      <div  className="favorite_box"><div id="favorite_detail"><span id="my_favorite">My Favorites</span><span id="number_of_like_Title">Movies <span id="number_of_favorite"> </span></span>
-                      </div> </div>
+                      <div  className="info_box"><div id="user_query_details">
+                          <span><span className="user_query">My Favorites</span>
+                              <span id="user_query">Movies <span id="movie_count">
+                              </span></span></span>
+                      </div>
 
+
+                      </div>
+                      <div className="video_player">
+
+                          <div className="close_player"> </div>
+                          <iframe id="video_1"  width="80%" height="420px"
+                                  data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'
+                                  src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=1">
+
+
+                          </iframe>
+
+
+
+                      </div>
                   <div id='scroll_list'>
                       <div id="item"> </div>
 
@@ -710,7 +801,7 @@ class View  extends React.Component{
 
                       <div id="total_pages">
                           <div id="total_pages_title">Total Pages </div>
-                          <div id="qty">
+                          <div   id="qty">
 
                           </div>
 
