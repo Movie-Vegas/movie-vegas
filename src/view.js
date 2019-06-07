@@ -39,10 +39,11 @@ class View  extends React.Component{
                             let isResults = true;
                                  let item=document.querySelectorAll('.item');
                                  let  movie_count= document.querySelector("#movie_count");
-                                 item.forEach(function (val,key,parent) {
+                                 if(results.hasOwnProperty(results)){
+                                     item.forEach(function (val,key,parent) {
 
 
-                                          if(key===index) {
+                                         if(key===index) {
 
                                              if(!["","",undefined].includes(results)){
 
@@ -68,44 +69,44 @@ class View  extends React.Component{
                                                                  if(event.type==="click"){
 
                                                                      if(key===index){
-                                                                           let data = JSON.stringify({
-                                                                               "media_type": "movie",
-                                                                               "media_id": resultsId,
-                                                                               "favorite": false
-                                                                           });
-                                                                           xhr = new XMLHttpRequest();
+                                                                         let data = JSON.stringify({
+                                                                             "media_type": "movie",
+                                                                             "media_id": resultsId,
+                                                                             "favorite": false
+                                                                         });
+                                                                         xhr = new XMLHttpRequest();
 
-                                                                           xhr.addEventListener("readystatechange", function () {
-                                                                               if (xhr.readyState === xhr.DONE) {
-
-
-                                                                                   if(key===index){
-                                                                                       movie_count.textContent=""+Number( movie_count.textContent)-1;
-                                                                                       while (val.firstChild){
-                                                                                           val.firstChild.remove();
-                                                                                           val.style.opacity=0;
-                                                                                           val.style.display="none";
+                                                                         xhr.addEventListener("readystatechange", function () {
+                                                                             if (xhr.readyState === xhr.DONE) {
 
 
-                                                                                       }
-                                                                                       return false;
-                                                                                   }
+                                                                                 if(key===index){
+                                                                                     movie_count.textContent=""+Number( movie_count.textContent)-1;
+                                                                                     while (val.firstChild){
+                                                                                         val.firstChild.remove();
+                                                                                         val.style.opacity=0;
+                                                                                         val.style.display="none";
 
 
-
-
-                                                                               }
-                                                                           });
-
-                                                                           xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
-                                                                           xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
-
-                                                                           xhr.send(data);
+                                                                                     }
+                                                                                     return false;
+                                                                                 }
 
 
 
 
-                                                                       }
+                                                                             }
+                                                                         });
+
+                                                                         xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
+                                                                         xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+
+                                                                         xhr.send(data);
+
+
+
+
+                                                                     }
 
 
 
@@ -121,18 +122,17 @@ class View  extends React.Component{
 
 
 
-                                                         if (event.type === "mouseleave") {
-
-                                                            console.log("leave")
-
-                                                             element.innerHTML = '&heartsuit;';
-                                                             element.title = "Favorite";
-
-                                                             return false;
+                                                             if (event.type === "mouseleave") {
 
 
+                                                                 element.innerHTML = '&heartsuit;';
+                                                                 element.title = "Favorite";
 
-                                                         }
+                                                                 return false;
+
+
+
+                                                             }
 
                                                          });
                                                      }
@@ -144,43 +144,8 @@ class View  extends React.Component{
                                                  })
                                              }
 
-                                              if (event.type === "click" && isResults)  {
+                                             if (event.type === "click" && isResults)  {
 
-                                                  let data = JSON.stringify({
-                                                      "media_type": "movie",
-                                                      "media_id": resultsId,
-                                                      "favorite": true
-                                                  });
-
-                                                  xhr = new XMLHttpRequest();
-
-                                                  xhr.addEventListener("readystatechange", function () {
-                                                      if (xhr.readyState === xhr.DONE) {
-                                                          console.log(xhr.responseText);
-                                                      }
-                                                  });
-
-                                                  xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
-                                                  xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
-
-                                                  xhr.send(data);
-
-                                                  return false;
-
-
-
-                                             }
-                                          }
-
-
-
-
-
-                                            /*
-
-                                             if (isResults) {
-
-                                                 if(event.type==="click"){
                                                  let data = JSON.stringify({
                                                      "media_type": "movie",
                                                      "media_id": resultsId,
@@ -199,16 +164,53 @@ class View  extends React.Component{
                                                  xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
 
                                                  xhr.send(data);
+
                                                  return false;
+
+
+
                                              }
-
-                                             }*/
-
+                                         }
 
 
-                                    return false;
 
-                               })
+
+
+                                         /*
+
+                                          if (isResults) {
+
+                                              if(event.type==="click"){
+                                              let data = JSON.stringify({
+                                                  "media_type": "movie",
+                                                  "media_id": resultsId,
+                                                  "favorite": true
+                                              });
+
+                                              xhr = new XMLHttpRequest();
+
+                                              xhr.addEventListener("readystatechange", function () {
+                                                  if (xhr.readyState === xhr.DONE) {
+                                                      console.log(xhr.responseText);
+                                                  }
+                                              });
+
+                                              xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
+                                              xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+
+                                              xhr.send(data);
+                                              return false;
+                                          }
+
+                                          }*/
+
+
+
+                                         return false;
+
+                                     })
+                                 }
+
                             /* Array.from(favoriteId).forEach(function (response) {
 
                                 //let results= JSON.parse(resp);
@@ -773,7 +775,8 @@ class View  extends React.Component{
                   <div>
 
 
-                      <div  className="info_box"><div id="user_query_details">
+                      <div  className="info_box">
+                          <div id="user_query_details">
                           <span><span className="user_query">My Favorites</span>
                               <span id="user_query">Movies <span id="movie_count">
                               </span></span></span>
@@ -784,7 +787,7 @@ class View  extends React.Component{
                       <div className="video_player">
 
                           <div className="close_player"> </div>
-                          <iframe id="video_1"  width="80%" height="420px"
+                          <iframe className="video_1"  width="80%" height="420px"
                                   data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'
                                   src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=1">
 

@@ -1,7 +1,7 @@
 
 
 table{
-    border: thin solid gainsboro;
+    border: thin solid #0e394a;
 }
 .total_pages{
     font-size: 9px;
@@ -36,7 +36,7 @@ table{
     padding:   6px 0;
 
 
-    background: #b8d5c3;
+
 
 
 }
@@ -52,7 +52,7 @@ table{
 
     border-radius: 0 2px 0 2px;
     position: absolute;
-    background: #000000;
+    background: #03071a;
     padding:8px 8px;
     box-shadow: 0 0 4px 2px #c4c4c4;
     margin-top: -30px;
@@ -95,7 +95,7 @@ table{
 
     margin-left: -12px;
     opacity: 0;
-    background:  #000000;
+
     margin-top: 0;
     bottom: 10px;
     color:white;
@@ -156,6 +156,7 @@ table{
     z-index: 1;
     left: 0;
     margin-top: 330px;
+    color: #03071a;
     border-radius: 0 2px 2px 0;
     background: gold;
 
@@ -179,7 +180,7 @@ table{
  }
 #search_glass:hover{
     cursor: pointer;
-    background:  #2a2a2a;
+
 
 
 }
@@ -246,8 +247,7 @@ td{
 
     margin-right: 12px;
     font-size: large;
-    color: #2c2c2c;
-
+    color: #03071a;
     text-align: center;
     margin-left: 8px;
 
@@ -260,11 +260,11 @@ td{
 .movie_player{
     display: none;
     margin-top: 20px;
-    background: #000000;
+
     text-align: center;
     color: #aaa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: radial-gradient(#111111, hsl(0, 0%, 0%));
+
 
 }
 .watch_trailer:hover{
@@ -278,10 +278,10 @@ td{
 
     margin-top: 2px;
     border-radius: 2px;
-
+    color: #03071a;
     margin-right: 12px;
    font-size: large;
-    color: #2c2c2c;
+
 
     text-align: center;
      margin-left: 8px;
@@ -300,7 +300,7 @@ td{
     height: 140px;
     width: 77%;
     border-radius: 2px;
-    background: white;
+
     margin-left: 14%;
     box-shadow: 0 0 4px 0 gainsboro;
 }
@@ -312,7 +312,7 @@ td{
 .video_player {
 
     box-shadow: 0 0 1px 0 #03071a;
-    background: rgb(0, 0, 0);
+    background: #0d2d3d;
     position: fixed;
     display: none;
     top: 93px;
@@ -320,7 +320,7 @@ td{
     left: 0;
     right: 0;
     z-index: 1;
-    padding-bottom: 64px;
+    padding-bottom: 67px;
 
     border: none;
     text-align: center;
@@ -330,7 +330,7 @@ td{
     padding-top: 60px;
 
 }
-#video_1{
+.video_1{
     text-align: center;
     border: 1px solid #252525;
     margin-top: -10px;
@@ -397,7 +397,6 @@ td{
 
 .trailer{
     margin-top: 50px;
-    background:black;
     cursor: pointer;
     margin-left: 3%;
 }
@@ -416,7 +415,7 @@ td{
     z-index: 10;
     padding-bottom: 10px;
     border: none;
-    background-color:black ;
+
 
 
 
@@ -430,8 +429,8 @@ td{
 
 }
 .info_box{
-    box-shadow: 0 0 2px 0 rgb(3, 7, 26);
-    background: #0d0d0d;
+    box-shadow: 0 4px  0 0 rgb(14, 46, 62);
+
     position: fixed;
     top: 64px;
     width: border-box;
@@ -455,9 +454,8 @@ td{
     height: 10px;
     width: 77%;
     border-radius: 2px;
-    background: white;
     margin-left: 14%;
-    box-shadow: 0 0 4px 0 gainsboro;
+    box-shadow: 0 0 4px 0 #000000;
 
 }
 
@@ -466,7 +464,7 @@ td{
 
 
     box-shadow: 0 0 2px 0 rgb(3, 7, 26);
-    background: #0d0d0d;
+
     position: fixed;
     bottom: 0;
     width: border-box;
@@ -474,7 +472,7 @@ td{
     left: 0;
     right: 0;
     padding-bottom: 4px;
-    color: #797979;
+    color: #c2c2c2;
         border: none;
 
 
@@ -495,8 +493,9 @@ body{
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 
-    color: #444444;
 
+    color: #c2c2c2;
+    background: #0d2d3d;
 
 }
 #scroll_list{
@@ -514,7 +513,6 @@ body{
 
     padding: 10px 15px;
     margin-right: 6px;
-    background: crimson;
     color: white;
     margin-top: -22px;
     border: thin solid crimson;
@@ -560,7 +558,7 @@ body{
      right: 0;
      padding-bottom: 10px;
      border: none;
-     background-color: #000000;
+
 
      padding-top: 34px;
 
@@ -595,7 +593,7 @@ body{
 }
 .table_header{
 
-    color: #a3a3a3;
+    color: #d6d6d6;
     text-align: left;
     width: 10%;
     padding-bottom: 40px;
@@ -609,7 +607,7 @@ body{
 }
 #pages{
     padding: 10px;
-    background: inherit;
+
     font-weight: bold;
     position: fixed;
     font-size: x-large;
@@ -676,11 +674,12 @@ margin-top: 14px;
 }
 .logo:before{
     content: "\2210";
-    color: #7bbffb;
+    color: #731e73;
+    margin-left: 5px;
 }
 
 #company_name{
-    color: #ae0000;
+    color: crimson;
 
 
     font-weight: bolder;
@@ -707,6 +706,7 @@ margin-top: 14px;
     float: left;
     margin-top: -6px;
     margin-left: 12px;
+    color: #040e25;
     margin-right: 12px;
     font-weight: bold;
     padding: 6px;

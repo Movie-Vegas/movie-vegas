@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="63bb542f-31b9-4790-8c41-8b080cb261c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/movie_vegas.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/movie_vegas.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/view.js" afterDir="false" />
     </list>
@@ -44,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="216" column="16" lean-forward="true" selection-start-line="216" selection-start-column="16" selection-end-line="216" selection-end-column="16" />
+            <state relative-caret-position="17">
+              <caret line="296" column="22" selection-start-line="296" selection-start-column="22" selection-end-line="296" selection-end-column="35" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -56,14 +54,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="569" column="6" selection-start-line="569" selection-start-column="6" selection-end-line="569" selection-end-column="44" />
+            <state relative-caret-position="121">
+              <caret line="41" column="66" selection-start-line="41" selection-start-column="66" selection-end-line="41" selection-end-column="66" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <element signature="e#7808#9350#0" />
                 <element signature="e#9467#13647#0" />
                 <element signature="n#style#0;n#img#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
                 <element signature="e#700#706#1" expanded="true" />
@@ -76,8 +73,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/movie_vegas.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="498" lean-forward="true" selection-start-line="498" selection-end-line="498" />
+            <state relative-caret-position="-7100">
+              <caret line="283" selection-start-line="283" selection-end-line="283" />
             </state>
           </provider>
         </entry>
@@ -94,22 +91,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>favor</find>
-      <find>my</find>
-      <find>fav</find>
-      <find>movie</find>
-      <find>number_of_li</find>
-      <find>number_of</find>
-      <find>bod</find>
-      <find>user_query_details</find>
-      <find>favori</find>
-      <find>nu</find>
-      <find>ul</find>
-      <find>movie_count</find>
-      <find>numb</find>
-      <find>user</find>
-      <find>video</find>
-      <find>numberOfFavorite.textContent=&quot;&quot;+Number(numberOfFavorite.textContent)-1;</find>
       <find>cl</find>
       <find>clos</find>
       <find>que</find>
@@ -124,6 +105,22 @@
       <find>scroll</find>
       <find>scr</find>
       <find>accou</find>
+      <find>fa</find>
+      <find>s</find>
+      <find>use</find>
+      <find>user_query_details</find>
+      <find>backgrou</find>
+      <find>it</find>
+      <find>b</find>
+      <find>body</find>
+      <find>item</find>
+      <find>table</find>
+      <find>logo</find>
+      <find>colo</find>
+      <find>mov</find>
+      <find>bac</find>
+      <find>number</find>
+      <find>gold</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -151,9 +148,9 @@
         <option value="$PROJECT_DIR$/public/index.css" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/index.html" />
-        <option value="$PROJECT_DIR$/src/view.js" />
-        <option value="$PROJECT_DIR$/src/movie_vegas.css" />
         <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/src/movie_vegas.css" />
+        <option value="$PROJECT_DIR$/src/view.js" />
       </list>
     </option>
   </component>
@@ -196,7 +193,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559782012537" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559931792749" />
     <property name="js.last.introduce.type" value="CONST" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -311,7 +308,7 @@
       <workItem from="1559562489093" duration="267000" />
       <workItem from="1559563309494" duration="31910000" />
       <workItem from="1559683563979" duration="7841000" />
-      <workItem from="1559693439655" duration="45384000" />
+      <workItem from="1559693439655" duration="52508000" />
     </task>
     <task id="LOCAL-00001" summary="Implementation fo make favorite and delete favorite">
       <created>1559721582311</created>
@@ -320,18 +317,25 @@
       <option name="project" value="LOCAL" />
       <updated>1559721582311</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Implementation fo load favorite and watch trailer">
+      <created>1559782225330</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1559782225330</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="817374000" />
+    <option name="totallyTimeSpent" value="824498000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="JRebel" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.7372014" visible="true" weight="0.17246597" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.7372014" visible="true" weight="0.17246597" />
       <window_info id="Structure" order="2" sideWeight="0.26279864" side_tool="true" visible="true" weight="0.17246597" />
       <window_info id="Designer" order="3" />
       <window_info id="Image Layers" order="4" />
@@ -420,7 +424,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Implementation fo make favorite and delete favorite" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementation fo make favorite and delete favorite" />
+    <MESSAGE value="Implementation fo load favorite and watch trailer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementation fo load favorite and watch trailer" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/platform-impl.jar!/resources/html5-schema/html5/tables.rnc">
@@ -533,34 +538,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view.js">
+    <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="569" column="6" selection-start-line="569" selection-start-column="6" selection-end-line="569" selection-end-column="44" />
+        <state relative-caret-position="17">
+          <caret line="296" column="22" selection-start-line="296" selection-start-column="22" selection-end-line="296" selection-end-column="35" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#7808#9350#0" />
-            <element signature="e#9467#13647#0" />
-            <element signature="n#style#0;n#img#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="e#700#706#1" expanded="true" />
-            <element signature="e#3427#3438#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/movie_vegas.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="498" lean-forward="true" selection-start-line="498" selection-end-line="498" />
+        <state relative-caret-position="-7100">
+          <caret line="283" selection-start-line="283" selection-end-line="283" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
+    <entry file="file://$PROJECT_DIR$/src/view.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="216" column="16" lean-forward="true" selection-start-line="216" selection-start-column="16" selection-end-line="216" selection-end-column="16" />
+        <state relative-caret-position="121">
+          <caret line="41" column="66" selection-start-line="41" selection-start-column="66" selection-end-line="41" selection-end-column="66" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#9467#13647#0" />
+            <element signature="n#style#0;n#img#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="e#700#706#1" expanded="true" />
+            <element signature="e#3427#3438#0" expanded="true" />
           </folding>
         </state>
       </provider>
