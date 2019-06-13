@@ -69,8 +69,9 @@ class Model {
              let req=new XMLHttpRequest();
                   req.withCredentials=flag;
 
-                  req.open(method,"https://api.themoviedb.org/3"+url+"&api_key="+key);
+                  req.open(method,"https://api.themoviedb.org/3"+url+"&api_key="+key,true);
                   this.request= req;
+
 
 
            } ,
@@ -83,9 +84,12 @@ class Model {
 
         },
 
+
         getXHR(){
-         return this.request;
-        },
+
+            return this.request;
+
+           },
         setRating:function (rating) {
               this.rating=rating;
          },

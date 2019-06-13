@@ -19,333 +19,263 @@ class View  extends React.Component{
 
 
 
-        makeFavoriteThroughGetFavorite:function (resultsId,xhr,element,event,index) {
-            event.stopImmediatePropagation();
-            event.preventDefault();
-            event.stopPropagation();
+        makeFavoriteThroughGetFavorite:function (response,xhr,element,event,index) {
+
             let data = "{}";
 
 
 
-                xhr = new XMLHttpRequest();
-                xhr.addEventListener("readystatechange", function () {
+            xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", function () {
 
-                    //{"page":1,"results":[],"total_pages":0,"total_results":0}
-                    if (this.readyState === this.DONE) {
 
-                        if (["mouseenter", "click", "mouseleave"].includes(event.type)) {
+                if (this.readyState === 4 && [200,201,202.203].includes(this.status) ) {
 
-                            let  results= JSON.parse(this.responseText).results;
-                            let isResults = true;
-                                 let item=document.querySelectorAll('.item');
-                                 let  movie_count= document.querySelector("#movie_count");
-                                 if(results.hasOwnProperty(results)){
-                                     item.forEach(function (val,key,parent) {
+                    if (["mouseenter", "click"].includes(event.type)) {
 
+                        let  results= JSON.parse(this.responseText).results;
+                        let isResults = true;
+                        let item=document.querySelectorAll('.item');
+                        let  movie_count= document.querySelector("#movie_count");
 
-                                         if(key===index) {
 
-                                             if(!["","",undefined].includes(results)){
 
-                                                 results.forEach(function (val) {
 
-                                                     if (resultsId === val.id) {
+                            item.forEach(function (val,key) {
 
+                                if(key===index) {
 
-                                                         isResults=false;
-                                                         let item=document.querySelectorAll('.item');
+                                    results.forEach(function (val) {
 
-                                                         item.forEach(function (val,key,parent){
+                                            if (response === val.id) {
 
+                                                console.log(response)
+                                                isResults=false;
+                                                let item=document.querySelectorAll('.item');
 
+                                                item.forEach(function (val,key,parent){
 
-                                                             if (["mouseenter","click"].includes(event.type)) {
 
-                                                                 element.innerHTML = '&times;';
-                                                                 element.title = "Remove Favorite";
 
+                                                    if (["mouseenter","click"].includes(event.type)) {
 
+                                                        element.innerHTML = '&times;';
+                                                        element.title = "Remove Favorite";
 
-                                                                 if(event.type==="click"){
 
-                                                                     if(key===index){
-                                                                         let data = JSON.stringify({
-                                                                             "media_type": "movie",
-                                                                             "media_id": resultsId,
-                                                                             "favorite": false
-                                                                         });
-                                                                         xhr = new XMLHttpRequest();
 
-                                                                         xhr.addEventListener("readystatechange", function () {
-                                                                             if (xhr.readyState === xhr.DONE) {
+                                                        if(event.type==="click"){
 
 
-                                                                                 if(key===index){
-                                                                                     movie_count.textContent=""+Number( movie_count.textContent)-1;
-                                                                                     while (val.firstChild){
-                                                                                         val.firstChild.remove();
-                                                                                         val.style.opacity=0;
-                                                                                         val.style.display="none";
+                                                            if(key===index){
+                                                                let data = JSON.stringify({
+                                                                    "media_type": "movie",
+                                                                    "media_id": response,
+                                                                    "favorite": false
+                                                                });
+                                                                xhr = new XMLHttpRequest();
 
+                                                                xhr.addEventListener("readystatechange", function () {
+                                                                    if (xhr.readyState === xhr.DONE) {
 
-                                                                                     }
-                                                                                     return false;
-                                                                                 }
 
+                                                                        if(key===index){
+                                                                            movie_count.textContent=""+Number( movie_count.textContent)-1;
+                                                                            while (val.firstChild){
+                                                                                val.firstChild.remove();
+                                                                                val.style.opacity=0;
+                                                                                val.style.display="none";
 
 
+                                                                            }
+                                                                            return false;
+                                                                        }
 
-                                                                             }
-                                                                         });
 
-                                                                         xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
-                                                                         xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
 
-                                                                         xhr.send(data);
 
+                                                                    }
 
+                                                                });
 
+                                                                xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12",true);
+                                                                xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
 
-                                                                     }
+                                                                xhr.send(data);
 
 
 
 
-                                                                 }
+                                                            }
 
 
 
 
-
-
-                                                             }
-
-
-
-                                                             if (event.type === "mouseleave") {
-
-
-                                                                 element.innerHTML = '&heartsuit;';
-                                                                 element.title = "Favorite";
-
-                                                                 return false;
-
-
-
-                                                             }
-
-                                                         });
-                                                     }
-
-
-
-
-
-                                                 })
-                                             }
-
-                                             if (event.type === "click" && isResults)  {
-
-                                                 let data = JSON.stringify({
-                                                     "media_type": "movie",
-                                                     "media_id": resultsId,
-                                                     "favorite": true
-                                                 });
-
-                                                 xhr = new XMLHttpRequest();
-
-                                                 xhr.addEventListener("readystatechange", function () {
-                                                     if (xhr.readyState === xhr.DONE) {
-                                                         console.log(xhr.responseText);
-                                                     }
-                                                 });
-
-                                                 xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
-                                                 xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
-
-                                                 xhr.send(data);
-
-                                                 return false;
-
-
-
-                                             }
-                                         }
-
-
-
-
-
-                                         /*
-
-                                          if (isResults) {
-
-                                              if(event.type==="click"){
-                                              let data = JSON.stringify({
-                                                  "media_type": "movie",
-                                                  "media_id": resultsId,
-                                                  "favorite": true
-                                              });
-
-                                              xhr = new XMLHttpRequest();
-
-                                              xhr.addEventListener("readystatechange", function () {
-                                                  if (xhr.readyState === xhr.DONE) {
-                                                      console.log(xhr.responseText);
-                                                  }
-                                              });
-
-                                              xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
-                                              xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
-
-                                              xhr.send(data);
-                                              return false;
-                                          }
-
-                                          }*/
-
-
-
-                                         return false;
-
-                                     })
-                                 }
-
-                            /* Array.from(favoriteId).forEach(function (response) {
-
-                                //let results= JSON.parse(resp);
-                                if (resultsId===response.results.id){
-
-                                    if(['mouseenter','mouseleave','click'].includes(event.type)) {
-
-
-                                        if(event.type==="mouseenter"){
-
-                                            element.innerHTML='&times;';
-                                            element.title="Remove Favorite";
-
-
-                                        }
-
-                                        if(event.type==="mouseleave"){
-
-                                            element.innerHTML='&heartsuit;';
-                                            element.title="Favorite";
-
-                                            return false;
-
-                                        }
-
-
-                                        if(event.type==="click"){
-
-
-
-
-                                            let item=document.querySelectorAll('.item');
-                                            item.forEach(function (val,key,parent) {
-                                                if(key===index){
-                                                    let data = JSON.stringify({
-                                                        "media_type": "movie",
-                                                        "media_id": resultsId,
-                                                        "favorite": false
-                                                    });
-                                                    xhr = new XMLHttpRequest();
-
-                                                    xhr.addEventListener("readystatechange", function () {
-                                                        if (xhr.readyState === xhr.DONE) {
-                                                            console.log(xhr.responseText);
-                                                            val.remove();
                                                         }
-                                                    });
-
-                                                    xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
-                                                    xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
-
-                                                    xhr.send(data);
-
-
-
-                                                    return false;
-                                                }
-
-                                            });
 
 
 
 
 
-                                        }
+
+                                                    }
 
 
 
-                                    }
+
+
+                                                });
+                                                return false;
+                                            }
 
 
 
-                                }else {
-                                    alert("hdkjfs")
+
+
+                                        })
+
+
+                                                      return false;
                                 }
 
 
-                            });
 
 
-
-                            if(![""," ",0,undefined].includes(favorite.length)){
-
-
-
-
-
-
-
-
-                            }else {
-
-
-                                let data = JSON.stringify({
-                                    "media_type": "movie",
-                                    "media_id": resultsId,
-                                    "favorite": true
-                                });
-
-                                xhr = new XMLHttpRequest();
-
-                                xhr.addEventListener("readystatechange", function () {
-                                    if (xhr.readyState === xhr.DONE) {
-                                        console.log(xhr.responseText);
-                                    }
-                                });
-
-                                xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
-                                xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
-
-                                xhr.send(data);
 
                                 return false;
-                            }*/
+
+                            })
+
+
+
+                        if (event.type === "click" && isResults)  {
+
+                            let data = JSON.stringify({
+                                "media_type": "movie",
+                                "media_id": response,
+                                "favorite": true
+                            });
+
+                            xhr = new XMLHttpRequest();
+
+                            xhr.addEventListener("readystatechange", function () {
+                                if (xhr.readyState === xhr.DONE) {
+                                    console.log(xhr.responseText);
+                                }
+                            });
+
+                            xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12",true);
+                            xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+
+                            xhr.send(data);
+
+                            return false;
+
 
 
                         }
+
+
+                        /* Array.from(favoriteId).forEach(function (response) {
+                            //let results= JSON.parse(resp);
+                            if (resultsId===response.results.id){
+                                if(['mouseenter','mouseleave','click'].includes(event.type)) {
+                                    if(event.type==="mouseenter"){
+                                        element.innerHTML='&times;';
+                                        element.title="Remove Favorite";
+                                    }
+                                    if(event.type==="mouseleave"){
+                                        element.innerHTML='&heartsuit;';
+                                        element.title="Favorite";
+                                        return false;
+                                    }
+                                    if(event.type==="click"){
+                                        let item=document.querySelectorAll('.item');
+                                        item.forEach(function (val,key,parent) {
+                                            if(key===index){
+                                                let data = JSON.stringify({
+                                                    "media_type": "movie",
+                                                    "media_id": resultsId,
+                                                    "favorite": false
+                                                });
+                                                xhr = new XMLHttpRequest();
+                                                xhr.addEventListener("readystatechange", function () {
+                                                    if (xhr.readyState === xhr.DONE) {
+                                                        console.log(xhr.responseText);
+                                                        val.remove();
+                                                    }
+                                                });
+                                                xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
+                                                xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+                                                xhr.send(data);
+                                                return false;
+                                            }
+                                        });
+                                    }
+                                }
+                            }else {
+                                alert("hdkjfs")
+                            }
+                        });
+                        if(![""," ",0,undefined].includes(favorite.length)){
+                        }else {
+                            let data = JSON.stringify({
+                                "media_type": "movie",
+                                "media_id": resultsId,
+                                "favorite": true
+                            });
+                            xhr = new XMLHttpRequest();
+                            xhr.addEventListener("readystatechange", function () {
+                                if (xhr.readyState === xhr.DONE) {
+                                    console.log(xhr.responseText);
+                                }
+                            });
+                            xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
+                            xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+                            xhr.send(data);
+                            return false;
+                        }*/
+
+
                     }
 
 
-                 });
+
+                }
 
 
+            });
+
+            if (event.type === "mouseleave") {
 
 
-                xhr.open("GET", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite/movies?page=1&sort_by=created_at.asc&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
-                xhr.responseType="text";
-                xhr.send(data);
+                element.innerHTML = '&heartsuit;';
+                element.title = "Favorite";
 
                 return false;
 
 
 
+            }
+
+
+
+            if(["click","mouseenter"].includes(event.type)) {
+                xhr.open("GET", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite/movies?page=1&sort_by=created_at.asc&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12");
+                xhr.responseType = "text";
+                xhr.send(data);
+            }
+
+
+
+
+
         },
-        watchTrailer:function (xhr,index,element) {
+
+
+
+
+        watchTrailer:function (xhr,index,element,movieId) {
 
 
 
@@ -353,35 +283,186 @@ class View  extends React.Component{
 
             });
 
-            xhr = new XMLHttpRequest();
+             xhr = new XMLHttpRequest();
 
-            xhr.addEventListener("readystatechange", function () {
+
+
+
+            let name=document.querySelector("#movie_title_iframe");
+
+          xhr.addEventListener("readystatechange", function () {
+
                 if (xhr.readyState === xhr.DONE) {
-                    let srcKey="SUXWAEX2jlg";
-                    let scr="https://www.youtube.com/watch?v="+srcKey;
 
-                     element.forEach(function (val,key,parent) {
+                    let results=JSON.parse(xhr.responseText).results;
 
-                         val.src=scr;
-                         alert(val.src)
 
-                     });
 
-                    console.log(xhr.responseText);
+                    element.forEach(function (el,key,parent) {
+
+
+
+
+
+
+                             if(![undefined].includes(results)){
+                                 if(results.length===0){
+                                     name.textContent="An error occurred. Please try again later";
+                                     el.src="https://www.youtube.com/embed/"+movieId+"?controls=1&autoplay=1";
+
+                                     return false;
+                                 }
+
+                                 results.forEach(function (val,key,parent) {
+
+                                         name.textContent=val.name;
+                                 if(val.hasOwnProperty('key')){
+                                     el.src="https://www.youtube.com/embed/"+val.key+"?controls=1&autoplay=1";
+
+
+
+
+                                 }
+                                 return false;
+                             })
+
+                             }
+
+
+
+
+
+                        });
+
+
+                  /*
+                    element.forEach(function (el,key,parent) {
+
+                        results.forEach(function (val) {
+
+                            if(val.hasOwnProperty('id')){
+                                alert(key)
+                                if(key===index){
+
+
+                                    let data = JSON.stringify({
+
+                                    });
+
+                                    xhr = new XMLHttpRequest();
+
+                                    xhr.addEventListener("readystatechange", function () {
+
+                                        if (xhr.readyState === xhr.DONE) {
+
+                                            let id=JSON.parse(xhr.responseText).id;
+
+
+
+                                            element.forEach(function (el,key,parent) {
+
+                                                results.forEach(function (val) {
+
+                                                    if(val.hasOwnProperty('id')){
+
+                                                        if(key===index){
+                                                            el.src="https://www.youtube.com/embed/"+val.key+"?controls=1";
+
+
+                                                           // console.log(xhr.responseText);
+                                                        }
+
+
+
+                                                    }
+
+
+                                                });
+                                                return false;
+
+                                            });
+
+
+                                        }
+
+                                    });
+
+
+
+                                    xhr.open("GET", "http://api.themoviedb.org/3/movie/"+movieId+"/videos?api_key=a8ac0ce418f28d6ec56424ebad76ed12&append_to_response=videos");
+                                    xhr.responseType="text";
+
+                                    xhr.send(data);
+
+
+
+
+
+
+
+                                }
+
+
+
+                            }
+
+
+                        });
+                        return false;
+
+                    });*/
+
+
+
+
+
+
                 }
-            });
+
+          });
 
 
 
-            xhr.open("GET", "http://api.themoviedb.org/3/movie/157336/videos?api_key=a8ac0ce418f28d6ec56424ebad76ed12&append_to_response=videos");
+            xhr.open("GET", "http://api.themoviedb.org/3/movie/"+movieId+"/videos?api_key=a8ac0ce418f28d6ec56424ebad76ed12&append_to_response=videos");
             xhr.responseType="text";
 
             xhr.send(data);
 
 
-        }
-        ,
-        removeRating:function () {
+
+
+
+        },
+        removeRating:function (xhr,index,element,movieId,rating) {
+
+            let data = JSON.stringify({
+                "value": 8.5
+            });
+
+            xhr = new XMLHttpRequest();
+
+
+            xhr.addEventListener("readystatechange", function () {
+
+                if (xhr.readyState === xhr.DONE) {
+
+                    let results=JSON.parse(xhr.responseText).results;
+                    alert(xhr.responseText)
+
+
+
+
+                }
+
+            });
+
+
+
+            xhr.open("GET", "https://api.themoviedb.org/3/movie/"+movieId+"/rating?api_key=a8ac0ce418f28d6ec56424ebad76ed12");
+            xhr.responseType="text";
+
+            xhr.send(data);
+
 
         }
         ,
@@ -394,343 +475,699 @@ class View  extends React.Component{
     makeFavorite(results, xhr, x) {
 
     }
+
     renderMovieDetails(xhr,numberPages,data,account) {
 
-         if(xhr!==undefined){
+         if(xhr !==undefined){
+
+
              let utilities=this.utility;
-             xhr.addEventListener("readystatechange",function () {
+
+             xhr.addEventListener("loadend",function (results) {
+
+                  if(xhr.readyState===4 && [200,201,202,203].includes(xhr.status)){
+
+                 if(![" ","",undefined].includes(xhr.responseText)) {
+
+
+                     let resultText = JSON.parse(xhr.responseText);
+                     results = JSON.parse(xhr.responseText).results;
+
+                     let remove = document.querySelectorAll('table');
+                     remove.forEach(function (value) {
+                         value.remove();
+
+                     });
+
+                     if (![" ", "", undefined].includes(results) && results.hasOwnProperty('0')) {
+                         for (let x = 0; x < results.length; x++) {
+
+                             let items = document.getElementById('item');
+                             let img = "http://image.tmdb.org/t/p/w185/" + results[x].poster_path;
+                             items.innerHTML +=
+
+
+                                 `
+                                      <table class="item">
+                                      <tbody><tr><td ><img  style='float:left; width: 15%' src="${img}" alt=""/>
+                                      <div id='movie_title'><div id='vote_average'><div>${results[x].vote_average}</div></div>
+                                      <span class='movie_title'> ${results[x].original_title}<span class='release_date'><span class="release">Release Date </span><span> ${results[x].release_date}</span> </span></span></div>
+                                      <div id='overview'>${results[x].overview.substr(0, 720)}</div>
+                                      <div id='emotional'> <div class="rating" title="Rating"><span class="rate">&star;</span></div>
+                                       <fieldset class="rating_content">
+
+
+                                     <input type="radio" id="star5${x}" name="rating" value="11" />
+                                     <label class = "full" for="star5${x}" title="6"> </label>
+                                     <input type="radio" id="star4half${x}" name="rating" value="4 and a half" />
+                                     <label class="half" for="star4half${x}" title="5"> </label>
+                                     <input type="radio" id="star4${x}" name="rating" value="4" />
+                                     <label class = "full" for="star4${x}" title="4.5"> </label>
+                                     <input type="radio" id="star3half${x}" name="rating" value="3 and a half" />
+                                     <label class="half" for="star3half${x}" title="4"> </label>
+                                     <input type="radio" id="star3${x}" name="rating" value="3" />
+                                     <label class = "full" for="star3${x}" title="3.5"> </label>
+                                     <input type="radio" id="star2half${x}" name="rating" value="2 and a half" />
+                                     <label class="half" for="star2half${x}" title="3"> </label>
+                                     <input type="radio" id="star2${x}" name="rating" value="2" />
+                                     <label class = "full" for="star2${x}" title="2.5"> </label>
+                                     <input type="radio" id="star1half${x}" name="rating" value="1 and a half" />
+                                     <label class="half" for="star1half${x}" title="2"> </label>
+                                     <input type="radio" title="Not rated"  id="star1${x}" name="rating" value="1" />
+                                     <label class = "full" for="star1${x}" title="1"> </label>
+                                     <input type="radio" title="Not rated" id="starhalf${x}" name="rating" value="half" />
+                                     <label class="half" for="starhalf${x}" title="0.1"> </label>
+
+                                     </fieldset><span> </span>
+                                      <div  class="favorite" title="Favorite"><span  class="favorite-text" >&heartsuit;<span></div>
+                                      <div class='feelings' title="Add to list">&#9016;</div>
+                                      <div  class='watch_trailer' title="Watch trailer">&#9783;</div> <span> </span>
+                                      </div> </td> </tr>
+                                      <tbody>
+                                      </table>
+                                      `;
+
+
+                             let movieCount = document.querySelector("#movie_count");
+                             movieCount.textContent = "" + resultText.total_results;
+                             ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML = "Total pages";
+
+
+                             ReactDOM.findDOMNode(document.getElementById('qty')).innerHTML = resultText.total_pages;
 
 
 
 
-                 if (this.readyState === this.DONE) {
-
-                     let resText=this.responseText;
-
-
-                     //throw an exception
-                     let remove=document.querySelectorAll('table');
-                         remove.forEach(function (value) {
-                             value.remove();
-
-                         });
-
-
-
-
-                     if(["", " "].includes(resText)){
-
-
-
-                         alert("Hmm. We’re having trouble finding that Query.\n" +
-                             "\n" +
-                             "We can’t connect to the server at " + navigator.appName +
-                             "\n" +
-                             "If that address is correct, here are three other things you can try:\n" +
-                             "\n" +
-                             "    Try again later.\n" +
-                             "    Check your network connection.\n" +
-                             "    If you are connected but behind a firewall," + navigator.appName +
-                             " check that " + navigator.appName + "has permission to access the Web.");
-
-
-
-
-                     }else {
-
-
-
-                         let response=JSON.parse(resText);
-                           //throw an exception
-                         if(response.errors){
-
-                             let remove=document.querySelectorAll('table');
-
-                             for (let x in remove[0]){
-                                 remove.item(Number(x)).remove();
-                             }
-
-
-
-
-                            let noResultException=document.querySelectorAll('#item');
-
-                             noResultException[0].innerHTML = "<table class='item'><tbody><tr><td >" +
-                                 "<p id='search_result'>Your search yield no results check your input and spellings and try again</p></td></tr> </tbody></table>"
-                              }
-
-
-                         if(numberPages <= response.total_pages){
-
-                             //empty table
-                             let remove=document.querySelectorAll('table');
-                             for (let x in remove[0]){
-                                 remove.item(Number(x)).remove();
-                             }
 
                          }
 
 
-                     let stop = 0;
-                     let time = setInterval(function () {
-                         stop += stop + 1;
-
-                         if(response.total_results===0) {
-
-                             //empty table
-                        let remove=document.querySelectorAll('table');
-                             for (let x in remove[0]){
-                                 remove.item(Number(x)).remove();
-                             }
-
-                             //throw an exception
-                           /*  let noResultException=document.querySelectorAll('.req_error');
-                             noResultException[0].innerHTML = "<table class='req_error'><tr><td>" +
-                                 "<p id='search_result'>Your search yield no results check your input and spellings and try again " +
-                                 " </p> </td> </tr></table>"*/
+                         let ratingContent = document.querySelectorAll(".rating_content");
+                         let favorite = document.querySelectorAll(".favorite");
+                         let item = document.querySelectorAll(".item");
+                         let rating = document.querySelectorAll(".rating");
+                         let stars = document.querySelectorAll(".half, .full");
+                         let ratingWidget = document.querySelectorAll(".starhalf" );
+                         let player = document.querySelectorAll("#video_player");
+                         let watchTrailer = document.querySelectorAll(".watch_trailer");
 
 
 
-                             clearInterval(time);
+                         ['click', 'touch', 'mouseenter', 'mouseover', 'mouseleave'].forEach(function (event) {
 
-                             return false;
+                             item.forEach(function (value, itemIndex) {
 
+                                 watchTrailer.forEach(function (el, key) {
 
-
-                         }else {
-
-                             let result = response.results;
-                             let favorite=document.querySelectorAll(".favorite");
-
-                             for (let x in result) {
-
-                                 if (stop === 1 && result.hasOwnProperty(x)) {
+                                     el.addEventListener(event, function (ev) {
+                                         ev.preventDefault();
 
 
-                                     let items=document.getElementById('item');
-                                     let img = "http://image.tmdb.org/t/p/w185/" + result[x].poster_path;
-
-                                      items.innerHTML +=
-                                          `
-                                      <table class="item">
-                                      <tbody><tr><td ><img  style='float:left; width: 15%' src="${img}" alt=""/>
-                                      <div id='movie_title'><div id='vote_average'><div>${result[x].vote_average}</div></div>
-                                      <span class='movie_title'> ${result[x].original_title}<span class='release_date'><span class="release">Release Date</span><span>${result[x].release_date}</span> </span></span></div> 
-                                      <div id='overview'>${result[x].overview.substr(0, 720)}</div> 
-                                      <div id='emotional'> <div class="rating" title="Rating"><span class="rate">&star;</span></div>
-                                      <fieldset class="rating_content">
-                                      
-                                      
-                                     <input type="radio" id="star5${x}" name="rating" value="5" />
-                                     <label class = "full" for="star5${x}" title="Awesome - 5 stars"> </label>
-                                     <input type="radio" id="star4half${x}" name="rating" value="4 and a half" />
-                                     <label class="half" for="star4half${x}" title="Pretty good - 4.5 stars"> </label>
-                                     <input type="radio" id="star4${x}" name="rating" value="4" />
-                                     <label class = "full" for="star4${x}" title="Pretty good - 4 stars"> </label>
-                                     <input type="radio" id="star3half${x}" name="rating" value="3 and a half" />
-                                     <label class="half" for="star3half${x}" title="3.5 stars"> </label>
-                                     <input type="radio" id="star3${x}" name="rating" value="3" />
-                                     <label class = "full" for="star3${x}" title="3 stars"> </label>
-                                     <input type="radio" id="star2half${x}" name="rating" value="2 and a half" />
-                                     <label class="half" for="star2half${x}" title="2.5 stars"> </label>
-                                     <input type="radio" id="star2${x}" name="rating" value="2" />
-                                     <label class = "full" for="star2${x}" title=" 2 stars"> </label>
-                                     <input type="radio" id="star1half${x}" name="rating" value="1 and a half" />
-                                     <label class="half" for="star1half${x}" title="stars"> </label>
-                                     <input type="radio" id="star1${x}" name="rating" value="1" />
-                                     <label class = "full" for="star1${x}" title=" 1 star"> </label>
-                                     <input type="radio" id="starhalf${x}" name="rating" value="half" />
-                                     <label class="half" for="starhalf${x}" title="0.5 stars"> </label>
-   
-
-                                     </fieldset><span> </span>
-                                      <div  class="favorite" title="Favorite"><span  class="favorite-text" > &heartsuit;<span></div> 
-                                      <div class='feelings' title="Add to list">&#9016;</div>
-                                      <div  class='watch_trailer' title="Watch trailer">&#9783;</div> <span> </span>
-                                      </div> </td> </tr><tbody>
-                                      </table> 
-                                      `;
+                                         if (ev.type === "click") {
 
 
+                                             player.forEach(function (val, index, parent) {
+
+                                                 let closePlayer = document.querySelectorAll(".close_player");
+                                                 let movieSource = document.querySelectorAll(".video_1");
+                                                 val.style.display = "inline-block";
 
 
+                                                 if (key === itemIndex && ![undefined].includes(results[itemIndex].id)) {
 
-                                     //favorite
-                                     ReactDOM.findDOMNode(document.getElementById('qty')).innerHTML = response.total_pages;
-                                     let movieCount= document.querySelector("#movie_count");
-                                     movieCount.textContent=""+response.total_results;
-                                     let ratingContent=document.getElementsByClassName("rating_content");
-                                     let favorite=document.querySelectorAll(".favorite");
-                                     let favoriteText=document.querySelectorAll(".favorite-text");
-                                     let rating=document.getElementsByClassName("rating");
-                                     let stars=document.getElementsByClassName("stars");
-                                     let ratingWidget=document.querySelectorAll(".rating-widget")  ;
-                                     let player=document.querySelectorAll(".video_player");
-                                     let watchTrailer=document.querySelectorAll(".watch_trailer");
-                                     let closePlayer=document.querySelectorAll(".close_player");
-                                     let moveSource=document.querySelectorAll(".movie_trailer");
-                                     let indexList=Array();
+                                                     utilities.watchTrailer(xhr, key, movieSource, results[itemIndex].id);
 
-
-
-                                     ['click','touch','mouseenter','mouseleave'].forEach(function (event) {
-
-
-
-                                         player.forEach(function (value, key, parent) {
-
-                                             watchTrailer.forEach(function (val, key, parent) {
-
-                                                 val.addEventListener(event,function (ev) {
-                                                     ev.stopImmediatePropagation();
-                                                     ev.stopPropagation();
-                                                     ev.preventDefault();
-
-                                                     if(ev.type==="click"){
-                                                         value.style.display="inline-block";
-                                                         utilities.watchTrailer(xhr,key,moveSource);
-
-                                                         return false;
-                                                     }
-
-
-                                                 })
-
-                                             });
-                                             closePlayer.forEach(function (value, key, parent) {
-
-                                                 value.addEventListener(event,function (ev) {
-                                                     ev.preventDefault();
-                                                     ev.stopPropagation();
-                                                     ev.stopImmediatePropagation();
-
-                                                     if(ev.type==="click"){
-                                                         player.forEach(function (value,index, parent) {
-                                                             if(index===key){
-                                                                 value.style.display="none";
-
-                                                                 return false;
-                                                             }
-
-                                                         })
-                                                     }
-
-                                                 })
-
-                                             }) ;
-
-                                         });
-                                         favorite.forEach(function (el,key,parent) {
-
-
-
-                                             el.addEventListener(event,function (ev) {
-                                                  ev.preventDefault();
-                                                  ev.stopPropagation();
-                                                  ev.stopImmediatePropagation();
-                                                 utilities.makeFavoriteThroughGetFavorite(result[key].id,xhr,el,ev,key);
-
-
-
-
-                                             });
-
-
-
-
-                                         });
-
-
-
-                                         for (let x in rating){
-                                             rating.item(Number(x)).addEventListener(event,function (ev) {
-
-
-
-                                                 if(ev.type==="click"){
-
-                                                     ratingContent.item(Number(x)).style.display="none";
-
-                                                 } if(ev.type==="mouseenter"){
-
-                                                     ratingContent.item(Number(x)).style.display="inline";
-
+                                                     return false;
                                                  }
 
-                                                 ratingContent.item(Number(x)).addEventListener(event,function (event) {
-                                                     event.preventDefault();
-                                                     event.stopImmediatePropagation();
-                                                     event.stopPropagation();
+
+                                                 closePlayer.forEach(function (value, key, parent) {
+
+                                                     value.addEventListener(event, function (ev) {
+
+                                                         ev.preventDefault();
+                                                         if (ev.type === "click") {
+
+                                                             player.forEach(function (value, index) {
+                                                                 if (index === key) {
+
+                                                                     movieSource.forEach(function (el) {
+
+                                                                         el.src = "";
 
 
+                                                                     });
+                                                                     value.style.display = "none";
 
 
-                                                     if(event.type==="mouseleave"){
-
-                                                         ratingContent.item(Number(x)).style.display="none";
-
-                                                     }
-
-                                                     if(event.type==="mouseenter"){
-
-                                                         for(let i=0;i<stars.length;i++){
-
-
-
-
-                                                             ['mouseenter','mouseleave'].forEach(function (val) {
-
-
-                                                                 stars[i].addEventListener(val,function (event) {
-
-                                                                     event.preventDefault();
-                                                                     event.stopPropagation();
-                                                                     event.stopImmediatePropagation();
-
-
-
-                                                                 });
+                                                                     return false;
+                                                                 }
 
                                                              })
-
                                                          }
 
-                                                         ratingContent.item(Number(x)).style.display="inline";
-
-                                                     }
+                                                     })
 
                                                  });
 
-                                                 this.addEventListener(event,function (event) {
-                                                     event.preventDefault();
-                                                     if(event.type==="mouseleave"){
 
-                                                         // ratingContent.item(Number(x)).style.display="none";
+                                             });
 
-                                                     }
-
-                                                 });
-
-                                             })
 
                                          }
-                                         return false;
+
                                      });
 
 
+                                 });
+
+
+                                  favorite.forEach(function (el, key) {
+
+
+                                      el.addEventListener(event, function (ev) {
+
+                                          ev.preventDefault();
+                                          ev.stopPropagation();
+
+
+                                          if (itemIndex === key && ![undefined].includes(results[itemIndex].id)) {
+
+                                              utilities.makeFavoriteThroughGetFavorite(results[itemIndex].id, xhr, el, ev, key);
+
+                                          }
+
+
+                                      });
+
+
+                                      return false;
+                                  });
+
+                                  /*
+
+                                  rating.forEach(function (rating, index) {
+                                      stars.forEach(function (el, index, parent) {
+
+                                          el.addEventListener(event, function (ev) {
+
+
+                                              if (index === itemIndex) {
+
+                                                  if (ev.type === "click") {
+
+                                                      let value = el.getAttribute('title');
+                                                      console.log(value)
+                                                      return false;
+
+                                                  }
+
+                                              }
+
+
+                                          })
+
+                                      });
+                                      rating.addEventListener(event, function (ev) {
+
+                                          ev.preventDefault();
+
+                                          if (index === itemIndex) {
+
+                                              ratingContent.item(itemIndex).addEventListener(event, function (ev) {
+
+                                                  if (ev.type === "mouseleave") {
+
+
+                                                      ratingContent.item(itemIndex).style.display = "none";
+                                                      return false;
+
+                                                  }
+
+                                                  if (ev.type === "mouseenter") {
+
+
+                                                      ratingContent.item(itemIndex).style.display = "block";
+
+
+                                                      return false;
+
+                                                  }
+
+                                              });
+                                              if (ev.type === "mouseleave") {
+
+
+                                                  ratingContent.item(itemIndex).style.display = "none";
+                                                  return false;
+
+
+                                              }
+
+                                              if (ev.type === "mouseenter") {
+
+
+                                                  ratingContent.item(itemIndex).style.display = "block";
+                                                  return false;
+
+
+                                              }
+
+                                              ev.stopPropagation();
+                                              ev.stopImmediatePropagation();
+
+                                          }
+
+
+                                      })
+                                  })
+                                  */
+
+
+                             });
+
+
+                             return false;
+                         })
+
+
+
+                     } else {
+
+                         let movieCount = document.querySelector("#movie_count");
+                         movieCount.textContent = "0";
+                         ReactDOM.findDOMNode(document.getElementById('qty')).textContent = 0;
+                         ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML = "Total pages";
+
+
+                         //throw an exception
+                         let noResultException = document.querySelectorAll('#item');
+
+                         noResultException[0].innerHTML = "<table class='item'><tbody><tr><td >" +
+                             "<p id='search_result'>Your search yield no results check your spellings and try again</p></td></tr> </tbody></table>"
+
+
+                     }
+
+                 }else {}
+
+             }else if ([500,501,502.503].includes(this.status)){
+
+
+                          alert("Hmm. We’re having trouble finding that Query.\n" +
+                              "\n" +
+                              "We can’t connect to the server at " + navigator.appName +
+                              "\n Server error" +
+                              "If that address is correct, here are three other things you can try:\n" +
+                              "\n" +
+                              "    Try again later.\n" +
+                              "    Check your network connection.\n" +
+                              "    If you are connected but behind a firewall," + navigator.appName +
+                              " check that " + navigator.appName + "has permission to access the Web.");
+
+
+
+                  }
+                 /*
+                       if (this.readyState === 4 && [200,201,202.203].includes(this.status)) {
+
+                           let response=JSON.parse(this.responseText);
+                                 //throw an exception
+
+                               if(response.errors){
+
+
+                                   let remove=document.querySelectorAll('table');
+                                   remove.forEach(function (value) {
+                                       value.remove();
+
+                                   });
+
+
+
+
+                                   let movieCount= document.querySelector("#movie_count");
+                                   movieCount.textContent="0";
+                                   ReactDOM.findDOMNode(document.getElementById('qty')).textContent=0;
+                                   ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML="Total pages"
+
+
+                                   let noResultException=document.querySelectorAll('#item');
+
+                                   noResultException[0].innerHTML = "<table class='item'><tbody><tr><td >" +
+                                       "<p id='search_result'>Your search yield no results</p></td></tr> </tbody></table>"
+
+                               }else if(numberPages >= response.total_pages){
+
+                                   //empty table
+
+                                   let remove=document.querySelectorAll('table');
+                                   remove.forEach(function (value) {
+                                       value.remove();
+
+                                   });
+
+
+                               }else {
+
+
+                                   let stop = 0;
+                                   let time = setInterval(function () {
+                                       stop += stop + 1;
+                                       if(response.total_results===0) {
+
+                                           //empty table
+                                           let remove=document.querySelectorAll('table');
+                                           remove.forEach(function (value) {
+                                               value.remove();
+
+                                           });
+
+
+                                           let movieCount= document.querySelector("#movie_count");
+                                           movieCount.textContent=""+response.total_results;
+                                           ReactDOM.findDOMNode(document.getElementById('qty')).textContent=0;
+                                           ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML="Total pages"
+
+
+                                           //throw an exception
+                                           let noResultException=document.querySelectorAll('#item');
+
+                                           noResultException[0].innerHTML = "<table class='item'><tbody><tr><td >" +
+                                               "<p id='search_result'>Your search yield no results check your spellings and try again</p></td></tr> </tbody></table>"
 
 
 
 
 
 
-                                     ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML="Total pages";
-                                     clearInterval(time);
-
-                                 }
+                                           clearInterval(time);
 
 
-                             }
+
+                                       }else {
+
+
+
+
+                                           let results = response.results;
+                                           if (stop === 1 && response.hasOwnProperty('results')) {
+
+                                               for(let x=0; x < results.length; x++){
+
+
+
+
+                                                   let items=document.getElementById('item');
+                                                   let img = "http://image.tmdb.org/t/p/w185/" + results[x].poster_path;
+                                                   items.innerHTML +=
+
+
+                                                       `
+                                            <table class="item">
+                                            <tbody><tr><td ><img  style='float:left; width: 15%' src="${img}" alt=""/>
+                                            <div id='movie_title'><div id='vote_average'><div>${results[x].vote_average}</div></div>
+                                            <span class='movie_title'> ${results[x].original_title}<span class='release_date'><span class="release">Release Date </span><span> ${results[x].release_date}</span> </span></span></div>
+                                            <div id='overview'>${results[x].overview.substr(0, 720)}</div>
+                                            <div id='emotional'> <div class="rating" title="Rating"><span class="rate">&star;</span></div>
+                                             <fieldset class="rating_content">
+
+
+                                           <input type="radio" id="star5${x}" name="rating" value="11" />
+                                           <label class = "full" for="star5${x}" title="6"> </label>
+                                           <input type="radio" id="star4half${x}" name="rating" value="4 and a half" />
+                                           <label class="half" for="star4half${x}" title="5"> </label>
+                                           <input type="radio" id="star4${x}" name="rating" value="4" />
+                                           <label class = "full" for="star4${x}" title="4.5"> </label>
+                                           <input type="radio" id="star3half${x}" name="rating" value="3 and a half" />
+                                           <label class="half" for="star3half${x}" title="4"> </label>
+                                           <input type="radio" id="star3${x}" name="rating" value="3" />
+                                           <label class = "full" for="star3${x}" title="3.5"> </label>
+                                           <input type="radio" id="star2half${x}" name="rating" value="2 and a half" />
+                                           <label class="half" for="star2half${x}" title="3"> </label>
+                                           <input type="radio" id="star2${x}" name="rating" value="2" />
+                                           <label class = "full" for="star2${x}" title="2.5"> </label>
+                                           <input type="radio" id="star1half${x}" name="rating" value="1 and a half" />
+                                           <label class="half" for="star1half${x}" title="2"> </label>
+                                           <input type="radio" title="Not rated"  id="star1${x}" name="rating" value="1" />
+                                           <label class = "full" for="star1${x}" title="1"> </label>
+                                           <input type="radio" title="Not rated" id="starhalf${x}" name="rating" value="half" />
+                                           <label class="half" for="starhalf${x}" title="0.1"> </label>
+
+                                           </fieldset><span> </span>
+                                            <div  class="favorite" title="Favorite"><span  class="favorite-text" >&heartsuit;<span></div>
+                                            <div class='feelings' title="Add to list">&#9016;</div>
+                                            <div  class='watch_trailer' title="Watch trailer">&#9783;</div> <span> </span>
+                                            </div> </td> </tr>
+                                            <tbody>
+                                            </table>
+                                            `;
+
+
+
+
+                                                   //favorite
+                                                   ReactDOM.findDOMNode(document.getElementById('qty')).innerHTML = response.total_pages;
+                                                   let movieCount= document.querySelector("#movie_count");
+                                                   movieCount.textContent=""+response.total_results;
+                                                   let ratingContent=document.querySelectorAll(".rating_content");
+                                                   let favorite=document.querySelectorAll(".favorite");
+                                                   let item=document.querySelectorAll(".item");
+                                                   let rating=document.querySelectorAll(".rating");
+                                                   let stars=document.querySelectorAll(".half, .full");
+                                                   let ratingWidget=document.querySelectorAll(".starhalf"+x)  ;
+                                                   let player=document.querySelectorAll("#video_player");
+                                                   let watchTrailer=document.querySelectorAll(".watch_trailer");
+
+
+
+                                                   ['click','touch','mouseenter','mouseover','mouseleave'].forEach(function (event) {
+
+                                                       item.forEach(function (value,itemIndex) {
+
+                                                         watchTrailer.forEach(function (el, key) {
+
+                                                             el.addEventListener(event,function (ev) {
+                                                                 ev.preventDefault();
+
+
+                                                                 if(ev.type==="click") {
+
+
+                                                                     player.forEach(function (val, index, parent) {
+
+                                                                         let closePlayer=document.querySelectorAll(".close_player");
+                                                                         let movieSource=document.querySelectorAll(".video_1");
+                                                                         val.style.display = "inline-block";
+
+
+
+                                                                             if (key === itemIndex && ![undefined].includes(results[itemIndex].id)) {
+
+                                                                                 utilities.watchTrailer(xhr, key, movieSource, results[itemIndex].id);
+
+                                                                                 return false;
+                                                                             }
+
+
+
+
+
+
+                                                                         closePlayer.forEach(function (value, key, parent) {
+
+                                                                             value.addEventListener(event,function (ev) {
+
+                                                                                 ev.preventDefault();
+                                                                                 if(ev.type==="click"){
+
+                                                                                     player.forEach(function (value,index) {
+                                                                                         if(index===key){
+
+                                                                                             movieSource.forEach(function (el) {
+
+                                                                                                     el.src="";
+
+
+
+
+
+                                                                                             });
+                                                                                             value.style.display="none";
+
+
+                                                                                             return false;
+                                                                                         }
+
+                                                                                     })
+                                                                                 }
+
+                                                                             })
+
+                                                                         });
+
+
+
+
+                                                                     });
+
+
+                                                                 }
+
+                                                             });
+
+
+
+                                                          });
+
+
+                                                           favorite.forEach(function (el,key) {
+
+
+
+                                                               el.addEventListener(event,function (ev) {
+
+                                                                   ev.preventDefault();
+                                                                   ev.stopPropagation();
+
+
+                                                                   if(itemIndex===key && ![undefined].includes(results[itemIndex].id)){
+
+                                                                       utilities.makeFavoriteThroughGetFavorite(results[itemIndex].id,xhr,el,ev,key);
+
+                                                                   }
+
+
+
+                                                               });
+
+
+
+                                                               return false;
+                                                           });
+
+
+
+
+
+                                                             rating.forEach(function (rating,index) {
+                                                                 stars.forEach(function (el, index, parent) {
+
+                                                                     el.addEventListener(event,function (ev) {
+
+
+                                                                         if(index===itemIndex) {
+
+                                                                             if(ev.type==="click"){
+
+                                                                                 let value=el.getAttribute('title') ;
+                                                                                 console.log(value)
+                                                                                 return false;
+
+                                                                             }
+
+                                                                         }
+
+
+                                                                     })
+
+                                                                 });
+                                                                 rating.addEventListener(event,function (ev) {
+
+                                                                     ev.preventDefault();
+
+                                                                     if(index===itemIndex) {
+
+                                                                         ratingContent.item(itemIndex).addEventListener( event, function (ev) {
+
+                                                                             if (ev.type === "mouseleave") {
+
+
+                                                                                  ratingContent.item(itemIndex).style.display = "none";
+                                                                                  return false;
+
+                                                                             }
+
+                                                                             if (ev.type === "mouseenter") {
+
+
+                                                                                 ratingContent.item(itemIndex).style.display = "block";
+
+
+                                                                                 return false;
+
+                                                                             }
+
+                                                                         });
+                                                                         if (ev.type === "mouseleave") {
+
+
+                                                                             ratingContent.item(itemIndex).style.display = "none";
+                                                                             return false;
+
+
+                                                                         }
+
+                                                                         if (ev.type === "mouseenter") {
+
+
+                                                                             ratingContent.item(itemIndex).style.display = "block";
+                                                                             return false;
+
+
+
+
+                                                                         }
+
+                                                                         ev.stopPropagation();
+                                                                         ev.stopImmediatePropagation();
+
+                                                                     }
+
+
+
+
+                                                                 })
+
+                                                             });
+
+
+                                                       });
+
+
+                                                   });
+
+
+
+
+
+
+
+
+
+
+                                                   ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML="Total pages";
+                                                   clearInterval(time);
+
+                                               }
+
+
+                                           }
+
+                                       }
+
+
+
+
+
+
+
+
+
+
+
+                                   }, 1000)
+
                                }
 
 
@@ -740,23 +1177,47 @@ class View  extends React.Component{
 
 
 
+                       }else {
+                           let width=0,height=0,radius=0;
+                           let loading=document.querySelector("#loading");
+                           let  timer=setInterval(function () {
+                                   if(width<=20){
+                                       width++;
+                                       height++;
+                                   }
+
+                                    radius++;
+                                    if(radius===70){
+                                        clearInterval(timer)
+                                    }
+                               loading.style.cssText= "border-radius:"+radius+"px;"+ " width:"+width+"px;"+ "height:"+height+"px;";
+
+                           },50);
 
 
+                           ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML="loading..."
 
-             }, 1000)
-                     }
+                       }
 
-
-
-
-
-                 }else {
-
-                     ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML="loading..."
-
-                 }
-
+                       if ([500,501,502.503].includes(this.status)){
+                           alert("Hmm. We’re having trouble finding that Query.\n" +
+                               "\n" +
+                               "We can’t connect to the server at " + navigator.appName +
+                               "\n" +
+                               "If that address is correct, here are three other things you can try:\n" +
+                               "\n" +
+                               "    Try again later.\n" +
+                               "    Check your network connection.\n" +
+                               "    If you are connected but behind a firewall," + navigator.appName +
+                               " check that " + navigator.appName + "has permission to access the Web.");
+                       }
+         */
              });
+
+
+
+
+
 
               xhr.responseType = "text";
               xhr.send(data);
@@ -784,17 +1245,19 @@ class View  extends React.Component{
 
 
                       </div>
-                      <div className="video_player">
 
-                          <div className="close_player"> </div>
-                          <iframe className="video_1"  width="80%" height="420px"
+                      <div id="video_player" >
+
+                          <div className="close_player">  </div>
+                          <div id="movie_title_iframe"> </div>
+                          <iframe className="video_1" width="80%" height="420px"
                                   data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'
-                                  src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=1">
+                                  src=""  frameBorder="0"
+                                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                  allowFullScreen>
 
 
                           </iframe>
-
-
 
                       </div>
                   <div id='scroll_list'>

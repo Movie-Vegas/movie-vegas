@@ -19,7 +19,9 @@ table{
     display: inline-block;
 }
 .search-glass:hover{
-    color: white;
+
+    color: #3a5774;
+
 
 
 }
@@ -27,11 +29,12 @@ table{
     width: 5.555%;
     height: 14px;
     border-radius: 0 4px 4px  0;
+    box-shadow: 0 0 1px 1px #c4c4c4;
     float: right;
     text-transform: uppercase;
 
     margin-right: -3px;
-    border: thin solid #000000;
+    border: thin solid #d6d6d6;
     margin-top: -3px;
     padding:   6px 0;
 
@@ -52,18 +55,23 @@ table{
 
     border-radius: 0 2px 0 2px;
     position: absolute;
-    background: #03071a;
+    background:  #0d2d3d;
     padding:8px 8px;
     box-shadow: 0 0 4px 2px #c4c4c4;
-    margin-top: -30px;
+    margin-top: -29px;
     border: none;
     margin-left: 46px;
+
     color:white;
     z-index: 2;
     left: 350px;
     display: none;
 }
 
+.rating_content{
+    cursor: pointer;
+
+}
 .rating_content:after{
 
     content: close-quote;
@@ -74,8 +82,7 @@ table{
     transform: rotate(40deg);
     left: -8px;
 
-
-    background:  #000000;
+    background: inherit;
     margin-top: 0;
     bottom: 10px;
     color:white;
@@ -83,18 +90,32 @@ table{
 
 
 }
+
+#qty{
+    text-align: center;
+    color: crimson;
+     font-weight: bold;
+    font-size: 14px;
+    padding-top: 2px;
+}
+#loading{
+    background: crimson;
+}
+
 .rating_content:before{
 
     content: close-quote;
     border-radius: 0 2px 0 2px;
     position: absolute;
 
-    padding: 20px 20px;
-    transform: rotate(40deg);
+    padding: 10px 10px;
+    transform: rotate(45deg);
     left: -6px;
+    background-color: #7bbffb;
+
 
     margin-left: -12px;
-    opacity: 0;
+    opacity: inherit;
 
     margin-top: 0;
     bottom: 10px;
@@ -138,9 +159,25 @@ table{
 
 
 
+::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+    background: #0d2d3d;
+    -ms-scrollbar-3dlight-color:#0d2d3d;
+    -webkit-border-radius: 1ex;
+}
 
+::-webkit-scrollbar-thumb {
+    background: #2B2B2B;
+    -webkit-border-radius: 1ex;
+    -ms-scrollbar-3dlight-color:#0d2d3d;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
+}
 
-
+::-webkit-scrollbar-corner {
+    background: #0d2d3d;
+    -ms-scrollbar-3dlight-color:#0d2d3d;
+}
 
 
 
@@ -173,13 +210,17 @@ table{
      font-size: medium;
      font-weight: lighter;
      float: left;
+     text-indent: 4px;
      width: 76%;
      height: 22px;
      font-family: "Source Sans Pro", Arial, sans-serif;
 
  }
+
 #search_glass:hover{
     cursor: pointer;
+    color: #3a5774;
+
 
 
 
@@ -196,7 +237,7 @@ table{
     margin-right: 110px;
     border-radius: 2px;
     border: thin solid #ffffff;
-    box-shadow: 0 0 1px 1px gainsboro;
+    box-shadow: 0 0 2px 2px #c4c4c4;
     font-family: "Source Sans Pro", Arial, sans-serif;
     text-indent: 3px;
     float: right;
@@ -260,7 +301,6 @@ td{
 .movie_player{
     display: none;
     margin-top: 20px;
-
     text-align: center;
     color: #aaa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -309,13 +349,22 @@ td{
     margin-left: 10px;
 
 }
-.video_player {
+#movie_title_iframe{
+    left: 144px;
+    position: fixed;
+    z-index: 10;
+    font-size: 12px;
+    top: 120px;
+
+
+}
+#video_player {
 
     box-shadow: 0 0 1px 0 #03071a;
     background: #0d2d3d;
     position: fixed;
     display: none;
-    top: 93px;
+    top: 95px;
     width: border-box;
     left: 0;
     right: 0;
@@ -330,21 +379,22 @@ td{
     padding-top: 60px;
 
 }
+
+
 .video_1{
     text-align: center;
-    border: 1px solid #252525;
+
     margin-top: -10px;
+    border: none;
     border-radius: 6px;
-
-    background: #868686;
-
-    background: rgba(177, 210, 255, 0.5);
+    box-shadow: 0 0 8px 0 #252525;
+    background: rgb(13, 45, 61);
 
 
 }
 
 
-.video_player textarea { width: 100%; height: 100%; }
+#video_player textarea { width: 100%; height: 100%; }
 
 /* Show the controls (hidden at the start by default) */
 
@@ -499,7 +549,7 @@ body{
 
 }
 #scroll_list{
-
+    scrollbar-color: #2B2B2B #0d2d3d;
       width: 100%;
       height: 533px;
       margin-top: 90px;
@@ -630,7 +680,7 @@ body{
 #prev:after{
     content: "\21E6";
     padding: 0;
-    color: cadetblue;
+    color: #c4c4c4;
     font-size: 38px;
 
 
@@ -639,20 +689,23 @@ body{
 
 
 }
-#prev:hover{
-    color: crimson;
+#prev:hover:after{
+    color: #3a5774;
 
 }
-#next:hover{
-    color: crimson;
+#next:hover:after{
+    color: #3a5774;
+
 }
+
 #next, #prev {
     float: left;
 }
 #next:after{
     content: "\21E8";
     padding: 0;
-    color: cadetblue;
+    color: #c4c4c4;
+
 
     font-size: 38px;
 

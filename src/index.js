@@ -89,20 +89,51 @@ class SearchBar extends React.Component{
 
 
     updateState(event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+
+       let control=this.control;
+        this.setState({value:event.target.value});
 
 
         if(event.target.value !==undefined){
             this.state.value=event.target.value;
+            this.stateValue=event.target.value;
+
 
         }
-        let query="/search/movie?include_adult=false&page=1&query="+this.state.value+"&language=en-US";
-        let key="a8ac0ce418f28d6ec56424ebad76ed12";
-        this.control.setXHRequest("GET",query,key,false);
-        this.control.updateView ();
+
+
+
+
+
+            let query="/search/movie?include_adult=false&page=1&query="+  this.state.value+"&language=en-US";
+            let key="a8ac0ce418f28d6ec56424ebad76ed12";
+            control.setXHRequest("GET",query,key,false);
+            control.updateView ();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         if(event.target.value !==undefined){
 
             this.setState({searchData:event.target.value});
         }
+
+
+
+
 
     }
 
@@ -147,10 +178,14 @@ class SearchBar extends React.Component{
     render() {
         return (<div id="search_box">
             <div className="search_box" placeholder="Search...">
-                <input type="search"  ref="search_text_field" placeholder="Search.." onChange={this.updateState} id="search_text_field"/>
+                <input type="search"  ref="search_text_field" placeholder="Search.." onKeyUp={this.updateState}   id="search_text_field"/>   <span id="progress"><span id="loading"> </span></span>
+
                 <span id="prev" onTouchStart={this.updatePrev} onClick={this.updatePrev} className="nav"> </span>
-                <span id="next" onClick={this.updateNext} onTouchStart={this.updateNext} className="nav"> </span> <span id='search_glass'  onClick={this.updateState} onTouchStart={this.updateState} ><span  className="search-glass"> </span></span>
+                <span id="next" onClick={this.updateNext} onTouchStart={this.updateNext} className="nav"> </span> <span id='search_glass'  onClick={this.updateState} onTouchStart={this.updateState} >
+                <span  className="search-glass"  onClick={this.updateState} onTouchStart={this.updateState}> </span></span>
+
             </div>
+
         </div>);
     }
 
@@ -209,11 +244,54 @@ class MenuItems extends React.Component{
         let state=this.state;
 
         xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === this.DONE && this.responseText !=null) {
+
+            if (this.readyState === 4 && [200,201,202.203].includes(this.status) && window.navigator.onLine) {
 
                 control.setAccount(this.responseText);
                 state.account=this.responseText;
                 favorites.click();
+
+
+
+
+
+            }else {
+
+                if(this.readyState === 4){
+                    alert("Hmm. We’re having trouble finding that Query.\n" +
+                        "\n" +
+                        "We can’t connect to the server at " + navigator.appName +
+                        "\n" +
+                        "If that address is correct, here are three other things you can try:\n" +
+                        "\n" +
+                        "    Try again later.\n" +
+                        "    Check your network connection.\n" +
+                        "    If you are connected but behind a firewall," + navigator.appName +
+                        " check that " + navigator.appName + "has permission to access the Web.");
+
+                }
+
+                if([1,2,3].includes(this.readyState)){
+
+
+                    let width=0,height=0,radius=0;
+                let loading=document.querySelector("#loading");
+                let  timer=setInterval(function () {
+                    if(width<=20){
+                        width++;
+                        height++;
+                    }
+
+                    radius++;
+                    if(radius===70){
+                        clearInterval(timer)
+                    }
+                    loading.style.cssText= "border-radius:"+radius+"px;"+ " width:"+width+"px;"+ "height:"+height+"px;";
+
+                },50);
+
+
+            }
 
 
 
@@ -236,14 +314,15 @@ class MenuItems extends React.Component{
 
         let menuList=event.target;
         let borderBottom="border-bottom: 6px solid  crimson";
+        let menu=document.querySelectorAll('.menu_list');
 
-              Array.from(document.getElementsByClassName('menu_list')).forEach(function (value, index, array) {
+              menu.forEach(function (value, index, array) {
                   value.style.cssText="background: none; border-bottom:none;";
 
               }) ;
 
 
-             if( menuList.textContent==="Favorites"){
+             if( menuList.textContent==="Favorites" && event.type==="click"){
                  menuList.style.cssText=borderBottom;
                  this.favorites()
 
@@ -251,6 +330,7 @@ class MenuItems extends React.Component{
 
              }else if( menuList.textContent==="Lists"){
                  menuList.style.cssText=borderBottom;
+
 
 
              }else if( menuList.textContent==="WatchLater"){
@@ -271,16 +351,41 @@ class MenuItems extends React.Component{
 
     }
     favorites() {
-        let data = "{}";
+
+
         let control=this.control;
+
+        if(![""," ",undefined].includes(this.state.account) && window.navigator.onLine){
+
         let account="/account/"+JSON.parse(this.state.account).id+"/";
         let session_id="968092a83b4016a49c3ddde1cc030d149fc6ba0b";
         let apiKey="a8ac0ce418f28d6ec56424ebad76ed12";
+
 
         control.setXHRequest("GET", account+"favorite/movies?page=1&sort_by=created_at.asc&language=en-US&session_id="+session_id,apiKey,false);
         control.updateView();
 
 
+        }else {
+
+
+                alert("Hmm. We’re having trouble finding that Query.\n" +
+                    "\n" +
+                    "We can’t connect to the server at " + navigator.appName +
+                    "\n" +
+                    "If that address is correct, here are three other things you can try:\n" +
+                    "\n" +
+                    "    Try again later.\n" +
+                    "    Try refreshing the browser.\n" +
+                    "    Check your network connection.\n" +
+                    "    If you are connected but behind a firewall," + navigator.appName +
+                    " check that " + navigator.appName + "has permission to access the Web.");
+
+
+                   this.accountRequest();
+
+
+        }
     }
 
 
@@ -291,10 +396,12 @@ class MenuItems extends React.Component{
 
     }
 
-
+         static error(){
+           alert()
+         }
     render() {
-        return (< div   id="menus_list" onMouseEnter={this.accountRequest}>
-            <span id="favorite-menu" onTouchStart={this.menuList}  onClick={this.menuList} className="menu_list">Favorites</span>
+        return (< div   id="menus_list">
+            <span id="favorite-menu"  onTouchStart={this.menuList} onClick={this.menuList} className="menu_list">Favorites</span>
             <span className="menu_list"  onTouchStart={this.menuList} onClick={this.menuList}>Lists</span>
             <span  className="menu_list" onTouchStart={this.menuList} onClick={this.menuList}>WatchLater</span>
             <span className="menu_list"  onTouchStart={this.menuList} onClick={this.menuList}>Likes</span>
