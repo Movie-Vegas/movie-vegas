@@ -25,6 +25,10 @@ table{
 
 
 }
+#progress{
+   padding: 20px;
+
+}
 #search_glass{
     width: 5.555%;
     height: 14px;
@@ -49,7 +53,27 @@ table{
 
 /****** Style Star Rating Widget *****/
 
+.rating_content_confirm{
+    border-radius: 0 2px 0 2px;
+    position: absolute;
+    background:  #0d2d3d;
+    padding:8px 8px;
+    box-shadow: 0 0 2px 2px #c4c4c4;
+    margin-top: -70px;
+    border: none;
+    margin-left: 46px;
 
+    color: #c2c2c2;
+    z-index: 2;
+    left: 350px;
+    display: none;
+
+}
+.navigator{
+    position: absolute;
+    bottom: 60px;
+     right:36px;
+}
 .rating_content{
 
 
@@ -99,7 +123,26 @@ table{
     padding-top: 2px;
 }
 #loading{
-    background: crimson;
+
+  display: block;
+    background-color: crimson;
+    height: 10px;
+    border-radius: 10px;
+
+}
+#progress{
+
+
+    border-radius: 10px;
+    bottom:22px;
+    display: block;
+     width: 10px;
+     height: 10px;
+    padding: 3px;
+    position: absolute;
+    right: 316px;
+    background-color:yellowgreen;
+
 }
 
 .rating_content:before{
@@ -532,7 +575,7 @@ td{
     font-size: 10px;
 
 }
-#emotional{
+.emotions{
 
 margin-top: 80px;
 float: left;
@@ -549,7 +592,9 @@ body{
 
 }
 #scroll_list{
+
     scrollbar-color: #2B2B2B #0d2d3d;
+
       width: 100%;
       height: 533px;
       margin-top: 90px;

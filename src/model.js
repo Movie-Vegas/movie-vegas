@@ -63,11 +63,39 @@ class Model {
              return this.token;
         },
 
-        XHRequest: function (method,url,key,flag) {
+        XHRequest: function (method,url,key,flag,progressElement) {
 
 
              let req=new XMLHttpRequest();
-                  req.withCredentials=flag;
+                 req.withCredentials=flag;
+                 let loading=document.querySelector("#loading");
+                 req.addEventListener('progress',function () {
+                     let color=0;
+                     let  timer=setInterval(function () {
+
+
+                         color++;
+                         if(color<=100){
+
+
+                             loading.style.background="rgba(100%,"+color+color+"%,1%,2.8)";
+
+
+                         }
+
+
+                         if(color===100){
+                             clearInterval(timer)
+
+                         }
+
+                     },50);
+
+
+
+
+                 });
+
 
                   req.open(method,"https://api.themoviedb.org/3"+url+"&api_key="+key,true);
                   this.request= req;

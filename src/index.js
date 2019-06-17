@@ -69,7 +69,7 @@ class SearchBar extends React.Component{
     constructor(){
         super() ;
         this.state={
-            query:1,
+            query:"",
             value:'',
             count:1
         };
@@ -78,7 +78,8 @@ class SearchBar extends React.Component{
         this.control=new Control(this.view,this.model);
         this.updateNext=this.updateNext.bind(this);
         this.updatePrev= this.updatePrev.bind(this);
-        this.updateState=this.updateState.bind(this);
+        this.updateSearch= this.updateSearch.bind(this);
+        this.search=this.search.bind(this);
 
 
 
@@ -88,49 +89,19 @@ class SearchBar extends React.Component{
     }
 
 
-    updateState(event) {
-        event.stopPropagation();
-        event.preventDefault();
-
-
-       let control=this.control;
-        this.setState({value:event.target.value});
-
+    search(event) {
 
         if(event.target.value !==undefined){
-            this.state.value=event.target.value;
-            this.stateValue=event.target.value;
 
-
-        }
-
-
-
-
-
-            let query="/search/movie?include_adult=false&page=1&query="+  this.state.value+"&language=en-US";
+            this.setState({query:event.target.value,});
+            let query="/search/movie?include_adult=false&page=1&query="+event.target.value+"&language=en-US";
             let key="a8ac0ce418f28d6ec56424ebad76ed12";
-            control.setXHRequest("GET",query,key,false);
-            control.updateView ();
+            this.control.setXHRequest("GET",query,key,false);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-        if(event.target.value !==undefined){
-
-            this.setState({searchData:event.target.value});
+                this.control.updateView ();
         }
-
 
 
 
@@ -139,14 +110,18 @@ class SearchBar extends React.Component{
 
     updateNext() {
 
-        let query="/search/movie?include_adult=false&page="+this.state.count+"&query="+this.state.query+"&language=en-US";
-        this.control.setXHRequest("GET",query,"a8ac0ce418f28d6ec56424ebad76ed12",false);
-        this.control.updateView ();
-        if(this.props.query  !==undefined){
-            this.props.count++;
-            this.control.setCounter(this.state.count);
 
-            console.log(this.state.count);
+        if(this.state.query  !==undefined && this.state.count>0){
+            console.log("next " +this.state.count);
+
+
+            this.setState({count:++this.state.count,});
+            this.control.setCounter(this.state.count);
+            console.log("next " +this.state.count);
+
+            let query="/search/movie?include_adult=false&page="+this.state.count+"&query="+this.state.query+"&language=en-US";
+            this.control.setXHRequest("GET",query,"a8ac0ce418f28d6ec56424ebad76ed12",false);
+            this.control.updateView ();
 
         }
 
@@ -154,19 +129,44 @@ class SearchBar extends React.Component{
 
     }
 
+    updateSearch() {
+
+
+        if(![""," ",undefined].includes(this.state.query)){
+
+            let query="/search/movie?include_adult=false&page=1&query="+this.state.query +"&language=en-US";
+            let key="a8ac0ce418f28d6ec56424ebad76ed12";
+            this.control.setXHRequest("GET",query,key,false);
+            this.control.updateView ();
+        }else {
+
+            let query="/search/movie?include_adult=false&page=1&query=hshjdfjhsdjhfjhsdjhfjskdjf&language=en-US";
+            let key="a8ac0ce418f28d6ec56424ebad76ed12";
+            this.control.setXHRequest("GET",query,key,false);
+            this.control.updateView ();
+        }
+
+
+
+
+    }
 
     updatePrev() {
 
-        let query="/search/movie?include_adult=false&page="+this.state.count+"&query="+this.state.query+"&language=en-US";
-        this.control.setXHRequest("GET",query,"a8ac0ce418f28d6ec56424ebad76ed12",false);
-        this.control.updateView ();
 
-        if(this.props.query !==undefined && this.props.count >1){
 
-            this.props.count--;
-            console.log(this.props.count);
-            this.control.setCounter(this.props.count);
-            this.setState({count:this.state.count});
+        if(this.state.query !==undefined && this.state.count >=1){
+
+
+            this.setState({count:--this.state.count,});
+            this.control.setCounter(this.state.count);
+            let query="/search/movie?include_adult=false&page="+this.state.count+"&query="+this.state.query+"&language=en-US";
+            this.control.setXHRequest("GET",query,"a8ac0ce418f28d6ec56424ebad76ed12",false);
+            this.control.updateView ();
+            if([-1,0].includes(this.state.count)){
+                this.setState({count:++this.state.count,});
+            }
+            console.log("prev " +this.state.count);
         }
 
 
@@ -178,13 +178,16 @@ class SearchBar extends React.Component{
     render() {
         return (<div id="search_box">
             <div className="search_box" placeholder="Search...">
-                <input type="search"  ref="search_text_field" placeholder="Search.." onKeyUp={this.updateState}   id="search_text_field"/>   <span id="progress"><span id="loading"> </span></span>
 
+                <input type="search"  ref="search_text_field" placeholder="Search.." onKeyUp={this.search}   id="search_text_field"/>
+                <span id="progress"><span id="loading"> </span></span>
                 <span id="prev" onTouchStart={this.updatePrev} onClick={this.updatePrev} className="nav"> </span>
-                <span id="next" onClick={this.updateNext} onTouchStart={this.updateNext} className="nav"> </span> <span id='search_glass'  onClick={this.updateState} onTouchStart={this.updateState} >
-                <span  className="search-glass"  onClick={this.updateState} onTouchStart={this.updateState}> </span></span>
+                <span id="next" onClick={this.updateNext} onTouchStart={this.updateNext} className="nav"> </span> <span id='search_glass'  onClick={this. updateSearch} onTouchStart={this.updateSearch} >
+                <span  className="search-glass"  onClick={this.updateSearch} onTouchStart={this.updateSearch}> </span></span>
 
             </div>
+
+
 
         </div>);
     }
@@ -209,7 +212,8 @@ class MenuItems extends React.Component{
         super();
 
         this.state={
-            account:""
+            account:"",
+            color:""
         };
         this.model=new Model();
         this.view=new View();
@@ -242,6 +246,7 @@ class MenuItems extends React.Component{
         let xhr=model.getXHR();
         let data = "{}";
         let state=this.state;
+        let isProgress=false;
 
         xhr.addEventListener("readystatechange", function () {
 
@@ -272,26 +277,10 @@ class MenuItems extends React.Component{
                 }
 
                 if([1,2,3].includes(this.readyState)){
+                      isProgress=true;
 
 
-                    let width=0,height=0,radius=0;
-                let loading=document.querySelector("#loading");
-                let  timer=setInterval(function () {
-                    if(width<=20){
-                        width++;
-                        height++;
-                    }
-
-                    radius++;
-                    if(radius===70){
-                        clearInterval(timer)
-                    }
-                    loading.style.cssText= "border-radius:"+radius+"px;"+ " width:"+width+"px;"+ "height:"+height+"px;";
-
-                },50);
-
-
-            }
+               }
 
 
 
@@ -300,6 +289,9 @@ class MenuItems extends React.Component{
             }
         });
 
+        if(isProgress){
+            this.progress();
+        }
         xhr.responseType="text";
         xhr.send(data);
 
@@ -309,7 +301,9 @@ class MenuItems extends React.Component{
 
 
     }
+   lists(event){
 
+   }
     menuList(event){
 
         let menuList=event.target;
@@ -324,7 +318,9 @@ class MenuItems extends React.Component{
 
              if( menuList.textContent==="Favorites" && event.type==="click"){
                  menuList.style.cssText=borderBottom;
+                 this.progress();
                  this.favorites()
+
 
 
 
@@ -364,6 +360,7 @@ class MenuItems extends React.Component{
 
         control.setXHRequest("GET", account+"favorite/movies?page=1&sort_by=created_at.asc&language=en-US&session_id="+session_id,apiKey,false);
         control.updateView();
+        this.progress()
 
 
         }else {
@@ -381,8 +378,9 @@ class MenuItems extends React.Component{
                     "    If you are connected but behind a firewall," + navigator.appName +
                     " check that " + navigator.appName + "has permission to access the Web.");
 
+                this.accountRequest();
+                this.progress()
 
-                   this.accountRequest();
 
 
         }
@@ -392,13 +390,30 @@ class MenuItems extends React.Component{
     watchLater(event){
 
     }
-    lists(event){
+    progress(){
+        let color=0;
+        let  timer=setInterval(function () {
+            let loading=document.getElementById("loading");
+            color++;
+            if(color<=100){
+
+
+                loading.style.background="rgba(100%,"+color+color+"%,1%,2.8)";
+
+
+            }
+
+
+            if(color===100){
+                clearInterval(timer)
+
+            }
+
+        },50);
 
     }
 
-         static error(){
-           alert()
-         }
+
     render() {
         return (< div   id="menus_list">
             <span id="favorite-menu"  onTouchStart={this.menuList} onClick={this.menuList} className="menu_list">Favorites</span>
