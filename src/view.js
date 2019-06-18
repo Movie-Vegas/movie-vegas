@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {isTSTypeLiteral} from "@babel/types";
+import Model from "./model";
+import Control from "./control";
 
 
 class View  extends React.Component{
@@ -13,6 +15,27 @@ class View  extends React.Component{
      * declare class variables/attributes as private (local var and Accessor as a object literal);
      * @type {Object}
      */
+
+
+
+    constructor(){
+        super() ;
+        this.state={
+            query:"",
+            value:'',
+            count:1
+        };
+
+        this.next=this.next.bind(this);
+        this.prev= this.prev.bind(this);
+
+
+
+
+
+
+
+    }
 
 
     /*
@@ -118,6 +141,9 @@ class View  extends React.Component{
     */
 
 
+    addToList(response,xhr,element,event,index,classInstance){
+
+    }
     makeFavorite(response,xhr,element,index,classInstance){
 
 
@@ -131,7 +157,7 @@ class View  extends React.Component{
         xhr = new XMLHttpRequest();
 
         xhr.addEventListener("readystatechange", function () {
-            if (xhr.readyState === xhr.DONE) {
+            if (this.readyState === 4 && [200,201,202.203].includes(this.status) ){
 
                 element.innerHTML = '&times;';
                 element.title = "Remove Favorite";
@@ -156,6 +182,7 @@ class View  extends React.Component{
     getFavoriteMovies (response,xhr,element,event,index,classInstance) {
 
         let data = "{}";
+        let utilities=this;
 
         xhr = new XMLHttpRequest();
         xhr.addEventListener("readystatechange", function () {
@@ -206,8 +233,11 @@ class View  extends React.Component{
                                                     });
                                                     xhr = new XMLHttpRequest();
 
+                                                    xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12",true);
+                                                    xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+                                                    xhr.send(data);
                                                     xhr.addEventListener("readystatechange", function () {
-                                                        if (xhr.readyState === xhr.DONE) {
+                                                        if (xhr.readyState === 4 && [200,201,202.203].includes(xhr.status) )  {
 
 
                                                             if(key===index){
@@ -219,6 +249,16 @@ class View  extends React.Component{
 
 
                                                                 }
+
+
+                                                                xhr=new XMLHttpRequest();
+                                                                let url="https://api.themoviedb.org/3/account/8408193/favorite/movies?page="+utilities.state.count+"&sort_by=created_at.asc&language=" +
+                                                                    "en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12";
+
+                                                                xhr.open("GET",url,true);
+                                                                xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+
+                                                                utilities.renderMovieDetails(xhr, utilities.state.count,'{}',"");
                                                                 return false;
                                                             }
 
@@ -229,10 +269,7 @@ class View  extends React.Component{
 
                                                     });
 
-                                                    xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12",true);
-                                                    xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
 
-                                                    xhr.send(data);
 
 
 
@@ -578,8 +615,12 @@ class View  extends React.Component{
 
                 if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
 
+                    let element=document.querySelectorAll(".rating_content_confirm");
+
+
                     console.log("ID:" +movieId);
-                    classInstance.conformation(index,xhr.responseText)
+                    let message=JSON.parse(xhr.responseText);
+                    classInstance.conformation(index, message.status_message)
 
 
 
@@ -603,7 +644,6 @@ class View  extends React.Component{
     getRating(xhr,movieId,index,classInstance){
 
 
-        if(![" ","",null,undefined].includes(value)){
 
 
             let data = JSON.stringify({
@@ -612,12 +652,28 @@ class View  extends React.Component{
 
 
             xhr = new XMLHttpRequest();
+            xhr.withCredentials=false;
             xhr.addEventListener("readystatechange", function () {
 
                 if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
 
-                    console.log("ID:" +xhr.responseText);
-                    classInstance.conformation(index,xhr.responseText)
+
+                    let message=JSON.parse(xhr.responseText);
+
+
+                    for(let x=0; x<message.results.length;x++){
+
+
+                        console.log(movieId.original_title+x+ message.results[x].original_title);
+                        if(movieId.id===message.results[x].id){
+
+                            classInstance.conformation(index,message.results[x].rating)
+
+                        }
+
+
+                    }
+
 
 
 
@@ -628,12 +684,14 @@ class View  extends React.Component{
 
             });
 
-          //  https://api.themoviedb.org/3/account/{account_id}/rated/movies?api_key=<<api_key>>&language=en-US&session_id=n&sort_by=created_at.asc&page=1
-            xhr.open("GET", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/rated/movies?api_key=a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by=created_at.asc&page=1",true);
+
+            xhr.open("GET", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/rated/movies?" +
+                "api_key=a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by=created_at.desc" +
+                "&page="+this.state.count+"&append_to_response=content_ratings",true);
             xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
 
             xhr.send(data);
-        }
+
 
 
     }
@@ -642,35 +700,498 @@ class View  extends React.Component{
 
     conformation(id,responseText) {
         let element=document.querySelectorAll(".rating_content_confirm");
-        let message=JSON.parse(responseText).status_message;
+
 
 
         let color=0;
         let  timer=setInterval(function () {
 
+            if(![" ","",undefined,null].includes(element.item(id))){
 
-            element.item(id).textContent=""+message;
+                element.item(id).textContent=""+responseText;
+                color++;
+                if(color<=100){
+
+                    element.item(id).style.display="block";
+
+                }
 
 
-            color++;
-            if(color<=100){
+                if(color===30){
+                    clearInterval(timer);
+                    element.item(id).style.display="none";
 
-                element.item(id).style.display="block";
+                }
 
             }
 
 
-            if(color===30){
-                clearInterval(timer);
-                element.item(id).style.display="none";
 
-            }
 
         },50);
     }
 
 
 
+    next() {
+
+       let utilities=this;
+        let count=this.state.count;
+       let data=JSON.stringify({
+
+       });
+
+       let xhr=new XMLHttpRequest();
+        xhr.withCredentials=false;
+
+
+        if(this.state.count>=1 || this.state.count===1){
+            count+=count++;
+            this.setState({count:count})
+        }
+
+        let url="https://api.themoviedb.org/3/account/8408193/favorite/movies?page="+count+"&sort_by=created_at.asc&language=" +
+            "en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12";
+
+        xhr.open("GET",url,true);
+        xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+
+        utilities.renderMovieDetails(xhr, 1,'{}',"")
+
+
+
+
+
+
+
+
+
+
+    }
+    prev() {
+
+        let count=this.state.count;
+        let utilities=this;
+        let data=JSON.stringify({
+
+        });
+
+       let xhr=new XMLHttpRequest();
+        xhr.withCredentials=false;
+
+
+
+        let url="https://api.themoviedb.org/3/account/8408193/favorite/movies?page="+count+"&sort_by=created_at.asc&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce418f28d6ec56424ebad76ed12";
+
+        if(this.state.count>1){
+            count-=count--;
+            this.setState({count:count})
+        }
+
+        xhr.open("GET",url,true);
+        xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+
+
+
+
+         utilities.renderMovieDetails(xhr, 1,'{}',"")
+
+
+
+
+    }
+
+
+
+
+
+
+    movieContent(xhr,results,resultText,utilities){
+
+        let items = document.getElementById('item');
+        let isProgress=false;
+        if (![" ", "", undefined].includes(results) && results.hasOwnProperty('0')) {
+
+            for (let x = 0; x < results.length; x++) {
+
+
+                let img = "http://image.tmdb.org/t/p/w185/" + results[x].poster_path;
+                items.innerHTML +=
+
+
+                    `
+                                      <table class="item">
+                                      <tbody><tr><td ><img  style='float:left; width: 15%' src="${img}" alt=""/>
+                                      <div id='movie_title'><div id='vote_average'><div>${results[x].vote_average}</div></div>
+                                      <span class='movie_title'> ${results[x].original_title}<span class='release_date'><span class="release">Release Date </span><span> ${results[x].release_date}</span> </span></span></div>
+                                      <div id='overview'>${results[x].overview.substr(0, 720)}</div>
+                                      <div class='emotions'> <div class="rating" title="Rating"><span class="rate">&star;</span></div>
+                                  
+                                 
+                                   <div class="rating_content_confirm">
+                                       
+                                     </div>
+                                     <fieldset class="rating_content">
+                                       
+                                     <input type="radio" id="star5${x}" name="rating" title="10" />
+                                     <label class = "full" for="star5${x}" title="9.50"> </label>
+                                     <input type="radio" id="star4half${x}" name="rating" title="9" />
+                                     <label class="half" for="star4half${x}" title="8.50"> </label>
+                                     <input type="radio" id="star4${x}" name="rating" title="8" />
+                                     <label class = "full" for="star4${x}" title="7.50"> </label>
+                                     <input type="radio" id="star3half${x}" title="7" name="7" />
+                                     <label class="half" for="star3half${x}" title="6.50"> </label>
+                                     <input type="radio" id="star3${x}" name="rating"  title="6"  />
+                                     <label class = "full" for="star3${x}" title="5.50"> </label>
+                                     <input type="radio" id="star2half${x}" name="rating" title="5" />
+                                     <label class="half" for="star2half${x}" title="4.50"> </label>
+                                     <input type="radio" id="star2${x}" title="4" name="rating"  />
+                                     <label class = "full" for="star2${x}" title="3.50"> </label>
+                                     <input type="radio" id="star1half${x}"  title="3" name="rating"  />
+                                     <label class="half" for="star1half${x}" title="2.50"> </label>
+                                     <input type="radio" title="2"  id="star1${x}" name="rating"  />
+                                     <label class = "full" for="star1${x}" title="1.50"> </label>
+                                     <input type="radio" title="1" id="starhalf${x}" name="rating"  />
+                                     <label class="half" for="starhalf${x}" title="0.50"> </label>
+
+                                     </fieldset><span> </span>
+                                     
+                                      <div  class="favorite" title="Favorite"><span  class="favorite-text" >&heartsuit;<span></div>
+                                      <div class='add_to_list' title="Add to list">&#9016;
+                                      <div class="createList">
+                                      
+                                      <div class="favorite_labels">
+                                      <span class="close_createList">X</span>
+                                      Create New List
+                                      </div> 
+                                      <div class="">
+                                      <select  class="sorted" disabled>
+                                    
+                                       <option selected disabled class="selected_movie"> </option>
+                                      
+                                       </select>
+                                     
+                                       
+                                     
+                                       </div>
+                                       
+                                       
+                                     
+                                         <div class="favorite_labels">
+                                         Name
+                                       </div>
+                                        <div class="">  
+                                        <input type="text" class="sorted">
+                                     
+                                        </div>
+
+                                 
+                                        <div class="favorite_labels">Description</div>
+                                        <div>
+                                         <textarea class="description"> </textarea>
+                                       </div>
+                                      
+                                   
+                                        <div class="favorite_labels">
+                                         Public List
+                                       </div>
+                                       <div class="">
+                                       <select class="sorted">
+                                       <option selected>Yes</option>
+                                         <option >No</option>
+                                       </select>
+                                       </div>
+                                       <div class="">
+                                       Sorted By
+                                       </div>
+                                       
+                                        <div class="">
+                                       <select class="sorted">
+                                       <option selected>Yes</option>
+                                         <option >No</option>
+                                       </select>
+                                          <input type="button" class="create_new_list" value="Create">
+                                       </div>
+                                    </div>                
+                                      </div>
+                                      <div  class='watch_trailer' title="Watch trailer">&#9783;</div> <span> </span>
+                                      </div> </td> </tr>
+                                      <tbody>
+                                      </table>
+                                      `;
+
+
+                let movieCount = document.querySelector("#movie_count");
+                movieCount.textContent = "" + resultText.total_results;
+                ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML = "Total pages";
+
+
+                ReactDOM.findDOMNode(document.getElementById('qty')).innerHTML = resultText.total_pages;
+
+
+
+
+
+            }
+
+            let ratingContent = document.querySelectorAll(".rating_content");
+            let favorite = document.querySelectorAll(".favorite");
+            let item = document.querySelectorAll(".item");
+            let rating = document.querySelectorAll(".rating");
+            let stars = document.querySelectorAll(".half, .full");
+            let addToList=document.querySelectorAll(".add_to_list");
+            let selectedMovie = document.querySelectorAll(".selected_movie" );
+            let selectedListContent = document.querySelectorAll(".createList" );
+
+            let player = document.querySelectorAll("#video_player");
+            let watchTrailer = document.querySelectorAll(".watch_trailer");
+
+            let movieId=0;
+            let indexes=0;
+
+
+            ['click', 'touch', 'mouseenter','scroll', 'mouseover', 'mouseleave'].forEach(function (event) {
+
+                item.forEach(function (value, itemIndex) {
+
+                    items.addEventListener("onscroll",function(){
+                        window.lastScrollTime = new Date().getTime()
+                        alert(is_scrolling())
+                    });
+                    function is_scrolling() {
+                        return window.lastScrollTime && new Date().getTime() < window.lastScrollTime + 500
+                    }
+                    addToList.forEach(function (el,key) {
+
+                        el.addEventListener(event, function (ev) {
+
+                            ev.preventDefault();
+                            ev.stopPropagation();
+
+                            if(ev.type==="click" && key===itemIndex){
+                                selectedListContent.item(itemIndex).style.display="block";
+                            }
+                        });
+
+                    });
+                    selectedMovie.forEach(function (el, key, parent){
+
+                       el.innerHTML=""+results[key].original_title;
+
+                    });
+                    watchTrailer.forEach(function (el, key) {
+
+                        el.addEventListener(event, function (ev) {
+                            ev.preventDefault();
+
+
+                            if (ev.type === "click") {
+
+
+                                player.forEach(function (val) {
+
+                                    let closePlayer = document.querySelectorAll(".close_player");
+                                    let movieSource = document.querySelectorAll(".video_1");
+                                    val.style.display = "inline-block";
+
+
+                                    if (key === itemIndex && ![undefined].includes(results[itemIndex].id)) {
+
+                                        utilities.watchTrailer(xhr, key, movieSource, results[itemIndex].id);
+
+                                        return false;
+                                    }
+
+
+                                    closePlayer.forEach(function (value, key) {
+
+                                        value.addEventListener(event, function (ev) {
+
+                                            ev.preventDefault();
+                                            if (ev.type === "click") {
+
+                                                player.forEach(function (value, index) {
+                                                    if (index === key) {
+
+                                                        movieSource.forEach(function (el) {
+
+                                                            el.src = "";
+
+
+                                                        });
+                                                        value.style.display = "none";
+
+
+                                                        return false;
+                                                    }
+
+                                                })
+                                            }
+
+                                        })
+
+                                    });
+
+
+                                });
+
+
+                            }
+
+                        });
+
+
+                    });
+
+
+                    favorite.forEach(function (el, key) {
+
+
+
+
+                        el.addEventListener(event, function (ev) {
+
+                            ev.preventDefault();
+                            ev.stopPropagation();
+
+
+
+                            if(ev.type==="mouseleave"){
+
+                                el.innerHTML = '&heartsuit;';
+                                el.title = "Favorite";
+                            }
+
+
+                            if (itemIndex === key && ![undefined].includes(results[itemIndex].id)) {
+
+
+                                utilities.getFavoriteMovies(results[itemIndex].id,xhr,el,ev,key,utilities);
+
+                            }
+
+
+                        });
+
+
+                        return false;
+                    });
+
+
+
+                    rating.forEach(function (rating, index) {
+
+                        rating.addEventListener(event, function (ev) {
+                            // ev.preventDefault();
+
+                            if (index === itemIndex) {
+
+
+                                ratingContent.item(itemIndex).addEventListener(event, function (ev) {
+
+                                    if (ev.type === "mouseleave") {
+
+                                        ratingContent.item(itemIndex).style.display = "none";
+                                        return false;
+                                    }
+                                    if (ev.type === "mouseenter") {
+
+
+
+                                        ratingContent.item(itemIndex).style.display = "block";
+
+                                        return false;
+                                    }
+
+
+
+                                });
+
+
+
+
+
+
+
+
+                                if (ev.type === "mouseleave") {
+                                    ratingContent.item(itemIndex).style.display = "none";
+
+                                    return false;
+                                }
+
+                                if (ev.type === "mouseenter") {
+                                    movieId=results[itemIndex].id;
+                                    indexes=itemIndex;
+                                    isProgress=true;
+
+
+                                    utilities.getRating(xhr,results[itemIndex],index,utilities);
+
+                                    ratingContent.item(itemIndex).style.display = "block";
+                                    return false;
+                                }
+
+
+
+                                //  ev.stopPropagation();
+                                //ev.stopImmediatePropagation();
+                            }
+                        })
+                    })
+
+
+
+                });
+
+
+                return false;
+            });
+
+
+
+
+
+
+
+
+            stars.forEach(function (el, key, parent) {
+
+
+                el.addEventListener('click',function (ev) {
+                    // ev.stopImmediatePropagation();
+                    //ev.stopPropagation();
+                    //
+
+
+
+                    utilities.rating(xhr,el.getAttribute('title'),movieId,indexes,utilities);
+
+
+
+                })
+
+            });
+
+
+        } else {
+
+            let movieCount = document.querySelector("#movie_count");
+            movieCount.textContent = "0";
+            ReactDOM.findDOMNode(document.getElementById('qty')).textContent = 0;
+            ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML = "Total pages";
+
+
+            //throw an exception
+            let noResultException = document.querySelectorAll('#item');
+
+            noResultException[0].innerHTML = "<table class='item'><tbody><tr><td >" +
+                "<p id='search_result'>Your search yield no results check your spellings and try again</p></td></tr> </tbody></table>"
+
+
+        }
+
+    }
 
 
     utility={
@@ -1114,290 +1635,9 @@ class View  extends React.Component{
 
                      });
 
-                     if (![" ", "", undefined].includes(results) && results.hasOwnProperty('0')) {
+                     utilities.movieContent(xhr,results,resultText,utilities);
 
-                         for (let x = 0; x < results.length; x++) {
-
-                             let items = document.getElementById('item');
-                             let img = "http://image.tmdb.org/t/p/w185/" + results[x].poster_path;
-                             items.innerHTML +=
-
-
-                                 `
-                                      <table class="item">
-                                      <tbody><tr><td ><img  style='float:left; width: 15%' src="${img}" alt=""/>
-                                      <div id='movie_title'><div id='vote_average'><div>${results[x].vote_average}</div></div>
-                                      <span class='movie_title'> ${results[x].original_title}<span class='release_date'><span class="release">Release Date </span><span> ${results[x].release_date}</span> </span></span></div>
-                                      <div id='overview'>${results[x].overview.substr(0, 720)}</div>
-                                      <div class='emotions'> <div class="rating" title="Rating"><span class="rate">&star;</span></div>
-                                  
-                                 
-                                   <div class="rating_content_confirm">
-                                       
-                                     </div>
-                                     <fieldset class="rating_content">
-                                       
-                                     <input type="radio" id="star5${x}" name="rating" title="10" />
-                                     <label class = "full" for="star5${x}" title="9.50"> </label>
-                                     <input type="radio" id="star4half${x}" name="rating" title="9" />
-                                     <label class="half" for="star4half${x}" title="8.50"> </label>
-                                     <input type="radio" id="star4${x}" name="rating" title="8" />
-                                     <label class = "full" for="star4${x}" title="7.50"> </label>
-                                     <input type="radio" id="star3half${x}" title="7" name="7" />
-                                     <label class="half" for="star3half${x}" title="6.50"> </label>
-                                     <input type="radio" id="star3${x}" name="rating"  title="6"  />
-                                     <label class = "full" for="star3${x}" title="5.50"> </label>
-                                     <input type="radio" id="star2half${x}" name="rating" title="5" />
-                                     <label class="half" for="star2half${x}" title="4.50"> </label>
-                                     <input type="radio" id="star2${x}" title="4" name="rating"  />
-                                     <label class = "full" for="star2${x}" title="3.50"> </label>
-                                     <input type="radio" id="star1half${x}"  title="3" name="rating"  />
-                                     <label class="half" for="star1half${x}" title="2.50"> </label>
-                                     <input type="radio" title="2"  id="star1${x}" name="rating"  />
-                                     <label class = "full" for="star1${x}" title="1.50"> </label>
-                                     <input type="radio" title="1" id="starhalf${x}" name="rating"  />
-                                     <label class="half" for="starhalf${x}" title="0.50"> </label>
-
-                                     </fieldset><span> </span>
-                                     
-                                      <div  class="favorite" title="Favorite"><span  class="favorite-text" >&heartsuit;<span></div>
-                                      <div class='feelings' title="Add to list">&#9016;</div>
-                                      <div  class='watch_trailer' title="Watch trailer">&#9783;</div> <span> </span>
-                                      </div> </td> </tr>
-                                      <tbody>
-                                      </table>
-                                      `;
-
-
-                             let movieCount = document.querySelector("#movie_count");
-                             movieCount.textContent = "" + resultText.total_results;
-                             ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML = "Total pages";
-
-
-                             ReactDOM.findDOMNode(document.getElementById('qty')).innerHTML = resultText.total_pages;
-
-
-
-
-
-                         }
-
-                         let ratingContent = document.querySelectorAll(".rating_content");
-                         let favorite = document.querySelectorAll(".favorite");
-                         let item = document.querySelectorAll(".item");
-                         let rating = document.querySelectorAll(".rating");
-                         let stars = document.querySelectorAll(".half, .full");
-                         let ratingWidget = document.querySelectorAll(".starhalf" );
-                         let player = document.querySelectorAll("#video_player");
-                         let watchTrailer = document.querySelectorAll(".watch_trailer");
-
-                         let movieId=0;
-                         let indexes=0;
-
-                         ['click', 'touch', 'mouseenter', 'mouseover', 'mouseleave'].forEach(function (event) {
-
-                             item.forEach(function (value, itemIndex) {
-
-                                 watchTrailer.forEach(function (el, key) {
-
-                                     el.addEventListener(event, function (ev) {
-                                         ev.preventDefault();
-
-
-                                         if (ev.type === "click") {
-
-
-                                             player.forEach(function (val) {
-
-                                                 let closePlayer = document.querySelectorAll(".close_player");
-                                                 let movieSource = document.querySelectorAll(".video_1");
-                                                 val.style.display = "inline-block";
-
-
-                                                 if (key === itemIndex && ![undefined].includes(results[itemIndex].id)) {
-
-                                                     utilities.watchTrailer(xhr, key, movieSource, results[itemIndex].id);
-
-                                                     return false;
-                                                 }
-
-
-                                                 closePlayer.forEach(function (value, key) {
-
-                                                     value.addEventListener(event, function (ev) {
-
-                                                         ev.preventDefault();
-                                                         if (ev.type === "click") {
-
-                                                             player.forEach(function (value, index) {
-                                                                 if (index === key) {
-
-                                                                     movieSource.forEach(function (el) {
-
-                                                                         el.src = "";
-
-
-                                                                     });
-                                                                     value.style.display = "none";
-
-
-                                                                     return false;
-                                                                 }
-
-                                                             })
-                                                         }
-
-                                                     })
-
-                                                 });
-
-
-                                             });
-
-
-                                         }
-
-                                     });
-
-
-                                 });
-
-
-                                 favorite.forEach(function (el, key) {
-
-
-
-
-                                     el.addEventListener(event, function (ev) {
-
-                                         ev.preventDefault();
-                                         ev.stopPropagation();
-
-
-
-                                         if (itemIndex === key && ![undefined].includes(results[itemIndex].id)) {
-                                             console.log()
-
-                                             utilities.getFavoriteMovies(results[itemIndex].id,xhr,el,ev,key,utilities);
-
-                                         }
-
-
-                                     });
-
-
-                                     return false;
-                                 });
-
-
-
-                                 rating.forEach(function (rating, index) {
-
-                                     rating.addEventListener(event, function (ev) {
-                                        // ev.preventDefault();
-
-                                         if (index === itemIndex) {
-
-
-                                                 ratingContent.item(itemIndex).addEventListener(event, function (ev) {
-
-                                                     if (ev.type === "mouseleave") {
-                                                         ratingContent.item(itemIndex).style.display = "none";
-                                                         return false;
-                                                     }
-                                                     if (ev.type === "mouseenter") {
-
-
-                                                         movieId=results[itemIndex].id;
-                                                         indexes=itemIndex;
-                                                         ratingContent.item(itemIndex).style.display = "block";
-                                                         utilities.getRating(xhr,movieId,index,utilities);
-                                                         return false;
-                                                     }
-
-
-
-                                                 });
-
-
-
-
-
-
-
-
-
-
-                                             if (ev.type === "mouseleave") {
-                                                 ratingContent.item(itemIndex).style.display = "none";
-
-                                                 return false;
-                                             }
-
-                                             if (ev.type === "mouseenter") {
-
-
-                                                 ratingContent.item(itemIndex).style.display = "block";
-                                                 return false;
-                                             }
-
-
-
-                                             ev.stopPropagation();
-                                             ev.stopImmediatePropagation();
-                                         }
-                                     })
-                                 })
-
-
-
-                             });
-
-
-                             return false;
-                         });
-
-
-
-
-
-
-
-
-                         stars.forEach(function (el, key, parent) {
-
-                             el.addEventListener('click',function (ev) {
-                                 // ev.stopImmediatePropagation();
-                                 // ev.preventDefault();
-                                 //
-
-
-
-                                 utilities.rating(xhr,el.getAttribute('title'),movieId,indexes,utilities);
-
-
-
-                             })
-
-                         });
-
-
-                     } else {
-
-                         let movieCount = document.querySelector("#movie_count");
-                         movieCount.textContent = "0";
-                         ReactDOM.findDOMNode(document.getElementById('qty')).textContent = 0;
-                         ReactDOM.findDOMNode(document.getElementById('total_pages_title')).innerHTML = "Total pages";
-
-
-                         //throw an exception
-                         let noResultException = document.querySelectorAll('#item');
-
-                         noResultException[0].innerHTML = "<table class='item'><tbody><tr><td >" +
-                             "<p id='search_result'>Your search yield no results check your spellings and try again</p></td></tr> </tbody></table>"
-
-
-                     }
+                     //here AJAX
 
                  }else {}
 
@@ -1487,8 +1727,8 @@ class View  extends React.Component{
                       </div>
 
                        <div className="navigator">
-                           <span id="prev" onTouchStart={this.updatePrev} onClick={this.updatePrev} className="nav"> </span>
-                           <span id="next" onClick={this.updateNext} onTouchStart={this.updateNext} className="nav"> </span>
+                           <span id="prev" onTouchStart={this.prev} onClick={this.prev} className="nav"> </span>
+                           <span id="next" onClick={this.next} onTouchStart={this.next} className="nav"> </span>
 
                        </div>
 

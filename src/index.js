@@ -108,26 +108,7 @@ class SearchBar extends React.Component{
 
     }
 
-    updateNext() {
 
-
-        if(this.state.query  !==undefined && this.state.count>0){
-            console.log("next " +this.state.count);
-
-
-            this.setState({count:++this.state.count,});
-            this.control.setCounter(this.state.count);
-            console.log("next " +this.state.count);
-
-            let query="/search/movie?include_adult=false&page="+this.state.count+"&query="+this.state.query+"&language=en-US";
-            this.control.setXHRequest("GET",query,"a8ac0ce418f28d6ec56424ebad76ed12",false);
-            this.control.updateView ();
-
-        }
-
-
-
-    }
 
     updateSearch() {
 
@@ -151,6 +132,26 @@ class SearchBar extends React.Component{
 
     }
 
+    updateNext() {
+
+
+        if(this.state.query  !==undefined && this.state.count>0){
+            console.log("next " +this.state.count);
+
+
+            this.setState({count:++this.state.count,});
+            this.control.setCounter(this.state.count);
+            console.log("next " +this.state.count);
+
+            let query="/search/movie?include_adult=false&page="+this.state.count+"&query="+this.state.query+"&language=en-US";
+            this.control.setXHRequest("GET",query,"a8ac0ce418f28d6ec56424ebad76ed12",false);
+            this.control.updateView ();
+
+        }
+
+
+
+    }
     updatePrev() {
 
 

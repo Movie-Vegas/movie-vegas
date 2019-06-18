@@ -7,6 +7,10 @@ table{
     font-size: 9px;
 }
 
+.favorite_labels{
+
+}
+
 #search_result{
 
     text-align: center;
@@ -53,6 +57,33 @@ table{
 
 /****** Style Star Rating Widget *****/
 
+
+.sorted, .description{
+    height: 30px;
+    width: 100%;
+}
+.description{
+    height: 100px;
+    width: 300px;
+}
+.createList{
+
+    border-radius: 0 2px 0 2px;
+    position: fixed;
+    background:  #0d2d3d;
+    padding:8px 8px;
+    box-shadow: 0 0 2px 2px #c4c4c4;
+    margin-top: -258px;
+    border: none;
+    margin-left: 200px;
+    font-size: medium;
+    text-align: left;
+    color: #c2c2c2;
+    z-index: 2;
+    left: 350px;
+    display: none;
+
+}
 .rating_content_confirm{
     border-radius: 0 2px 0 2px;
     position: absolute;
@@ -302,7 +333,7 @@ table{
 
 
 }
-.feelings:hover{
+.feelings, .add_to_list:hover{
     cursor: pointer;
     background: #a3a3a3;
     color: white;
@@ -355,7 +386,7 @@ td{
     background: #a3a3a3;
     color: white;
 }
-.feelings, .rating, .watch_trailer{
+.feelings, .add_to_list, .rating, .watch_trailer{
     background: gold;
     float: left;
 
@@ -469,6 +500,9 @@ td{
     font-size: small;
 
 }
+.close_createList:hover{
+    color: crimson;
+}
 .close_player{
 
     color: beige;
@@ -476,7 +510,20 @@ td{
     cursor: pointer;
     right: 30px;
     border: none;
-    background: #3e3e3e;
+    background: #0d2d3d ;
+
+    border-radius: 20px;
+    padding: 4px 9px 4px 9px;
+}
+.close_createList{
+
+    color: beige;
+    float: right;
+
+    cursor: pointer;
+    right: 30px;
+    border: none;
+    background:none ;
 
     border-radius: 20px;
     padding: 4px 9px 4px 9px;
