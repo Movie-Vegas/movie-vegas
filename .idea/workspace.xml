@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="63bb542f-31b9-4790-8c41-8b080cb261c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/control.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/movie_vegas.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/movie_vegas.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/view.js" afterDir="false" />
     </list>
@@ -16,11 +21,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/movie_vegas.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="525" column="19" selection-start-line="525" selection-start-column="19" selection-end-line="525" selection-end-column="19" />
+            <state relative-caret-position="132">
+              <caret line="742" lean-forward="true" selection-start-line="742" selection-end-line="742" />
+              <folding>
+                <element signature="e#9505#9680#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -28,8 +36,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="70" column="61" lean-forward="true" selection-start-line="70" selection-start-column="61" selection-end-line="70" selection-end-column="61" />
+            <state relative-caret-position="374">
+              <caret line="64" column="38" selection-start-line="64" selection-start-column="36" selection-end-line="64" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -37,8 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+            <state relative-caret-position="51">
+              <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -55,8 +63,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/control.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="101" column="86" selection-start-line="101" selection-start-column="86" selection-end-line="102" selection-end-column="100" />
+            <state relative-caret-position="799">
+              <caret line="47" column="14" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -64,53 +72,73 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="154" column="17" lean-forward="true" selection-start-line="154" selection-start-column="17" selection-end-line="154" selection-end-column="17" />
+            <state relative-caret-position="180">
+              <caret line="52" column="28" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
-                <element signature="n#!!block;n#updateSearch#0;n#SearchBar#0" />
-                <element signature="n#!!block;n#updateNext#0;n#SearchBar#0" />
-                <element signature="n#!!block;n#favorites#0;n#MenuItems#0" />
+                <element signature="n#SearchBar#0" />
+                <element signature="n#Menu#0" />
+                <element signature="n#MenuItems#0" />
+                <element signature="n#!!block;n#constructor#0;n#MenuItems#0" />
+                <element signature="n#!!block;n#accountRequest#0;n#MenuItems#0" />
                 <element signature="n#!!block;n#lists#0;n#MenuItems#0" />
+                <element signature="n#!!block;n#menuList#0;n#MenuItems#0" />
+                <element signature="n#!!block;n#watchList#0;n#MenuItems#0" />
+                <element signature="n#!!block;n#favorites#0;n#MenuItems#0" />
+                <element signature="n#!!block;n#progress#0;n#MenuItems#0" />
+                <element signature="n#!!block;n#render#0;n#MenuItems#0" />
+                <element signature="n#Footer#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="956" column="44" selection-start-line="956" selection-start-column="44" selection-end-line="956" selection-end-column="44" />
+            <state relative-caret-position="1282">
+              <caret line="2641" column="66" selection-start-line="2641" selection-start-column="66" selection-end-line="2641" selection-end-column="66" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <element signature="n#!!block;n#constructor#0;n#View#0" />
-                <element signature="e#276#2451#0" />
-                <element signature="n#!!block;n#conformation#0;n#View#0" />
-                <element signature="e#5240#8871#0" />
-                <element signature="e#7870#7893#0" />
-                <element signature="e#7950#8124#0" />
-                <element signature="e#8256#8439#0" />
-                <element signature="n#!!block;n#watchTrailer#0;n#View#0" />
+                <element signature="n#!!block;n#readyModeWatchLater#0;n#View#0" />
+                <element signature="n#!!block;n#readyModeFavorite#0;n#View#0" />
+                <element signature="n#!!block;n#readyModeRatings#0;n#View#0" />
+                <element signature="n#!!block;n#addMovie#0;n#View#0" />
                 <element signature="n#!!block;n#deleteFavorites#0;n#View#0" />
-                <element signature="e#12229#14020#0" />
-                <element signature="e#18649#19477#0" />
+                <element signature="n#!!block;n#makeFavorite#0;n#View#0" />
+                <element signature="n#!!block;n#makeRating#0;n#View#0" />
                 <element signature="n#!!block;n#getRating#0;n#View#0" />
+                <element signature="n#!!block;n#setRatingResults#0;n#View#0" />
+                <element signature="n#!!block;n#getRatingResult#0;n#View#0" />
+                <element signature="n#!!block;n#getIsFavorite#0;n#View#0" />
+                <element signature="n#!!block;n#setFavoriteResults#0;n#View#0" />
+                <element signature="n#!!block;n#getFavoriteResults#0;n#View#0" />
+                <element signature="n#!!block;n#setIsList#0;n#View#0" />
+                <element signature="n#!!block;n#getIsList#0;n#View#0" />
+                <element signature="n#!!block;n#setIsWatchList#0;n#View#0" />
+                <element signature="n#!!block;n#getIsWatchList#0;n#View#0" />
                 <element signature="n#!!block;n#conformation#0;n#View#0" />
-                <element signature="e#18379#18452#0" />
+                <element signature="n#!!block;n#createList#0;n#View#0" />
                 <element signature="n#!!block;n#next#0;n#View#0" />
                 <element signature="n#!!block;n#prev#0;n#View#0" />
-                <element signature="n#style#0;n#img#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="e#702#708#1" expanded="true" />
-                <element signature="e#3530#3541#1" expanded="true" />
-                <element signature="e#26729#29168#0" />
-                <element signature="e#27786#28991#0" />
-                <element signature="e#33237#33996#0" />
-                <element signature="e#15665#30023#0" />
-                <element signature="e#15753#25524#0" />
-                <element signature="e#19902#20927#0" />
-                <element signature="e#25588#29285#0" />
-                <element signature="e#33477#34088#0" />
+                <element signature="n#!!block;n#addToWatchlist#0;n#View#0" />
+                <element signature="n#!!block;n#getListDetails#0;n#View#0" />
+                <element signature="n#!!block;n#setListId#0;n#View#0" />
+                <element signature="e#54262#57139#0" />
+                <element signature="e#54326#57083#0" />
+                <element signature="e#57223#57369#0" />
+                <element signature="e#57503#58161#0" />
+                <element signature="e#58226#58840#0" />
+                <element signature="e#59348#59463#0" />
+                <element signature="e#64492#65196#0" />
+                <element signature="e#65262#66850#0" />
+                <element signature="e#67246#67888#0" />
+                <element signature="n#!!block;n#setPages#0;n#View#0" />
+                <element signature="n#!!block;n#getPage#0;n#View#0" />
+                <element signature="n#!!block;n#setTotalPages#0;n#View#0" />
+                <element signature="n#!!block;n#getTotalPages#0;n#View#0" />
+                <element signature="n#!!block;n#getListMoviesDetails#0;n#View#0" />
+                <element signature="n#!!block;n#setlistMoviesDetails#0;n#View#0" />
               </folding>
             </state>
           </provider>
@@ -129,39 +157,44 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>nex</find>
-      <find>pro</find>
-      <find>loa</find>
-      <find>lo</find>
-      <find>loadin</find>
-      <find>loading</find>
-      <find>setI</find>
-      <find>load</find>
-      <find>ifr</find>
-      <find>update</find>
-      <find>ratin</find>
-      <find>emo</find>
-      <find>rat</find>
-      <find>getMovies</find>
-      <find>utilities</find>
-      <find>console</find>
-      <find>deleteFavorites</find>
-      <find>makeFavorite</find>
-      <find>getRating</find>
-      <find>getFavoriteMovies</find>
-      <find>data</find>
-      <find>conf</find>
+      <find>Click</find>
+      <find>watch_trailer</find>
+      <find>ho</find>
       <find>rating</find>
-      <find>rate</find>
-      <find>b</find>
-      <find>feel</find>
-      <find>createList</find>
-      <find>element</find>
-      <find>this.setState</find>
+      <find>closePlayer</find>
+      <find>exi</find>
+      <find>exitPlayer</find>
+      <find>cl</find>
+      <find>favorite</find>
+      <find>close_pl</find>
+      <find>close_p</find>
+      <find>video_1</find>
+      <find>player</find>
+      <find>closeP</find>
+      <find>video_player</find>
       <find>close</find>
+      <find>video</find>
+      <find>max</find>
+      <find>rest</find>
+      <find>item</find>
+      <find>restore</find>
+      <find>movie_title_iframe</find>
+      <find>play</find>
+      <find>vide</find>
+      <find>transf</find>
+      <find>rgb</find>
+      <find>bar</find>
+      <find>menu_l</find>
+      <find>resto</find>
+      <find>menu</find>
     </findStrings>
     <replaceStrings>
       <replace>getMovies</replace>
+      <replace>alert</replace>
+      <replace>deleteLi</replace>
+      <replace>getListDetails</replace>
+      <replace>deleteList</replace>
+      <replace>addMovie</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -185,20 +218,21 @@
         <option value="$PROJECT_DIR$/src/text2.js" />
         <option value="$PROJECT_DIR$/src/test.js" />
         <option value="$PROJECT_DIR$/public/index.css" />
-        <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/index.html" />
-        <option value="$PROJECT_DIR$/src/control.js" />
+        <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/model.js" />
+        <option value="$PROJECT_DIR$/src/control.js" />
+        <option value="$PROJECT_DIR$/src/view.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/movie_vegas.css" />
-        <option value="$PROJECT_DIR$/src/view.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="583" />
-    <option name="width" value="697" />
-    <option name="height" value="728" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -226,8 +260,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -235,7 +269,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560897683838" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1562482122392" />
     <property name="js.last.introduce.type" value="CONST" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -244,7 +278,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -316,6 +350,9 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",SHOW_FIELDS" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -354,7 +391,17 @@
       <workItem from="1559999870841" duration="78196000" />
       <workItem from="1560254505865" duration="39494000" />
       <workItem from="1560350684234" duration="33879000" />
-      <workItem from="1560425485612" duration="168179000" />
+      <workItem from="1560425485612" duration="188858000" />
+      <workItem from="1560973719754" duration="208841000" />
+      <workItem from="1561716043419" duration="128000" />
+      <workItem from="1561716248174" duration="25416000" />
+      <workItem from="1561746298190" duration="50184000" />
+      <workItem from="1561887887960" duration="623000" />
+      <workItem from="1561953021192" duration="33052000" />
+      <workItem from="1562002933202" duration="44424000" />
+      <workItem from="1562105995168" duration="19077000" />
+      <workItem from="1562312555033" duration="3397000" />
+      <workItem from="1562318483436" duration="46189000" />
     </task>
     <task id="LOCAL-00001" summary="Implementation fo make favorite and delete favorite">
       <created>1559721582311</created>
@@ -391,19 +438,26 @@
       <option name="project" value="LOCAL" />
       <updated>1560805518608</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Implementation of addToList and rating">
+      <created>1560897774115</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1560897774115</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1156500000" />
+    <option name="totallyTimeSpent" value="1608510000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="JRebel" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.7227723" visible="true" weight="0.1719697" />
-      <window_info id="Structure" order="2" sideWeight="0.27722773" side_tool="true" visible="true" weight="0.1719697" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.71954024" visible="true" weight="0.1280303" />
+      <window_info id="Structure" order="2" sideWeight="0.28045976" side_tool="true" weight="0.1719697" />
       <window_info id="Designer" order="3" />
       <window_info id="Image Layers" order="4" />
       <window_info id="Capture Tool" order="5" />
@@ -419,16 +473,61 @@
       <window_info anchor="bottom" id="Log Viewer" order="5" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.32935154" />
-      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.49166667" weight="0.1849315" />
+      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.48636365" visible="true" weight="0.1842576" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="12" />
       <window_info anchor="bottom" id="Terminal" order="13" sideWeight="0.49924356" weight="0.8583618" />
       <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="15" sideWeight="0.5007576" side_tool="true" visible="true" weight="0.30821916" />
+      <window_info anchor="bottom" id="Event Log" order="15" sideWeight="0.51363635" side_tool="true" visible="true" weight="0.1842576" />
       <window_info anchor="bottom" id="Database Changes" order="16" />
-      <window_info anchor="bottom" id="Version Control" order="17" sideWeight="0.49924242" visible="true" weight="0.30821916" />
+      <window_info anchor="bottom" id="Version Control" order="17" sideWeight="0.49848485" weight="0.30650684" />
+      <window_info anchor="bottom" id="Java Regex Tester" order="18" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="19" weight="0.32935154" />
+      <window_info anchor="bottom" id="Missing In Actions" order="20" sideWeight="0.5280303" weight="0.3291592" />
+      <window_info anchor="right" id="SciView" order="0" weight="0.30030257" />
+      <window_info anchor="right" id="Code Consultant" order="1" />
+      <window_info anchor="right" id="LuaJ" order="2" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="3" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="4" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="5" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="6" />
+      <window_info anchor="right" id="Palette" order="7" />
+      <window_info anchor="right" id="Capture Analysis" order="8" />
+      <window_info anchor="right" id="Database" order="9" />
+      <window_info anchor="right" id="Palette&#9;" order="10" />
+      <window_info anchor="right" id="Theme Preview" order="11" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="JRebel" order="0" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.71954024" weight="0.35748032" />
+      <window_info id="Structure" order="2" sideWeight="0.28045976" side_tool="true" weight="0.1719697" />
+      <window_info id="Designer" order="3" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="UI Designer" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info id="npm" order="8" side_tool="true" />
+      <window_info id="Learn" order="9" />
+      <window_info anchor="bottom" id="Anonymous Apex" order="0" />
+      <window_info anchor="bottom" id="JRebel Console" order="1" side_tool="true" />
+      <window_info anchor="bottom" id="SOQL Query" order="2" />
+      <window_info anchor="bottom" id="JRebel Executor" order="3" />
+      <window_info anchor="bottom" id="Tail" order="4" />
+      <window_info anchor="bottom" id="Log Viewer" order="5" />
+      <window_info anchor="bottom" id="Message" order="6" />
+      <window_info anchor="bottom" id="Find" order="7" weight="0.32935154" />
+      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.48939395" visible="true" weight="0.1849315" />
+      <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="12" />
+      <window_info anchor="bottom" id="Terminal" order="13" sideWeight="0.49924356" weight="0.8583618" />
+      <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="15" sideWeight="0.51060605" side_tool="true" visible="true" weight="0.1849315" />
+      <window_info anchor="bottom" id="Database Changes" order="16" />
+      <window_info anchor="bottom" id="Version Control" order="17" sideWeight="0.49848485" weight="0.30650684" />
       <window_info anchor="bottom" id="Java Regex Tester" order="18" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="19" weight="0.32935154" />
       <window_info anchor="right" id="SciView" order="0" weight="0.30030257" />
@@ -443,7 +542,7 @@
       <window_info anchor="right" id="Database" order="9" />
       <window_info anchor="right" id="Palette&#9;" order="10" />
       <window_info anchor="right" id="Theme Preview" order="11" />
-    </layout>
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -554,13 +653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="10748" column="4" selection-start-line="10748" selection-start-column="4" selection-end-line="10748" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Documents/webapps/tytecPortal/docker-compose.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -591,17 +683,17 @@
     <entry file="file://$USER_HOME$/Documents/webapps/tytecPortal/jsp/consolidatorTimeTracker/web/script/loginListener.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model.js">
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="70" column="61" lean-forward="true" selection-start-line="70" selection-start-column="61" selection-end-line="70" selection-end-column="61" />
+        <state relative-caret-position="17">
+          <caret line="4873" column="13" selection-start-line="4873" selection-start-column="13" selection-end-line="4873" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/control.js">
+    <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="101" column="86" selection-start-line="101" selection-start-column="86" selection-end-line="102" selection-end-column="100" />
+        <state relative-caret-position="51">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -612,67 +704,97 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
+    <entry file="file://$PROJECT_DIR$/src/control.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+        <state relative-caret-position="799">
+          <caret line="47" column="14" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="64" column="38" selection-start-line="64" selection-start-column="36" selection-end-line="64" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1282">
+          <caret line="2641" column="66" selection-start-line="2641" selection-start-column="66" selection-end-line="2641" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="n#!!block;n#readyModeWatchLater#0;n#View#0" />
+            <element signature="n#!!block;n#readyModeFavorite#0;n#View#0" />
+            <element signature="n#!!block;n#readyModeRatings#0;n#View#0" />
+            <element signature="n#!!block;n#addMovie#0;n#View#0" />
+            <element signature="n#!!block;n#deleteFavorites#0;n#View#0" />
+            <element signature="n#!!block;n#makeFavorite#0;n#View#0" />
+            <element signature="n#!!block;n#makeRating#0;n#View#0" />
+            <element signature="n#!!block;n#getRating#0;n#View#0" />
+            <element signature="n#!!block;n#setRatingResults#0;n#View#0" />
+            <element signature="n#!!block;n#getRatingResult#0;n#View#0" />
+            <element signature="n#!!block;n#getIsFavorite#0;n#View#0" />
+            <element signature="n#!!block;n#setFavoriteResults#0;n#View#0" />
+            <element signature="n#!!block;n#getFavoriteResults#0;n#View#0" />
+            <element signature="n#!!block;n#setIsList#0;n#View#0" />
+            <element signature="n#!!block;n#getIsList#0;n#View#0" />
+            <element signature="n#!!block;n#setIsWatchList#0;n#View#0" />
+            <element signature="n#!!block;n#getIsWatchList#0;n#View#0" />
+            <element signature="n#!!block;n#conformation#0;n#View#0" />
+            <element signature="n#!!block;n#createList#0;n#View#0" />
+            <element signature="n#!!block;n#next#0;n#View#0" />
+            <element signature="n#!!block;n#prev#0;n#View#0" />
+            <element signature="n#!!block;n#addToWatchlist#0;n#View#0" />
+            <element signature="n#!!block;n#getListDetails#0;n#View#0" />
+            <element signature="n#!!block;n#setListId#0;n#View#0" />
+            <element signature="e#54262#57139#0" />
+            <element signature="e#54326#57083#0" />
+            <element signature="e#57223#57369#0" />
+            <element signature="e#57503#58161#0" />
+            <element signature="e#58226#58840#0" />
+            <element signature="e#59348#59463#0" />
+            <element signature="e#64492#65196#0" />
+            <element signature="e#65262#66850#0" />
+            <element signature="e#67246#67888#0" />
+            <element signature="n#!!block;n#setPages#0;n#View#0" />
+            <element signature="n#!!block;n#getPage#0;n#View#0" />
+            <element signature="n#!!block;n#setTotalPages#0;n#View#0" />
+            <element signature="n#!!block;n#getTotalPages#0;n#View#0" />
+            <element signature="n#!!block;n#getListMoviesDetails#0;n#View#0" />
+            <element signature="n#!!block;n#setlistMoviesDetails#0;n#View#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="154" column="17" lean-forward="true" selection-start-line="154" selection-start-column="17" selection-end-line="154" selection-end-column="17" />
+        <state relative-caret-position="180">
+          <caret line="52" column="28" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
-            <element signature="n#!!block;n#updateSearch#0;n#SearchBar#0" />
-            <element signature="n#!!block;n#updateNext#0;n#SearchBar#0" />
-            <element signature="n#!!block;n#favorites#0;n#MenuItems#0" />
+            <element signature="n#SearchBar#0" />
+            <element signature="n#Menu#0" />
+            <element signature="n#MenuItems#0" />
+            <element signature="n#!!block;n#constructor#0;n#MenuItems#0" />
+            <element signature="n#!!block;n#accountRequest#0;n#MenuItems#0" />
             <element signature="n#!!block;n#lists#0;n#MenuItems#0" />
+            <element signature="n#!!block;n#menuList#0;n#MenuItems#0" />
+            <element signature="n#!!block;n#watchList#0;n#MenuItems#0" />
+            <element signature="n#!!block;n#favorites#0;n#MenuItems#0" />
+            <element signature="n#!!block;n#progress#0;n#MenuItems#0" />
+            <element signature="n#!!block;n#render#0;n#MenuItems#0" />
+            <element signature="n#Footer#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/movie_vegas.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="525" column="19" selection-start-line="525" selection-start-column="19" selection-end-line="525" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="956" column="44" selection-start-line="956" selection-start-column="44" selection-end-line="956" selection-end-column="44" />
+        <state relative-caret-position="132">
+          <caret line="742" lean-forward="true" selection-start-line="742" selection-end-line="742" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="n#!!block;n#constructor#0;n#View#0" />
-            <element signature="e#276#2451#0" />
-            <element signature="n#!!block;n#conformation#0;n#View#0" />
-            <element signature="e#5240#8871#0" />
-            <element signature="e#7870#7893#0" />
-            <element signature="e#7950#8124#0" />
-            <element signature="e#8256#8439#0" />
-            <element signature="n#!!block;n#watchTrailer#0;n#View#0" />
-            <element signature="n#!!block;n#deleteFavorites#0;n#View#0" />
-            <element signature="e#12229#14020#0" />
-            <element signature="e#18649#19477#0" />
-            <element signature="n#!!block;n#getRating#0;n#View#0" />
-            <element signature="n#!!block;n#conformation#0;n#View#0" />
-            <element signature="e#18379#18452#0" />
-            <element signature="n#!!block;n#next#0;n#View#0" />
-            <element signature="n#!!block;n#prev#0;n#View#0" />
-            <element signature="n#style#0;n#img#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="e#702#708#1" expanded="true" />
-            <element signature="e#3530#3541#1" expanded="true" />
-            <element signature="e#26729#29168#0" />
-            <element signature="e#27786#28991#0" />
-            <element signature="e#33237#33996#0" />
-            <element signature="e#15665#30023#0" />
-            <element signature="e#15753#25524#0" />
-            <element signature="e#19902#20927#0" />
-            <element signature="e#25588#29285#0" />
-            <element signature="e#33477#34088#0" />
+            <element signature="e#9505#9680#0" />
           </folding>
         </state>
       </provider>

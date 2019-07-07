@@ -7,7 +7,8 @@ table{
     font-size: 9px;
 }
 
-.favorite_labels{
+.create_list_title{
+    margin: 4px;
 
 }
 
@@ -56,32 +57,81 @@ table{
 
 
 /****** Style Star Rating Widget *****/
+.create_new_list:hover{
+    background: darkgrey;
+    color: #ffffff;
 
 
+}
+.create_new_list{
+    height: 30px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 2px;
+    border: none;
+}
 .sorted, .description{
     height: 30px;
+    border: none;
+    border-radius: 2px;
     width: 100%;
 }
-.description{
-    height: 100px;
-    width: 300px;
+.list_Names{
+    margin: 6px 0 6px 0;
 }
-.createList{
+#delete_list{
+
+    float: right;
+    color: white;
+    cursor: pointer;
+    padding: 0 6px 0 6px;
+
+
+}
+#delete_list:hover{
+   color: crimson;
+    border-radius: 30px;
+    box-shadow: 0 0 2px 2px #c4c4c4;
+}
+
+#list_description{
+    height: 100px;
+    width: 100%;
+    border-radius: 2px;
+    border: none;
+}
+.create_list{
 
     border-radius: 0 2px 0 2px;
-    position: fixed;
+    position: absolute;
     background:  #0d2d3d;
     padding:8px 8px;
     box-shadow: 0 0 2px 2px #c4c4c4;
-    margin-top: -258px;
+    top: 138px;
     border: none;
-    margin-left: 200px;
+    margin-left: 16%;
     font-size: medium;
+    width: 28%;
     text-align: left;
     color: #c2c2c2;
     z-index: 2;
     left: 350px;
     display: none;
+
+}
+#create_content_confirm{
+    border-radius: 0 2px 0 2px;
+    position: absolute;
+    background:  #0d2d3d;
+    width: 96%;
+    padding:8px 8px;
+    box-shadow: 0 0 2px 2px #c4c4c4;
+    top: -40px;
+    border: none;
+     display: none;
+    color: #c2c2c2;
+    z-index: 2;
+    left: 0;
 
 }
 .rating_content_confirm{
@@ -111,7 +161,7 @@ table{
     border-radius: 0 2px 0 2px;
     position: absolute;
     background:  #0d2d3d;
-    padding:8px 8px;
+    padding:20px 8px;
     box-shadow: 0 0 4px 2px #c4c4c4;
     margin-top: -29px;
     border: none;
@@ -139,7 +189,7 @@ table{
 
     background: inherit;
     margin-top: 0;
-    bottom: 10px;
+    bottom: 16px;
     color:white;
 
 
@@ -192,7 +242,7 @@ table{
     opacity: inherit;
 
     margin-top: 0;
-    bottom: 10px;
+    bottom: 16px;
     color:white;
 
 
@@ -327,13 +377,12 @@ table{
 
 }
 .rating:hover{
-    cursor: pointer;
-    background: #a3a3a3;
-    color: white;
+
+    color: #6e6e6e;;
 
 
 }
-.feelings, .add_to_list:hover{
+.feelings, .add_to_list, .list_items:hover{
     cursor: pointer;
     background: #a3a3a3;
     color: white;
@@ -347,13 +396,12 @@ td{
 
 .favorite:hover{
     cursor: pointer;
-    background: #a32897;
-    color: white;
+    color: #6e6e6e;;
     width: 30px;
     height: 28px;
 }
 
-.favorite{
+.favorite, .favorite_count{
     background: gold;
     float: left;
 
@@ -381,20 +429,49 @@ td{
 
 
 }
+
 .watch_trailer:hover{
-    cursor: pointer;
-    background: #a3a3a3;
-    color: white;
+    color: #6e6e6e;
 }
-.feelings, .add_to_list, .rating, .watch_trailer{
+.add_to_list:hover{
+
+    color: #6e6e6e;
+}
+
+.add_to_watchlist:hover{
+
+
+    color: #6e6e6e;
+ }
+.watch_trailer{
     background: gold;
     float: left;
-
+    cursor: pointer;
     margin-top: 2px;
     border-radius: 2px;
     color: #03071a;
     margin-right: 12px;
-   font-size: large;
+    font-size: large;
+
+
+    text-align: center;
+    margin-left: 8px;
+
+    width: 30px;
+    height: 28px;
+
+    border: 1px solid #a0a0a0;
+
+}
+.feelings, .add_to_list, .add_to_watchlist, .rating, .list_items{
+    background: gold;
+    float: left;
+    cursor: pointer;
+    margin-top: 2px;
+    border-radius: 2px;
+    color: #03071a;
+    margin-right: 12px;
+   font-size: larger;
 
 
     text-align: center;
@@ -424,33 +501,37 @@ td{
 
 }
 #movie_title_iframe{
-    left: 144px;
-    position: fixed;
-    z-index: 10;
-    font-size: 12px;
-    top: 120px;
+     display: inline;
+     font-size: 12px;
+     float: left;
+     margin-left: 11%;
+     padding-right:42%;
+
+
 
 
 }
 #video_player {
 
-    box-shadow: 0 0 1px 0 #03071a;
+    box-shadow: 0 0 4px 0 #03071a;
     background: #0d2d3d;
     position: fixed;
     display: none;
-    top: 95px;
+    top: 70px;
     width: border-box;
+    border-radius: 4px;
+
     left: 0;
     right: 0;
     z-index: 1;
-    padding-bottom: 67px;
+    padding-bottom:8%;
 
     border: none;
     text-align: center;
 
 
 
-    padding-top: 60px;
+    padding-top: 5%;
 
 }
 
@@ -458,7 +539,7 @@ td{
 .video_1{
     text-align: center;
 
-    margin-top: -10px;
+    margin-top: 2px;
     border: none;
     border-radius: 6px;
     box-shadow: 0 0 8px 0 #252525;
@@ -500,20 +581,40 @@ td{
     font-size: small;
 
 }
-.close_createList:hover{
-    color: crimson;
+
+.restore_down:after{
+    content: "\25A3";
+    font-size: small;
+
 }
+.restore_down:hover{
+    color: #6e6e6e;
+    border-radius: 30px;
+
+}
+
 .close_player{
 
     color: beige;
-    position: fixed;
+
     cursor: pointer;
-    right: 30px;
+
+     display: inline;
     border: none;
     background: #0d2d3d ;
 
     border-radius: 20px;
-    padding: 4px 9px 4px 9px;
+    padding: 4px 9px;
+}
+.restore_down{
+
+    color: beige;
+    cursor: pointer;
+    display: inline;
+    border: none;
+    background: #0d2d3d ;
+    border-radius: 20px;
+    padding: 4px 8px ;
 }
 .close_createList{
 
@@ -526,12 +627,12 @@ td{
     background:none ;
 
     border-radius: 20px;
-    padding: 4px 9px 4px 9px;
+    padding: 0px 6px 0px 6px;
 }
 
 
 .close_player:hover{
-    box-shadow:white 0 0 2px 2px;
+
     color: crimson;
 }
 
@@ -591,6 +692,7 @@ td{
 
 .item, .req_error{
     margin-top: 38px;
+    margin-bottom: 20px;
     height: 10px;
     width: 77%;
     border-radius: 2px;
@@ -622,13 +724,7 @@ td{
     font-size: 10px;
 
 }
-.emotions{
 
-margin-top: 80px;
-float: left;
-
-
-}
 body{
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -638,27 +734,32 @@ body{
     background: #0d2d3d;
 
 }
+#list_name{
+    text-indent: 4px;
+}
 #scroll_list{
 
     scrollbar-color: #2B2B2B #0d2d3d;
 
       width: 100%;
-      height: 533px;
+      height: 536px;
       margin-top: 90px;
       margin-left: -10px;
       position: fixed;
-      border-bottom: thin solid gainsboro ;
-      overflow-y: scroll;
+      border-bottom: thin solid #0f2737;
+      overflow-y: scroll ;
 
 }
+
 #menu{
 
     padding: 10px 15px;
     margin-right: 6px;
+
     color: white;
     margin-top: -22px;
-    border: thin solid crimson;
-    border-radius: 2px;
+    border: thin solid #0d2d3d;
+    border-radius: 40px;
     font-size: larger;
     float: right;
 
@@ -689,10 +790,9 @@ body{
     }
 }
 
- #heading_background{
+ #menubar{
 
-     box-shadow: 0 0 4px 0 gainsboro;
-
+     box-shadow: 0 0 4px 0 #0e1f2e;
      position: fixed;
      top: -5px;
      width: border-box;
@@ -700,8 +800,6 @@ body{
      right: 0;
      padding-bottom: 10px;
      border: none;
-
-
      padding-top: 34px;
 
  }
@@ -838,6 +936,7 @@ margin-top: 14px;
 .release_date{
     font-size: smaller;
     margin-left: 30px;
+    margin-top: 40px;
     font-weight: normal;
     padding-bottom: 1px;
     border-bottom: 1px solid crimson;
@@ -860,12 +959,17 @@ margin-top: 14px;
      border-radius: 20px;
 
 }
-#overview{
-    height: 60px;
-    text-align: left;
-    margin-left: 164px;
-    margin-top: 24px;
-    font-size: 16px;
+.result_overview{
+    margin-top:20px;
+    height: 30px;
+    margin-left: 160px;
+    margin-bottom:11%;
+
+}
+.overview{
+
+    margin-top: 4px;
+    font-size: 17px;
     line-height: 22px;
     letter-spacing: normal;
     font-weight: lighter;
