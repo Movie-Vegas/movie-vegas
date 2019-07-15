@@ -67,19 +67,6 @@ class SearchBar extends React.Component{
 
     constructor(prop){
         super(prop) ;
-        this.state={
-            query:"",
-            value:'',
-            count:1
-        };
-        this.model=new Model();
-        this.view=new View(prop);
-        this.control=new Control(this.view,this.model);
-        this.next=this.next.bind(this);
-        this.prev= this.prev.bind(this);
-        this.updateSearch= this.updateSearch.bind(this);
-        this.search=this.search.bind(this);
-
 
 
 
@@ -88,19 +75,78 @@ class SearchBar extends React.Component{
     }
 
 
+
+
+
+
+    render() {
+        return ("");
+    }
+
+}
+class Menu extends React.Component{
+
+    render() {
+        return (  <div id="menu">
+                <span id="accents"> </span>
+               </div>
+        );
+    }
+}
+
+class MenuItems extends React.Component{
+
+
+
+
+    constructor(){
+        super();
+
+        this.state={
+            account:"",
+            color:"",
+            query:"",
+            value:'',
+            count:1
+        };
+        this.model=new Model();
+        this.view=new View();
+        this.control=new Control(this.view,this.model);
+        this.menuList=this.menuList.bind(this);
+        this.favorites=this.favorites.bind(this);
+        this.lists=this.lists.bind(this);
+        this.watchList=this.watchList.bind(this);
+        this.accountRequest=this.accountRequest.bind(this);
+        this.next=this.next.bind(this);
+        this.prev= this.prev.bind(this);
+        this.updateSearch= this.updateSearch.bind(this);
+        this.search=this.search.bind(this);
+
+
+
+
+    }
+    componentDidMount() {
+
+        this.accountRequest();
+    }
+
+
     search(event) {
         this.setState({query:event.target.value});
         if(event.target.value !==undefined){
+
 
             let url="/search/movie?";
             let key="api_key=a8ac0ce418f28d6ec56424ebad76ed12&include_adult=false&page=1&query="+event.target.value+"&event.target.value&language=en-US";
             this.control.setXHRequest("GET",url,key,false);
             this.control.updateView ();
+            this.view.setIsSearch(true);
             this.setState({query:event.target.value});
         }
 
 
-        event.preventDefault();
+
 
 
     }
@@ -126,10 +172,10 @@ class SearchBar extends React.Component{
             this.control.updateView ();
 
         }
+        this.view.setIsSearch(true);
 
-
-           event.preventDefault();
-           event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
 
     }
 
@@ -164,6 +210,7 @@ class SearchBar extends React.Component{
 
 
         }
+        this.view.setIsSearch(true);
         event.preventDefault();
 
     }
@@ -198,68 +245,9 @@ class SearchBar extends React.Component{
 
 
 
-
+        this.view.setIsSearch(true);
         event.preventDefault();
 
-    }
-
-
-
-    render() {
-        return (<div id="search_box">
-            <div className="search_box" placeholder="Search...">
-
-                <input type="search"  ref="search_text_field" placeholder="Search.." onKeyUp={this.search}   id="search_text_field"/>
-                <span id="progress"><span id="loading"> </span></span>
-                <span id="prev" onTouchStart={this.prev} onClick={this.prev} className="nav"> </span>
-                <span id="next" onClick={this.next} onTouchStart={this.next} className="nav"> </span> <span id='search_glass'  onClick={this.updateSearch} onTouchStart={this.updateSearch} >
-                <span  className="search-glass"  onClick={this.updateSearch} onTouchStart={this.updateSearch}> </span></span>
-
-            </div>
-
-
-
-        </div>);
-    }
-
-}
-class Menu extends React.Component{
-
-    render() {
-        return (  <div id="menu">
-                <span id="accents"> </span>
-               </div>
-        );
-    }
-}
-
-class MenuItems extends React.Component{
-
-
-
-
-    constructor(){
-        super();
-
-        this.state={
-            account:"",
-            color:"",
-            count:1,
-        };
-        this.model=new Model();
-        this.view=new View();
-        this.control=new Control(this.view,this.model);
-        this.menuList=this.menuList.bind(this);
-        this.favorites=this.favorites.bind(this);
-        this.lists=this.lists.bind(this);
-        this.watchList=this.watchList.bind(this);
-        this.accountRequest=this.accountRequest.bind(this);
-
-
-    }
-    componentDidMount() {
-
-        this.accountRequest();
     }
 
     accountRequest(){
@@ -350,6 +338,7 @@ class MenuItems extends React.Component{
             this.view.setIsFavorite(false);
             this.view.setIsWatchList(false);
             this.view.setIsList(true);
+            this.view.setIsSearch(false);
 
 
 
@@ -405,7 +394,7 @@ class MenuItems extends React.Component{
 
 
 
-             }else if( menuList.textContent==="Watch-List"){
+             }else if( menuList.textContent==="Watch-Later"){
                   menuList.style.cssText=borderBottom;
                   this.  watchList();
 
@@ -432,6 +421,7 @@ class MenuItems extends React.Component{
             this.view.setIsFavorite(false);
             this.view.setIsWatchList(true);
             this.view.setIsList(false);
+            this.view.setIsSearch(false);
             control.setXHRequest("GET", "/account/"+account+"/watchlist/movies?api_key=",apiKey+session_id,false);
             control.updateView();
             this.progress()
@@ -474,6 +464,7 @@ class MenuItems extends React.Component{
             this.view.setIsFavorite(true);
             this.view.setIsWatchList(false);
             this.view.setIsList(false);
+            this.view.setIsSearch(false);
          control.setXHRequest("GET", account+"favorite/movies?page=1&sort_by=created_at.desc&language=en-US&session_id="+session_id,apiKey,false);
          control.updateView();
          this.progress()
@@ -533,7 +524,22 @@ class MenuItems extends React.Component{
         return (< div   id="menus_list">
             <span id="favorite-menu"  onTouchStart={this.menuList} onClick={this.menuList} className="menu_list">Favorites</span>
             <span className="menu_list"  onTouchStart={this.menuList} onClick={this.menuList}>Lists</span>
-            <span  className="menu_list" onTouchStart={this.menuList} onClick={this.menuList}>Watch-List</span>
+            <span  className="menu_list" onTouchStart={this.menuList} onClick={this.menuList}>Watch-Later</span>
+
+            <div id="search_box">
+                <div className="search_box" placeholder="Search...">
+
+                    <input type="search"  ref="search_text_field" placeholder="Search.." onKeyUp={this.search}   id="search_text_field"/>
+                    <span id="progress"><span id="loading"> </span></span>
+                    <span id="prev" onTouchStart={this.prev} onClick={this.prev} className="nav"> </span>
+                    <span id="next" onClick={this.next} onTouchStart={this.next} className="nav"> </span> <span id='search_glass'  onClick={this.updateSearch} onTouchStart={this.updateSearch} >
+                <span  className="search-glass"  onClick={this.updateSearch} onTouchStart={this.updateSearch}> </span></span>
+
+                </div>
+
+
+
+            </div>
 
         </div>);
     }

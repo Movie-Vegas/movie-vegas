@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 
 
 class View  extends React.Component{
-    handleChange;
+
 
 
 
@@ -33,10 +33,12 @@ class View  extends React.Component{
         this.flag=[];
         this.favoriteDetails=[];
         this.ratingResults=[];
+        this.watchLaterResults=[];
+        this.listResults=[];
         this.next=this.next.bind(this);
         this.prev= this.prev.bind(this);
-        this.readyModeFavorite(this);
-        this.readyModeRatings(this);
+
+
 
 
 
@@ -50,7 +52,24 @@ class View  extends React.Component{
        }
 
 
-       setIsDone(index,flag){
+
+    setIsLoaded(flag){
+        this.loaded=flag;
+    }
+    getIsLoaded(){
+        return this.loaded;
+    }
+
+
+    setIsSearch(flag){
+        this.search=flag;
+    }
+    getIsSearch(){
+        return this.search;
+    }
+
+
+    setIsDone(index,flag){
         this.flag[index]=flag;
        }
        getIsDone(){
@@ -60,9 +79,9 @@ class View  extends React.Component{
 
         let count=1;
 
-        let url="https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/rated/movies?api_key=" +
-            "a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by=" +
-            "created_at.desc&page=1&append_to_response=content_ratings";
+        let url="https://api.themoviedb.org/3/account/8408193/watchlist/movies?api_key=" +
+            "a8ac0ce418f28d6ec56424ebad76ed12&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort" +
+            "_by=created_at.asc&page1";
 
 
         fetch(url, {
@@ -78,15 +97,16 @@ class View  extends React.Component{
             // endpoint where file will be uploaded
 
             let results=token.total_pages;
+            classInst.setPages(results);
             //console.log(token);
             // file that has been selected in the form
 
             for(let x=1;x<=results;x++){
 
 
-                fetch("https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/rated/movies?" +
-                    "api_key=a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by" +
-                    "=created_at.desc&page="+x+"&append_to_response=content_ratings",{
+                fetch("https://api.themoviedb.org/3/account/8408193/watchlist/movies?api_key=" +
+                    "a8ac0ce418f28d6ec56424ebad76ed12&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b" +
+                    "&sort_by=created_at.asc&page="+x+"",{
                     method: 'GET',
 
                 }).then(function (response) {
@@ -95,7 +115,7 @@ class View  extends React.Component{
 
                     let results=token.results;
 
-                    classInst.setFavoriteResults(count,results);
+                    classInst.setWatchLaterResults(count,results);
                     count++;
 
 
@@ -142,6 +162,7 @@ class View  extends React.Component{
                // endpoint where file will be uploaded
 
                let results=token.total_pages;
+               classInst.setPages(results);
                //console.log(token);
                // file that has been selected in the form
 
@@ -185,6 +206,72 @@ class View  extends React.Component{
            });
 
        }
+       readyModeListResults(classInst){
+
+        let count=1;
+
+        let url="https://api.themoviedb.org/3/account/a8ac0ce418f28d6ec56424ebad76ed12/lists?api_key=" +
+            "a8ac0ce418f28d6ec56424ebad76ed12&sort_by=created_at.desc&language=en-US&session_id=" +
+            "968092a83b4016a49c3ddde1cc030d149fc6ba0b&page=1";
+
+
+        fetch(url, {
+            method: 'GET',
+
+        }).then(function(response){
+
+            return response.json();
+
+            // extract token from JSON response
+            // return token
+        }).then(function(token) {
+            // endpoint where file will be uploaded
+
+            let results=token.total_pages;
+            classInst.setPages(results);
+            //console.log(token);
+            // file that has been selected in the form
+
+            for(let x=1;x<=results;x++){
+
+
+                fetch("https://api.themoviedb.org/3/account/a8ac0ce418f28d6ec56424ebad76ed12/lists?api_key=" +
+                    "a8ac0ce418f28d6ec56424ebad76ed12&sort_by=created_at.desc&language=en-US&session_id=" +
+                    "968092a83b4016a49c3ddde1cc030d149fc6ba0b&page="+x,{
+                    method: 'GET',
+
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (token) {
+
+                    let results=token.results;
+                    classInst.setListResults(count,results);
+                   // classInst.setResult(results);
+
+                    count++;
+
+
+
+                });
+
+
+            }
+
+        }).then(function(response){
+
+
+
+
+
+
+            // do something with the response
+
+        }).catch(function(error) {
+            console.log(error)
+            // handle error
+        });
+
+    }
        readyModeRatings(classInst){
 
 
@@ -208,6 +295,8 @@ class View  extends React.Component{
                    // endpoint where file will be uploaded
 
                    let results=token.total_pages;
+                   classInst.setPages(results);
+
                    //console.log(token);
                    // file that has been selected in the form
 
@@ -226,7 +315,9 @@ class View  extends React.Component{
                            let results=token.results;
 
                            classInst.setIsDone(count,true)
+
                            classInst.setRatingResults(count,results);
+
                            count++;
 
 
@@ -264,6 +355,7 @@ class View  extends React.Component{
 
     addMovie(xhr,element,page,response,title){
 
+
         let classInstance=this;
         let createContentConfirm = document.querySelector("#create_content_confirm");
         let listed = document.querySelector("#created_list");
@@ -286,15 +378,15 @@ class View  extends React.Component{
                     let media = JSON.stringify({
                         "media_id": response,
                     });
+                    classInstance.setPages(JSON.parse(this.responseText).total_pages);
 
                     results.forEach(function (results) {
 
 
-                        let listed = document.querySelectorAll('.listed');
                         let createdList = document.querySelector("#created_list" );
 
                         if (results.name === createdList.value) {
-                            console.log(results.id)
+
                             isResult = true;
                             resultsId = results.id;
 
@@ -302,20 +394,18 @@ class View  extends React.Component{
 
                         }
 
-                        listed.forEach(function (el) {
-
-
-
-                        });
-
 
 
 
                     });
                     if (isResult) {
 
+
+
                         xhr = new XMLHttpRequest();
                         xhr.withCredentials = false;
+
+
 
                         xhr.addEventListener("readystatechange", function () {
 
@@ -323,6 +413,7 @@ class View  extends React.Component{
 
 
                                 classInstance.listMessage(createContentConfirm ,"The movie "+title.value+" was created successfully");
+
                             }
 
                             if ([400,401,402,403,404].includes(xhr.status) ){
@@ -381,9 +472,7 @@ class View  extends React.Component{
         });
 
         xhr = new XMLHttpRequest();
-
-
-
+        xhr.withCredentials=false;
 
         let name=document.querySelector("#movie_title_iframe");
 
@@ -411,9 +500,9 @@ class View  extends React.Component{
                             return false;
                         }
 
-                        results.forEach(function (val,key,parent) {
+                        results.forEach(function (val) {
 
-                            name.textContent=val.name;
+                            name.textContent=val.name.substr(0,34);
                             if(val.hasOwnProperty('key')){
                                 el.src="https://www.youtube.com/embed/"+val.key+"?controls=1&autoplay=1";
 
@@ -479,6 +568,7 @@ class View  extends React.Component{
                             "favorite": false
                         });
                         xhr = new XMLHttpRequest();
+                        xhr.withCredentials=false;
 
                         xhr.addEventListener("readystatechange", function () {
                             if (xhr.readyState === xhr.DONE && [200,201,202,203].includes(xhr.status)) {
@@ -538,7 +628,7 @@ class View  extends React.Component{
 
     }
 
-    makeFavorite(xhr,movieId,index,flag,classInstance){
+    makeFavorite(xhr,movieId,index,flag,element,classInstance){
 
 
         if(![" ","",null,undefined].includes(movieId.id)){
@@ -552,6 +642,7 @@ class View  extends React.Component{
 
 
             xhr = new XMLHttpRequest();
+            xhr.withCredentials=false;
             xhr.addEventListener("readystatechange", function () {
 
 
@@ -559,9 +650,13 @@ class View  extends React.Component{
                 if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
 
                     let message=JSON.parse(xhr.responseText);
-                    classInstance.conformation(index, message.status_message);
+                    classInstance.confirmation(index, message.status_message);
 
-                    classInstance.readyModeFavorite(classInstance)
+                    classInstance.readyModeFavorite(classInstance);
+                    element.innerHTML = '&times;';
+                    element.style.background="#a32897";
+                    element.style.color="white";
+                    element.title = "Remove favorite";
 
 
 
@@ -599,7 +694,7 @@ class View  extends React.Component{
                 if (results[x].hasOwnProperty('0')) {
 
                     if(event.type==="mouseleave"){
-                        element.innerHTML = '&heart;';
+                        element.innerHTML = '&heartsuit;';
                         element.title = "Favorite"
                     }
 
@@ -626,28 +721,35 @@ class View  extends React.Component{
                                         });
 
                                         xhr = new XMLHttpRequest();
+                                        xhr.withCredentials=false;
                                         xhr.addEventListener("readystatechange", function () {
 
 
-                                            if(xhr.readyState===xhr.DONE){
-                                                classInstance.readyModeFavorite(classInstance)
-                                            }
                                             if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
 
                                                 let message=JSON.parse(xhr.responseText);
-                                                classInstance.conformation(index, message.status_message);
+                                                classInstance.confirmation(index, message.status_message);
+                                                classInstance.readyModeFavorite(classInstance);
 
+                                                element.innerHTML = '&heartsuit;';
+                                                element.style.background="gold";
+                                                element.style.color="black";
+                                                element.title = "Remove favorite";
 
-                                                xhr = new XMLHttpRequest();
+                                                 JSON.parse(data,function (key, value) {
+                                                     if(value===false && classInstance.getIsFavorite()){
+                                                         xhr = new XMLHttpRequest();
+                                                         xhr.withCredentials=false;
 
-                                                xhr.open("GET","https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite/movies?page="+x+"&sort_by=" +
-                                                    "created_at.asc&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=" +
-                                                    "a8ac0ce418f28d6ec56424ebad76ed12",true);
-                                                xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
-                                                if(classInstance.getIsFavorite()){
-                                                    classInstance.renderMovieDetails(xhr,{});
+                                                         xhr.open("GET","https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite/movies?page="+x+"&sort_by=" +
+                                                             "created_at.asc&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=" +
+                                                             "a8ac0ce418f28d6ec56424ebad76ed12",true);
+                                                         xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+                                                         classInstance.renderMovieDetails(xhr,{});
 
-                                                }
+                                                     }
+                                                 })
+
 
 
 
@@ -672,9 +774,9 @@ class View  extends React.Component{
 
                                     if(event.type==="mouseover"){
 
-                                        classInstance.conformation(index, "Remove favorite");
+                                        classInstance.confirmation(index, "Remove favorite");
                                         element.innerHTML = '&times;';
-                                        element.style.background="#a32897"
+                                        element.style.background="#a32897";
                                         element.style.color="white"
                                         element.title = "Remove favorite";
 
@@ -683,16 +785,17 @@ class View  extends React.Component{
 
                                     if(event.type==="mouseleave"){
 
-                                        classInstance.conformation(index, "Remove favorite");
-                                        element.innerHTML = '&times;';
-                                        element.style.background="gold"
-                                        element.style.color="black"
+
+                                        element.innerHTML = '&heartsuit;';
+                                        element.style.background="gold";
+                                        element.style.color="black";
                                         element.title = "Remove favorite";
 
                                         return false;
                                     }
 
                                 }
+
 
 
 
@@ -718,9 +821,7 @@ class View  extends React.Component{
 
         }else {
 
-
-
-                let items = document.querySelectorAll('.item');
+             let items = document.querySelectorAll('.item');
 
                 items.forEach(function (v,k) {
                     if(k===index){
@@ -748,21 +849,262 @@ class View  extends React.Component{
                 if (k === index) {
 
 
-                    element.innerHTML = '&heartsuit;';
-                    element.title = "Click to make favorite";
-                    classInstance.conformation(index,"Make favorite");
 
-                    if(event.type==="click"){
+                    classInstance.confirmation(index,"Make favorite");
+
+               if(event.type==="click"){
 
                 movieCount.textContent=""+Number( movieCount.textContent)-1;
 
-                classInstance.makeFavorite(xhr,response,index,true,classInstance);
+                classInstance.makeFavorite(xhr,response,index,true,element,classInstance);
 
                    return false;
 
                     }
             }
         })
+        }
+
+
+
+    }
+
+    makeWatchLater(xhr,movieId,index,flag,element,classInstance){
+
+
+        if(![" ","",null,undefined].includes(movieId)){
+
+
+            let data = JSON.stringify({
+                "media_type": "movie",
+                "media_id": movieId,
+                "watchlist": flag
+            });
+
+
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials=false;
+            xhr.addEventListener("readystatechange", function () {
+
+
+
+                if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
+
+                    let message=JSON.parse(xhr.responseText);
+                    classInstance.confirmation(index, message.status_message);
+
+                    classInstance.readyModeWatchLater(classInstance);
+                    element.innerHTML = '&times;';
+                    element.style.background="#a32897";
+                    element.style.color="white";
+                    element.title = "Remove watch later";
+
+
+
+
+                }
+
+            });
+
+
+            xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/" +
+                "watchlist?api_key=a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b",true);
+            xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+
+            xhr.send(data);
+
+        }
+
+
+    }
+
+
+    getWatchLater(xhr,response,index,element,event,classInstance){
+
+        let movieCount = document.querySelector("#movie_count");
+        let results=classInstance.getWatchLaterResults();
+        let isResults=true;
+
+
+        if(![undefined,0].includes(results.length)){
+
+
+            for(let x=1;x<results.length;x++) {
+
+                if(![undefined].includes(results[x])){
+
+                    if (results[x].hasOwnProperty('0')) {
+
+                        if(event.type==="mouseleave"){
+                            element.innerHTML = '&heartsuit;';
+                            element.title = "Add to watch later"
+                        }
+
+                        results[x].forEach(function (results) {
+
+
+                            if (results.hasOwnProperty("id")) {
+
+                                if (![undefined].includes(results.id)) {
+
+
+                                    if (results.id === response) {
+                                        isResults=false;
+
+                                        if(event.type==="click"){
+
+                                            let data = JSON.stringify({
+                                                "media_type": "movie",
+                                                "media_id": response,
+                                                "watchlist": false
+                                            });
+
+                                            //results.id=0;
+                                            xhr = new XMLHttpRequest();
+                                            xhr.withCredentials=false;
+                                            xhr.addEventListener("readystatechange", function () {
+
+
+
+                                                if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
+
+                                                    let message=JSON.parse(xhr.responseText);
+                                                    classInstance.confirmation(index, message.status_message);
+
+                                                    if(xhr.readyState===xhr.DONE){
+                                                        classInstance.readyModeWatchLater(classInstance);
+                                                    }
+
+                                                    element.innerHTML = '&#x2b94;';
+                                                    element.style.background="gold";
+                                                    element.style.color="black";
+                                                    element.title = "Remove watch later";
+                                                    JSON.parse(data,function (key, value) {
+
+
+                                                    if(value===false && classInstance.getIsWatchList()){
+
+                                                        xhr = new XMLHttpRequest();
+                                                        xhr.withCredentials=false;
+                                                        xhr.open("GET", "https://api.themoviedb.org/3/account/8408193/watchlist/movies?api_key=" +
+                                                            "a8ac0ce418f28d6ec56424ebad76ed12&language=en-US&session_id=" +
+                                                            "968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by=created_at.asc&page="+classInstance.state.count,true);
+                                                        xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+                                                        classInstance.renderMovieDetails(xhr,{}) ;
+
+                                                        return false;
+                                                    }
+
+                                                })
+
+
+
+                                                }
+
+                                            });
+
+
+                                            xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/watchlist?api_key" +
+                                                "=a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b",true);
+                                            xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+                                            xhr.send(data);
+                                        }
+
+
+
+
+                                        if(event.type==="mouseover"){
+
+                                            classInstance.confirmation(index, "Remove from watch later");
+                                            element.innerHTML = '&times;';
+                                            element.style.background="#a32897";
+                                            element.style.color="white";
+                                            element.title = "Remove watch later";
+
+                                            return false;
+                                        }
+
+                                        if(event.type==="mouseleave"){
+
+
+                                            element.innerHTML = '&#x2b94;';
+                                            element.style.background="gold";
+                                            element.style.color="black";
+                                            element.title = "Remove watch later";
+
+                                            return false;
+                                        }
+
+                                    }
+
+
+
+                                }
+
+
+
+
+
+
+                            }
+
+                        })
+
+
+                    }
+
+                }
+
+
+
+            }
+
+        }else {
+
+
+
+            let items = document.querySelectorAll('.item');
+
+            items.forEach(function (v,k) {
+                if(k===index){
+
+
+                    isResults=true;
+
+                    return false;
+                }
+            });
+
+
+
+
+
+        }
+        if(isResults){
+
+
+
+            let items = document.querySelectorAll('.item');
+            items.forEach(function (v,k) {
+
+                if (k === index) {
+
+
+                    element.innerHTML = '&#x2b94;';
+                    element.title = "Make watch later";
+                    classInstance.confirmation(index,"Make watch later");
+
+                    if(event.type==="click"){
+
+                        movieCount.textContent=""+Number( movieCount.textContent)-1;
+
+                        classInstance.makeWatchLater(xhr,response,index,true,element,classInstance);
+
+                        return false;
+
+                    }
+                }
+            })
         }
 
 
@@ -781,6 +1123,7 @@ class View  extends React.Component{
 
 
             xhr = new XMLHttpRequest();
+            xhr.withCredentials=false;
             xhr.addEventListener("readystatechange", function () {
 
 
@@ -790,7 +1133,8 @@ class View  extends React.Component{
                 if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
 
                     let message=JSON.parse(xhr.responseText);
-                    classInstance.conformation(index, message.status_message);
+                    classInstance.confirmation(index, message.status_message);
+                    classInstance.readyModeRatings(classInstance);
 
 
 
@@ -815,10 +1159,10 @@ class View  extends React.Component{
 
 
 
-           let results=classInstance.getRatingResult();
 
 
-           for(let x=1;x<results.length;x++) {
+        let results=classInstance.getRatingResult();
+           for(let x=0;x<results.length;x++) {
 
                    if(![undefined].includes(results[x]))
                if (results[x].hasOwnProperty('0')) {
@@ -838,22 +1182,24 @@ class View  extends React.Component{
                                   });
                                }
 
+
                                element.addEventListener("mouseleave", function () {
                                    element.innerHTML = '&star;';
-                                   element.title = "Rating"
+                                   element.title = "Rate movie"
 
 
                                });
 
-                               element.addEventListener("click", function () {
+                               element.addEventListener("click", function (event) {
 
-
+                                   classInstance.readyModeRatings(classInstance)
                                        let data = JSON.stringify({
 
                                        });
 
 
                                        xhr = new XMLHttpRequest();
+                                       xhr.withCredentials=false;
                                        xhr.addEventListener("readystatechange", function () {
 
 
@@ -863,9 +1209,10 @@ class View  extends React.Component{
                                            if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
 
                                                let message=JSON.parse(xhr.responseText);
-                                               classInstance.conformation(index, message.status_message);
+                                               classInstance.confirmation(index, message.status_message);
+                                               element.innerHTML = '&star;';
+                                               element.title = "Rate movie"
 
-                                               classInstance.readyModeRatings(classInstance)
 
 
 
@@ -881,11 +1228,15 @@ class View  extends React.Component{
                                        xhr.send(data);
 
 
+                                       event.stopImmediatePropagation();
+                                       event.preventDefault();
+
+
                                });
 
-                               classInstance.conformation(index, results.rating+"    "+"Click to remove ratings");
+                               classInstance.confirmation(index, results.rating+"    "+"Remove ratings");
                                element.innerHTML = '&times;';
-                               element.title = "Click to remove rating";
+                               element.title = "Remove rating";
                            }
 
                        }
@@ -911,6 +1262,13 @@ class View  extends React.Component{
     getRatingResult(){
         return this.ratingResults;
     }
+    setListResults(index,listResults){
+        this.listResults[index]=listResults;
+    }
+
+    getListResults(){
+        return this.listResults;
+    }
     setIsFavorite(favorite){
         this.favorite=favorite;
     }
@@ -924,6 +1282,13 @@ class View  extends React.Component{
 
     getFavoriteResults(){
         return this.favoriteDetails;
+    }
+    setWatchLaterResults(index,watchLaterResults){
+        this.watchLaterResults[index]=watchLaterResults;
+    }
+
+    getWatchLaterResults(){
+        return this.watchLaterResults;
     }
     setIsList(list){
         this.list=list;
@@ -940,101 +1305,96 @@ class View  extends React.Component{
         return  this.watchList;
     }
 
-    conformation(id,responseText){
+    confirmation(id,responseText){
         let element=document.querySelectorAll(".rating_content_confirm");
 
 
 
         let color=0;
-        element.item(id).textContent=""+responseText;
-        let  timer=setInterval(function () {
+        if(![" ","",undefined,null].includes(element.item(id))){
+            element.item(id).textContent=""+responseText;
 
-            if(![" ","",undefined,null].includes(element.item(id))){
+        let  timer=setInterval(function () {
 
 
                 color++;
-                if(color<=100){
+                if(color<=40){
 
                     element.item(id).style.display="block";
 
                 }
 
 
-                if(color===30){
+                if(color===40){
                     clearInterval(timer);
                     element.item(id).style.display="none";
+
+                }
+
+
+
+
+
+
+        },50);
+
+        }
+    }
+
+
+    //List
+
+    getListItem(createdList,classInstance){
+
+        let results=classInstance.getListResults();
+
+        let count=0;
+        let timer=setInterval(function () {
+
+            ++count;
+            if(count===5){
+                clearInterval(timer);
+            }
+
+
+
+
+        if(![undefined,0].includes(results.length)){
+
+
+            for(let x=0;x<=results.length;x++){
+
+                if(![undefined].includes(results[x])) {
+
+                    createdList.innerHTML=" ";
+                    if(results[x].hasOwnProperty(0)){
+                        results[x].forEach(function (results) {
+
+                                createdList.innerHTML+="<option   class='listed'>"+results.name+"</option>";
+
+
+                        })
+                    }
+
 
                 }
 
             }
 
 
+        }
 
 
-        },50);
-    }
-    //List
-    getCreatedList(xhr,createdList,page,utilities,element){
-
-        let data = JSON.stringify({});
+        },500) ;
 
 
-      //List
+             // createdList.innerHTML="";
 
-
-
-        xhr = new XMLHttpRequest();
-        xhr.addEventListener("readystatechange", function () {
-
-            if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
-
-                let results=JSON.parse(xhr.responseText).results;
-                createdList.innerHTML="";
-                utilities.setPages(JSON.parse(this.responseText).total_pages);
-                results.forEach(function (results,key) {
-
-
-                    createdList.innerHTML+="<option   class='listed'>"+results.name+"</option>";
-
-                    if(element.getAttribute('title')==="Add to list"){
-
-                        //utilities.deleteList(xhr,createdList,results.name,results);
-
-                        return false;
-                    }
-
-
-
-
-
-
-                });
-
-
-
-
-
-
-
-
-
-
-
-            }
-
-        });
-
-
-        xhr.open("GET", "https://api.themoviedb.org/3/account/a8ac0ce418f28d6ec56424ebad76ed12/lists?api_key=" +
-            "a8ac0ce418f28d6ec56424ebad76ed12&sort_by=created_at.desc&language=en-US&session_id=" +
-            "968092a83b4016a49c3ddde1cc030d149fc6ba0b&page="+page,true);
-        xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
-        xhr.responseType="text";
-
-        xhr.send(data);
 
     }
-    createList(xhr,name,description,utilities,element,publicList,sortedList,index){
+
+
+    makeList(xhr,name,description,utilities,element,publicList,sortedList){
 
 
         let data = JSON.stringify({
@@ -1046,22 +1406,27 @@ class View  extends React.Component{
         });
 
 
+        let createContentConfirm = document.querySelector("#create_content_confirm");
+        let createdList = document.querySelector("#created_list" );
 
 
 
-        let addToList=document.querySelectorAll(".add_to_list");
 
         xhr = new XMLHttpRequest();
         xhr.withCredentials=false;
         xhr.addEventListener("readystatechange", function () {
 
-                   if (xhr.readyState === xhr.DONE) {
+                   if (xhr.readyState === xhr.DONE ) {
 
 
-                       let message="Successfully created";
-                       utilities.listMessage(element,message);
-                       addToList.item(index).click();
                        let listed=document.querySelector("#created_list");
+                       let message="Successfully created";
+
+                       utilities.listMessage(createContentConfirm,message);
+
+                       utilities.readyModeListResults(utilities);
+                       utilities.getListItem(createdList,utilities);
+
 
 
                        listed.setAttribute("selected",name);
@@ -1085,9 +1450,299 @@ class View  extends React.Component{
         xhr.open("POST","https://api.themoviedb.org/3/list?api_key=a8ac0ce418f28d6ec56424ebad76ed12&session_id=" +
             "968092a83b4016a49c3ddde1cc030d149fc6ba0b",true);
         xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
-        xhr.responseType="text";
-
         xhr.send(data);
+
+
+
+    }
+    getListDetails(xhr,listId,event,element,response,index,classInstance){
+
+
+
+        let data=JSON.stringify({});
+        xhr=new XMLHttpRequest();
+        xhr.withCredentials=false;
+        let isResult=true;
+        let resultId="";
+
+
+
+
+
+
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4 && [200,201,202.203].includes(this.status) ){
+
+
+                if(JSON.parse(this.responseText).hasOwnProperty("total_pages")){
+
+                    classInstance.setPages(JSON.parse(xhr.responseText).total_pages);
+                }
+
+
+                let item=document.querySelectorAll('.item');
+                let  movie_count= document.querySelector("#movie_count");
+                let results=JSON.parse(this.responseText).items;
+
+                if(results.hasOwnProperty('0')){
+                    classInstance.setlistMoviesDetails(results);
+
+                    if(["mouseenter","click"].includes(event.type) ){
+
+                        results.forEach(function (results) {
+
+                            item.forEach(function (value,key) {
+                                if(key===index){
+                                    resultId=results.id ;
+
+                                }
+
+                            });
+
+
+
+                            if(results.id===response){
+
+                                isResult=false;
+                                element.innerHTML = '&times;';
+                                element.title = "Remove list";
+
+                                if(event.type==="click"){
+
+                                    classInstance.addToWatchlist(xhr,index,results.id,classInstance,false,element);
+
+                                    return false;
+                                }
+                            }
+
+                        });
+
+                        if(event.type==="click" && isResult && !classInstance.getIsList()){
+
+                            classInstance.addToWatchlist(xhr,index,response,classInstance,true,element);
+
+
+                        }
+
+                    }
+
+                }else {
+                    if(event.type==="click" && isResult){
+
+                        classInstance.addToWatchlist(xhr,index,response,classInstance,true,element);
+
+                    }
+                }
+
+
+
+            }
+        });
+
+
+        if (["mouseleave"].includes(event.type)) {
+
+            element.innerHTML = "&#x2b94;";
+            element.title = "Add to list";
+
+        }
+        if (["click","mouseenter"].includes(event.type)){
+            xhr.open("GET", "https://api.themoviedb.org/3/list/"+listId+"?api_key=a8ac0ce418f28d6ec56424ebad76ed12&language=en-US",true);
+            xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+            classInstance.renderMovieDetails(xhr,data)
+
+
+        }
+
+
+
+
+
+    }
+    deleteList(xhr,element,createdList){
+
+
+
+        let data = JSON.stringify({});
+        let classInstance=this;
+        let results=classInstance.getListResults();
+        let listId=0;
+
+        xhr=new XMLHttpRequest();
+        xhr.withCredentials=false;
+        let listName=document.querySelectorAll(".list_names");
+        if(![undefined,0].includes(results.length)){
+            let isDelete=false;
+
+            for(let x=0;x<=results.length;x++){
+
+                if(![undefined].includes(results[x])) {
+                    if(results[x].hasOwnProperty(0)){
+
+
+
+                            results[x].forEach(function (data) {
+
+
+                                if(data.name===element.value){
+
+                                isDelete=true;
+                                    listId=data.id;
+
+                                   return false;
+
+                                }
+
+
+                                if(!["",undefined,null].includes(listName[x])){
+                                    if(data.name===listName[x].textContent){
+
+                                        isDelete=true;
+                                        listId=data.id;
+
+                                        return false;
+
+                                    }
+                                }
+
+
+                            })
+
+
+
+                    }
+
+
+
+
+                }
+
+            }
+
+
+            if(isDelete){
+
+
+                xhr.addEventListener("readystatechange", function () {
+
+                    if ([4,xhr.DONE].includes(xhr.readyState)) {
+
+                        let createContentConfirm = document.querySelector("#create_content_confirm");
+
+                        classInstance.listMessage(createContentConfirm,"Successfully deleted");
+
+
+
+
+                        if(classInstance.getIsList()){
+                            xhr = new XMLHttpRequest();
+                            xhr.withCredentials=false;
+                            xhr.open("GET", "https://api.themoviedb.org/3/account/a8ac0ce418f28d6ec56424ebad76ed12/lists?api_key=" +
+                                "a8ac0ce418f28d6ec56424ebad76ed12&sort_by=created_at.desc&language=en-US&session_id=" +
+                                "968092a83b4016a49c3ddde1cc030d149fc6ba0b&page="+classInstance.state.count,true);
+                            xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+                            classInstance.renderMovieDetails(xhr,{}) ;
+
+                        }else {
+                            classInstance.readyModeListResults(classInstance);
+                            classInstance.getListItem(createdList,classInstance);
+                        }
+
+                        // classInstance.renderMovieDetails(classInstance.getResult(),{})
+
+
+
+
+
+                    }
+
+                });
+
+                xhr.open("DELETE", "https://api.themoviedb.org/3/list/"+listId+"?api_key=a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b",true);
+                xhr.send(data);
+
+                if(isDelete===false){
+
+
+
+
+                }
+            }
+
+        }
+
+
+          /*
+        if(![" ","",undefined,null].includes(element.value)){
+
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials=false;
+            let isDelete=false;
+
+            xhr.addEventListener("readystatechange", function () {
+
+                if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
+                    classInstance.setPages(JSON.parse(this.responseText).total_pages);
+                    let results=JSON.parse(xhr.responseText).results;
+                    results.forEach(function (results,key) {
+
+
+                        let listed=document.querySelectorAll('.listed');
+                        let data=JSON.stringify({});
+                        let resultsId="";
+                        listed.forEach(function (el) {
+
+                            if(results.name===element.value){
+                                isDelete=true;
+
+
+                                resultsId=results.id;
+                                return false;
+                            }
+
+                        });
+
+                        if(isDelete){
+
+
+
+                        }
+
+
+
+
+
+
+                    });
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+            });
+
+            xhr.open("GET", "https://api.themoviedb.org/3/account/a8ac0ce418f28d6ec56424ebad76ed12/lists?" +
+                "api_key=a8ac0ce418f28d6ec56424ebad76ed12&sort_by=created_at.desc&language=en-US&session_id=" +
+                "968092a83b4016a49c3ddde1cc030d149fc6ba0b&page="+this.state.count,true);
+            xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+            xhr.responseType="text";
+            xhr.send(data);
+
+        }else {
+            let createContentConfirm = document.querySelector("#create_content_confirm");
+            classInstance.listMessage(createContentConfirm,"Select a list to delete");
+
+        }*/
+
 
 
 
@@ -1104,7 +1759,7 @@ class View  extends React.Component{
 
 
 
-            if(this.state.count>this.getPage()){
+            if(this.state.count>this.getPages()){
 
                 this.setState({count:--this.state.count});
             }else {
@@ -1176,6 +1831,8 @@ class View  extends React.Component{
 
 
     }
+
+
     setResult(result){
         this.result=result;
 
@@ -1191,32 +1848,35 @@ class View  extends React.Component{
 
         let data = JSON.stringify({
             "media_type": "movie",
-            "media_id": resultId,
+            "media_id": resultId.id,
             "watchlist": flag
         });
 
-        xhr = new XMLHttpRequest();
 
+        xhr = new XMLHttpRequest();
+        xhr.withCredentials=false;
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4 && [200,201,202.203].includes(this.status) ){
                 classInstance.setPages(JSON.parse(this.responseText).total_pages);
                 let message=JSON.parse(xhr.responseText);
-                classInstance.conformation(index,message.status_message);
+                classInstance.confirmation(index,message.status_message);
 
-                  element.innerHTML = '&times;';
-                  element.title = "Remove list";
 
 
 
                 xhr = new XMLHttpRequest();
+                xhr.withCredentials=false;
                 xhr.open("GET", "https://api.themoviedb.org/3/account/8408193/watchlist/movies?api_key=" +
-                    "a8ac0ce418f28d6ec56424ebad76ed12&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by=created_at.asc&page="+classInstance.state.count,true);
+                    "a8ac0ce418f28d6ec56424ebad76ed12&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by" +
+                    "=created_at.asc&page="+classInstance.state.count,true);
                 xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
                 xhr.send({});
                 if(flag===false && classInstance.getIsWatchList()){
                     xhr = new XMLHttpRequest();
+                    xhr.withCredentials=false;
                     xhr.open("GET", "https://api.themoviedb.org/3/account/8408193/watchlist/movies?api_key=" +
-                        "a8ac0ce418f28d6ec56424ebad76ed12&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by=created_at.asc&page="+classInstance.state.count,true);
+                        "a8ac0ce418f28d6ec56424ebad76ed12&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by" +
+                        "=created_at.asc&page="+classInstance.state.count,true);
                     xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
                     classInstance.renderMovieDetails(xhr,{}) ;
                 }
@@ -1226,7 +1886,8 @@ class View  extends React.Component{
             }
         });
 
-        xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/watchlist?api_key=a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b",true);
+        xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/watchlist?api_key=" +
+            "a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b",true);
         xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
          xhr.send(data);
 
@@ -1238,15 +1899,6 @@ class View  extends React.Component{
 
 
         let classInstance = this;
-
-
-        xhr = new XMLHttpRequest();
-        let isDelete = false;
-
-
-
-
-
         let data = JSON.stringify({"media_id": mediaId});
 
 
@@ -1261,11 +1913,12 @@ class View  extends React.Component{
 
                 let results = JSON.parse(xhr.responseText).results;
 
-               // let addToList = document.querySelectorAll(".add_to_list");
+               //  let addToList = document.querySelectorAll(".add_to_list");
                 // addToList.item(index).click();
 
                 xhr = new XMLHttpRequest();
-                xhr.open("GET", " URL:https://api.themoviedb.org/3/list/"+listId+"?api_key=a8ac0ce418f28d6ec56424ebad76ed12&language=en-US",true);
+                xhr.withCredentials=false;
+                xhr.open("GET", "https://api.themoviedb.org/3/list/"+listId+"?api_key=a8ac0ce418f28d6ec56424ebad76ed12&language=en-US",true);
                 xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
                 classInstance.renderMovieDetails(xhr,{}) ;
 
@@ -1279,106 +1932,7 @@ class View  extends React.Component{
         xhr.send(data);
 
     }
-    deleteList(xhr,element,listName,index){
 
-
-
-        let data = JSON.stringify({});
-        let classInstance=this;
-
-
-        if(![" ","",undefined,null].includes(element.value)){
-
-            xhr = new XMLHttpRequest();
-            let isDelete=false;
-
-            xhr.addEventListener("readystatechange", function () {
-
-                if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
-                    classInstance.setPages(JSON.parse(this.responseText).total_pages);
-                    let results=JSON.parse(xhr.responseText).results;
-                    results.forEach(function (results,key) {
-
-
-                        let listed=document.querySelectorAll('.listed');
-                        let data=JSON.stringify({});
-                        let resultsId="";
-                        listed.forEach(function (el) {
-
-                            if(results.name===element.value){
-                                isDelete=true;
-
-
-                                resultsId=results.id;
-                                return false;
-                            }
-
-                        });
-
-                        if(isDelete){
-
-                            xhr=new XMLHttpRequest();
-                            xhr.withCredentials=false;
-
-                            xhr.addEventListener("readystatechange", function () {
-
-                                if (xhr.readyState === xhr.DONE) {
-
-                                    let createContentConfirm = document.querySelector("#create_content_confirm");
-
-                                    classInstance.listMessage(createContentConfirm,"Successfully deleted");
-                                    let addToList=document.querySelectorAll(".add_to_list");
-                                     addToList.item(index).click();
-
-
-                                 }
-                            });
-
-                            xhr.open("DELETE", "https://api.themoviedb.org/3/list/"+resultsId+"?api_key=a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b",true);
-                            //xhr.responseType="text";
-
-                            xhr.send(data);
-
-                        }
-
-
-
-
-
-
-                    });
-
-
-
-
-
-
-
-
-
-
-
-                }
-
-            });
-
-            xhr.open("GET", "https://api.themoviedb.org/3/account/a8ac0ce418f28d6ec56424ebad76ed12/lists?" +
-                "api_key=a8ac0ce418f28d6ec56424ebad76ed12&sort_by=created_at.desc&language=en-US&session_id=" +
-                "968092a83b4016a49c3ddde1cc030d149fc6ba0b&page="+this.state.count,true);
-            xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
-            xhr.responseType="text";
-            xhr.send(data);
-
-        }else {
-            let createContentConfirm = document.querySelector("#create_content_confirm");
-            classInstance.listMessage(createContentConfirm,"Select a list to delete");
-
-        }
-
-
-
-
-    }
 
     listMessage(element,message){
         element.style.display="inline";
@@ -1387,219 +1941,210 @@ class View  extends React.Component{
         let count=0;
         let timer=setInterval(function () {
             count++;
-            if(count===20){
-                console.log(count);
+            if(count===40){
+
                 element.style.display="none";
                 clearInterval(timer)
             }
 
-        },200);
+        },40);
     }
+
+
     getWatchList(response,xhr,element,event,index,classInstance){
 
 
-        let data=JSON.stringify({});
-        xhr=new XMLHttpRequest();
-        xhr.withCredentials=false;
-        let isResult=true;
-        let resultId="";
+        let movieCount = document.querySelector("#movie_count");
+        let results=classInstance.getWatchLaterResults();
+        let isResults=true;
 
 
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4 && [200,201,202.203].includes(this.status) ){
-
-                if(JSON.parse(this.responseText).hasOwnProperty("total_pages")){
-
-                    classInstance.setPages(JSON.parse(xhr.responseText).total_pages);
-                }
-
-                let item=document.querySelectorAll('.item');
-                let  movie_count= document.querySelector("#movie_count");
-                let results=JSON.parse(this.responseText).results;
-                if(results.hasOwnProperty('0')){
-                    element.addEventListener("mouseenter",function () {
-                        alert()
-                        element.innerHTML = '&times;';
-                        element.style.background="blue";
-                        element.title = "Remove me from watch list";
-                    })
-
-                    if(["mouseenter","click"].includes(event.type) ){
-
-                            results.forEach(function (results) {
-
-                            item.forEach(function (value,key) {
-                                if(key===index){
-                                  resultId=results.id ;
-
-                                }
-
-                            });
-                            if(results.id===response){
-                                isResult=false;
-
-                                element.innerHTML = '&times;';
-                                element.style.background="#a32897";
-                                element.title = "Remove me from watch list";
-                                classInstance.conformation(index, "Add to watchlist");
-
-                                if(event.type==="click"){
-
-                                    classInstance.addToWatchlist(xhr,index,results.id,classInstance,false,element);
-
-                                    return false;
-                                }
-                            }
-
-                        });
-
-                        if(event.type==="click" && isResult){
-
-                            classInstance.addToWatchlist(xhr,index,response,classInstance,true,element);
+        if(![undefined,0].includes(results.length)){
 
 
+            for(let x=1;x<results.length;x++) {
+
+                if(![undefined].includes(results[x])){
+
+                    if (results[x].hasOwnProperty('0')) {
+
+                        if(event.type==="mouseleave"){
+                            element.innerHTML = '&#x2b94;';
+                            element.title = "Watch later"
                         }
 
+                        results[x].forEach(function (results) {
+
+
+                            if (results.hasOwnProperty("id")) {
+
+                                if (![undefined].includes(results.id)) {
+
+
+                                    if (results.id === response) {
+
+
+                                        isResults=false;
+
+                                        element.addEventListener("click", function (event) {
+
+
+
+                                            let data = JSON.stringify({
+                                                "media_type": "movie",
+                                                "media_id": response,
+                                                "favorite": false
+                                            });
+
+                                            xhr = new XMLHttpRequest();
+                                            xhr.withCredentials=false;
+                                            xhr.addEventListener("readystatechange", function () {
+
+
+                                                if(xhr.readyState===xhr.DONE){
+                                                    classInstance.readyModeFavorite(classInstance)
+                                                }
+                                                if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
+
+                                                    let message=JSON.parse(xhr.responseText);
+                                                    classInstance.confirmation(index, message.status_message);
+
+
+                                                    xhr = new XMLHttpRequest();
+                                                    xhr.withCredentials=false;
+
+                                                    xhr.open("GET","https://api.themoviedb.org/3/account/8408193/watchlist/movies?api_key=" +
+                                                        "a8ac0ce418f28d6ec56424ebad76ed12&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by" +
+                                                        "=created_at.asc&page="+classInstance.state.count,true);
+                                                    xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+                                                    if(classInstance.getIsFavorite()){
+                                                        classInstance.renderMovieDetails(xhr,{});
+
+                                                    }
+
+
+
+
+                                                }
+
+                                            });
+
+
+                                            xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/" +
+                                                "watchlist?api_key=a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b",true);
+                                            xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
+
+                                            xhr.send(data);
+
+                                            event.stopImmediatePropagation();
+                                            event.preventDefault();
+                                            event.stopPropagation();
+
+                                        });
+
+                                        if(event.type==="mouseover"){
+
+                                            classInstance.confirmation(index, "Remove from watch later");
+                                            element.innerHTML = '&times;';
+                                            element.style.background="#a32897";
+                                            element.style.color="white";
+                                            element.title = "Remove watch later";
+
+                                            return false;
+                                        }
+
+                                        if(event.type==="mouseleave"){
+
+
+                                            element.innerHTML = '&#x2b94;';
+                                            element.style.background="gold";
+                                            element.style.color="black";
+                                            element.title = "Add to watch later";
+
+                                            return false;
+                                        }
+
+                                    }
+
+
+
+                                }
+
+
+
+
+
+
+                            }
+
+                        })
+
+
                     }
 
-                }else {
-                    if(event.type==="click" && isResult){
-
-                        classInstance.addToWatchlist(xhr,index,response,classInstance,true,element);
-
-                    }
                 }
 
 
 
             }
-        });
 
-
-        if (["mouseleave"].includes(event.type)) {
-
-            element.innerHTML = "&#x2b94;";
-            element.title = "Add to watch list";
-
-        }
-        if (["click","mouseenter"].includes(event.type)){
-            xhr.open("GET", "https://api.themoviedb.org/3/account/8408193/watchlist/movies?api_key=" +
-                "a8ac0ce418f28d6ec56424ebad76ed12&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by=created_at.asc&page="+this.state.count,true);
-            xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
-            xhr.send(data)
-
-        }
-
-
-       event.stopImmediatePropagation();
-        event.preventDefault();
-
-
-    }
-    getListDetails(xhr,listId,event,element,response,index,classInstance){
+        }else {
 
 
 
-        let data=JSON.stringify({});
-        xhr=new XMLHttpRequest();
-        xhr.withCredentials=false;
-        let isResult=true;
-        let resultId="";
+            let items = document.querySelectorAll('.item');
+
+            items.forEach(function (v,k) {
+                if(k===index){
 
 
+                    isResults=true;
 
-
-
-
-
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4 && [200,201,202.203].includes(this.status) ){
-
-                if(JSON.parse(this.responseText).hasOwnProperty("total_pages")){
-
-                    classInstance.setPages(JSON.parse(xhr.responseText).total_pages);
+                    return false;
                 }
-
-
-                let item=document.querySelectorAll('.item');
-                let  movie_count= document.querySelector("#movie_count");
-                let results=JSON.parse(this.responseText).items;
-
-                if(results.hasOwnProperty('0')){
-                    classInstance.setlistMoviesDetails(results);
-
-                    if(["mouseenter","click"].includes(event.type) ){
-
-                        results.forEach(function (results) {
-
-                            item.forEach(function (value,key) {
-                                if(key===index){
-                                    resultId=results.id ;
-
-                                }
-
-                            });
+            });
 
 
 
-                            if(results.id===response){
-
-                                isResult=false;
-                                element.innerHTML = '&times;';
-                                element.title = "Remove list";
-
-                                if(event.type==="click"){
-
-                                    classInstance.addToWatchlist(xhr,index,results.id,classInstance,false,element);
-
-                                    return false;
-                                }
-                            }
-
-                        });
-
-                        if(event.type==="click" && isResult){
-
-                            classInstance.addToWatchlist(xhr,index,response,classInstance,true,element);
 
 
-                        }
+        }
+        if(isResults){
 
-                    }
 
-                }else {
-                    if(event.type==="click" && isResult){
 
-                        classInstance.addToWatchlist(xhr,index,response,classInstance,true,element);
+
+            let items = document.querySelectorAll('.item');
+            items.forEach(function (v,k) {
+
+                if (k === index) {
+
+
+                    element.innerHTML = '&#x2b94;';
+                    element.title = "Add to watch later";
+                    classInstance.confirmation(index,"Add to watch later");
+
+                    if(event.type==="click"){
+
+                        movieCount.textContent=""+Number( movieCount.textContent)-1;
+
+                       classInstance.addToWatchlist(xhr,index,response,classInstance,true,element);
+
+                        return false;
 
                     }
                 }
-
-
-
-            }
-        });
-
-
-        if (["mouseleave"].includes(event.type)) {
-
-            element.innerHTML = "&#x2b94;";
-            element.title = "Add to watch list";
-
+            })
         }
-        if (["click","mouseenter"].includes(event.type)){
-            xhr.open("GET", "https://api.themoviedb.org/3/list/"+listId+"?api_key=a8ac0ce418f28d6ec56424ebad76ed12&language=en-US",true);
-            xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
-            classInstance.renderMovieDetails(xhr,data)
 
 
-        }
 
 
 
 
 
     }
+
 
     setListId(id,key){
         this.listId[key]=id;
@@ -1607,16 +2152,25 @@ class View  extends React.Component{
     getListId(){
         return this.listId;
     }
+
+
     movieContent(xhr,results,resultText){
         let utilities=this;
         let items = document.querySelector('#item');
 
+        let movieId=0;
+        let count=1;
+        let indexes="";
+        let receiveAKey;
+        let receivedItemId;
+        let createList=document.querySelectorAll(".create_new_list");
 
 
 
 
         if (![" ", "", undefined].includes(results) && Array.of(results).hasOwnProperty('0')
             && ![" ",0,"",undefined].includes(results.length)){
+
 
             let remove = document.querySelectorAll('table');
 
@@ -1628,7 +2182,7 @@ class View  extends React.Component{
 
             for (let x = 0; x < results.length; x++) {
 
-
+                        count++;
                 if(!results[x].hasOwnProperty("description")){
 
                     let img = "http://image.tmdb.org/t/p/w185/" + results[x].poster_path;
@@ -1666,7 +2220,7 @@ class View  extends React.Component{
                                      ${results[x].overview.substr(0, 669)}  
                                        </div>
                                        <div class='emotions'> 
-                                      <div class="rating" title="Rating"><span class="rate">&star;</span></div>
+                                      <div class="rating" title="Rate movie"><span class="rate">&star;</span></div>
                                   
                                  
                                    <div class="rating_content_confirm">
@@ -1700,7 +2254,7 @@ class View  extends React.Component{
                                       <div  class="favorite" title="Favorite"><span  class="favorite-text" >&heartsuit;<span></div>
                                       <div class='add_to_list' title="Add to list">&#9016;
                                          
-                                      </div><div class='add_to_watchlist' title="Add to watchlist">&#x2b94;
+                                      </div><div class='add_to_watchlist' title="Add to watch later">&#x2b94;
                                          
                                      </div>
                                       <div  class='watch_trailer' title="Watch trailer">&#9654;</div> <span> </span>
@@ -1762,7 +2316,8 @@ class View  extends React.Component{
                                       </div>
                                       </div>
                                       <span class='movie_title'>
-                                      ${results[x].name}
+                                      <span class="list_names">${results[x].name}</span>
+                                      
                                       <span class='release_date'>
                                       <span class="release">
                                        TYPE
@@ -1790,9 +2345,9 @@ class View  extends React.Component{
                                    
                                      
                                       <div  class="favorite_count" title="Favorite count"><span  class="favorite-text" > ${results[x].favorite_count}<span></div>
-                                      <div class='list_items' title="Items">&#9016;
+                                      <div class='list_items' title="Items">&#9016; 
                                          
-                                      </div>
+                                      </div  class='delete_items' ><div  class='delete_items' title="Remove item">&times;</div>
                                       <span> </span>
                                       </div></div>
                                       </td> </tr>
@@ -1810,6 +2365,8 @@ class View  extends React.Component{
 
 
                 let movieCount = document.querySelector("#movie_count");
+                let selectedListContent = document.querySelectorAll(".create_list" );
+                selectedListContent[0].style.display="none";
                 document.querySelector('#total_pages_title').innerHTML = "Total pages";
                   if(resultText.hasOwnProperty("total_pages")){
                       movieCount.textContent = "" + resultText.total_results;
@@ -1832,23 +2389,21 @@ class View  extends React.Component{
             let stars = document.querySelectorAll(".half, .full");
             let addToList=document.querySelectorAll(".add_to_list");
             let closeCreateList=document.querySelectorAll(".close_createList");
-            let createList=document.querySelectorAll(".create_new_list");
+
             let selectedMovie = document.querySelector("#selected_movie" );
             let scroller= document.querySelector("#scroll_list" );
             let selectedListContent = document.querySelectorAll(".create_list" );
             let createdList = document.querySelector("#created_list" );
-            let deleteEl=document.querySelector("#delete_list");
+            let deleteResrc=document.querySelector("#delete_list");
             let player = document.querySelectorAll("#video_player");
             let sorted=document.querySelector("#sorted");
             let visibility=document.querySelector("#visibility");
             let addToWatchlist=document.querySelectorAll(".add_to_watchlist");
             let watchTrailer = document.querySelectorAll(".watch_trailer");
             let listItems=document.querySelectorAll(".list_items");
+            let deleteListItem=document.querySelectorAll(".delete_items");
 
-            let movieId=0;
-            let indexes=0;
-            let receiveAKey=0;
-            let receivedItemId=0;
+
 
 
 
@@ -1858,139 +2413,201 @@ class View  extends React.Component{
 
 
 
-                createList.forEach(function (el, key) {
-
-
-                    el.addEventListener(event,function (ev) {
-
-
-                        let listed=document.querySelectorAll('.listed');
-                        let isList=false;
-                        let listItem=document.querySelector('#list_name');
-                        let listDescription=document.querySelector('#list_description');
-                        let createContentConfirm = document.querySelector("#create_content_confirm");
+                let addToList = document.querySelectorAll(".add_to_list");
 
 
 
+                scroller.addEventListener("scroll",function () {
 
-                        let value=el.getAttribute("value");
+                    selectedListContent[0].style.display="none";
 
-                        if(["touch","click"].includes(ev.type) && value==="Create list"){
+                });
 
 
-                            let listName=listItem.value;
-                            let listDesc=listDescription.value;
+                let listed = document.querySelectorAll('.listed');
 
-                            if(![""," ",null,undefined].includes(listName)){
 
-                                if(listed.length < 1){
-                                    isList=false;
+                let listItem = document.querySelector('#list_name');
+                let listDescription = document.querySelector('#list_description');
+                let createContentConfirm = document.querySelector("#create_content_confirm");
+
+
+                addToList.forEach(function (el,index) {
+
+                el.addEventListener(event,function ( ev) {
+
+
+
+
+
+                    item.forEach(function (el, itemIndex) {
+
+                        if(itemIndex===index){
+
+
+
+                            deleteResrc.addEventListener("click",function (ev) {
+
+                                ev.preventDefault();
+
+                                if(index===itemIndex){
+
+                                    utilities.deleteList(xhr,createdList,createdList);
+
+                                    ev.stopPropagation();
+                                    ev.stopImmediatePropagation();
+                                    ev.stopPropagation();
+
                                 }
 
-                             let listContentName="";
-                             listed.forEach(function (el) {
-                                 listContentName=el.value;
-                                 if(listName===listContentName){
 
 
-                                     isList=true;
+                            });
+
+
+                            if(["click","touch"].includes(ev.type)){
+                                selectedListContent[0].style.display="block";
+                            }
+
+                            if(["mouseover"].includes(ev.type)){
+
+                                utilities.confirmation(itemIndex,"Make list");
+                                selectedMovie.innerHTML=""+results[index].original_title;
+                                utilities.getListItem(createdList,utilities);
+
+                            }
+
+
+
+
+                            utilities.setResult(itemIndex);
+                            for(let x=0;x<=1;x++)
+                             createList.item(x).addEventListener("click",function (ev) {
+
+                                 if(["click","touch"].includes(ev.type) && ev.target.value==="Create list") {
+
+                                         selectedListContent.item(0).style.display = "block";
+
+
+
+
+
+                                         if (ev.target.value === "Create list") {
+
+                                             let listName = listItem.value;
+                                             let listDesc = listDescription.value;
+
+
+                                             if (!["", " ", null, undefined].includes(listName)) {
+
+
+                                                 let listContentName = "";
+                                                 listed.forEach(function (el) {
+                                                     listContentName = el.value;
+
+
+                                                 });
+
+
+
+                                                 utilities.makeList(xhr, listName, listDesc, utilities, createContentConfirm, visibility.value, sorted.value);
+
+
+                                             } else {
+
+                                                 utilities.listMessage(createContentConfirm, "List name must be provided");
+
+                                                 return false;
+
+
+                                             }
+
+
+
+                                         }
+
+
+
+
 
                                  }
-                                 if(!listName===listContentName) {
+                                 if (["click","touch"].includes(ev.type) && ev.target.value === "Add movie") {
 
-                                     isList=false;
+
+                                     if(!["",undefined].includes(results[utilities.getResult()].id)){
+                                         utilities.addMovie(xhr, createList[0], utilities.state.count, results[utilities.getResult()].id, selectedMovie);
+                                        }else {
+
+                                         utilities.listMessage(createContentConfirm, "We can add this movie at the moment try again later");
+                                     }
+                                     receiveAKey = index;
+
 
                                  }
 
+                                 createList=document.querySelectorAll(".create_new_list");
+                                 ev.stopPropagation();
+                                 ev.preventDefault();
+                                 ev.stopImmediatePropagation();
+                             });
 
 
-                             }) ;
+                            return false;
+                            }
 
 
-
-                                if(isList){
-                                    utilities.listMessage(createContentConfirm,"List name already exist");
-
-
-
-                                }else {
-
-
-                                    let createContentConfirm = document.querySelector("#create_content_confirm");
-                                    utilities.createList(xhr,listName,listDesc,utilities,createContentConfirm,visibility.value,sorted.value,key);
-
-
-                                }
-
-
-                                if(isList){
-
-
-                                    return false;
-
-                                }
-
-                            }else {
-
-                                        utilities.listMessage(createContentConfirm, "List name must be provided");
-                                        isList=false;
-                                        return false;
-
-
-                                }
-
-
-                    }
-
-
-                        if(["touch","click"].includes(ev.type) && value==="Add to list"){
-
-
-                                utilities.addMovie(xhr,el,utilities.state.count,utilities.getResult(),selectedMovie);
+                            });
 
 
 
+                    closeCreateList.item(0).addEventListener("click",function (ev) {
+                        selectedListContent.item(0).style.display="none";
+                        // addToList.item(receiveAKey).click();
+                        scroller.style.overflowY="scroll";
 
 
-                        }
-
-
-                        ev.stopPropagation();
-                        ev.stopImmediatePropagation();
-                        ev.preventDefault();
 
 
 
                     });
 
-                    return false;
 
-                });
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                     ev.stopImmediatePropagation();
 
-
-                closeCreateList.item(0).addEventListener("click",function (ev) {
-                    selectedListContent.item(0).style.display="none";
-                    scroller.style.overflowY="scroll";
+                    });
 
 
-                });
+
+            });
 
 
+
+                /*
 
                 item.forEach(function (el, itemIndex) {
 
 
-                    el.addEventListener("mouseover",function () {
+
+                    el.addEventListener("mouseleave",function () {
                         let watchlist=addToWatchlist.item(itemIndex);
                         let fav=favorite.item(itemIndex);
                         let list=addToList.item(itemIndex);
-                        if(![fav,watchlist,addToList].includes(null)){
+                        let addToWatchLater=addToWatchlist.item(itemIndex);
+
+                        if(![fav,watchlist,list,addToWatchLater].includes(null)){
+
                             fav.innerHTML = '&heartsuit;';
                             fav.title = "Favorite";
                             watchlist.innerHTML = "&#x2b94;";
                             list.innerHTML='&#9016';
                             list.title="Add to list";
-                            watchlist.title = "Add to watch list";
+                            addToWatchLater.innerHTML='&#x2b94;';
+                            addToWatchLater.style.color="black";
+                            addToWatchLater.background="gold";
+                            addToWatchLater.title="Add to watch later";
+                            watchlist.title = "Add to watch later";
 
                         }
 
@@ -1998,191 +2615,229 @@ class View  extends React.Component{
                     });
 
 
-                        listItems.forEach(function (el,key) {
-                            el.addEventListener(event,function (ev) {
-                              if(ev.type==="click"){
+                    let selectedListContent = document.querySelectorAll(".create_list" );
+                    selectedListContent[0].style.display="none";
 
-                                  if(key===itemIndex){
-
-
-                                   utilities.getListDetails(xhr,utilities.getListId()[key],ev,listItems,results[itemIndex],itemIndex,utilities);
-                                      return false;
-                                  }
-
-                              }
-                                ev.preventDefault();
-                                ev.stopPropagation();
-
-                            })
-
-                        });
+                        addToList.forEach(function (el, key) {
 
 
-                    addToWatchlist.forEach(function (el,key) {
-                        el.addEventListener("mouseleave",function (ev) {
+                            el.addEventListener(event, function (ev) {
 
-                            el.innerHTML = "&#x2b94;";
-                            el.style.background="gold";
-                            el.title = "Add to watch list";
-
-                        });
-
-                        el.addEventListener(event, function (ev) {
+                                if(key===itemIndex && ["click","touch"].includes(ev.type)){
+                                    selectedListContent.item(0).style.display="block";
 
 
 
-                            ev.preventDefault();
-                            ev.stopPropagation();
+                                        createList.item(1).addEventListener("click",function (ev) {
+
+                                            ev.preventDefault();
+                                            ev.stopPropagation();
+                                            ev.stopImmediatePropagation();
+                                            alert(itemIndex)
+
+                                            let listed = document.querySelectorAll('.listed');
 
 
-                            if(key===itemIndex){
+                                            let listItem = document.querySelector('#list_name');
+                                            let listDescription = document.querySelector('#list_description');
+                                            let createContentConfirm = document.querySelector("#create_content_confirm");
 
-                                selectedListContent.item(0).scrollIntoView(true);
+
+
+                                            if (ev.target.value === "Create list") {
+
+                                                let listName = listItem.value;
+                                                let listDesc = listDescription.value;
+
+
+                                                if (!["", " ", null, undefined].includes(listName)) {
+
+
+                                                    let listContentName = "";
+                                                    listed.forEach(function (el) {
+                                                        listContentName = el.value;
+
+
+                                                    });
+
+
+                                                    let createContentConfirm = document.querySelector("#create_content_confirm");
+                                                    utilities.makeList(xhr, listName, listDesc, utilities, createContentConfirm, visibility.value, sorted.value);
+
+
+                                                } else {
+                                                    let createContentConfirm = document.querySelector("#create_content_confirm");
+                                                    utilities.listMessage(createContentConfirm, "List name must be provided");
+
+                                                    return false;
+
+
+                                                }
+
+                                                return false;
+
+                                            }
+                                            alert()
+                                            if ( ev.target.value === "Add movie" && receiveAKey !==key) {
+
+                                                utilities.addMovie(xhr,createList[0], utilities.state.count, results[key].id, selectedMovie);
+                                                receiveAKey=key;
+
+
+                                                return false;
+
+
+                                            }
+
+                                        });
+
+                                    indexes=""+itemIndex;
+
+                                    return false;
+                                }else if(key===itemIndex && ["mouseover"].includes(ev.type)){
+                                    //utilities.setResult(itemIndex);
+                                    indexes=""+itemIndex;
+                                    receiveAKey=itemIndex;
+                                    utilities.confirmation(itemIndex,"Make list");
+                                    selectedMovie.innerHTML=""+results[key].original_title;
+
+                                    utilities.getListItem(createdList,utilities);
+                                    return false;
+                                }
+
+
+
+
+
+
+                            if(["mouseover"].includes(ev.type)){
+
+
+
+
+                                    createList.item(0).addEventListener("click", function (ev) {
+
+
+                                        if(key === itemIndex){
+
+                                            alert(itemIndex +" "+key )
+                                        }
+
+
+
+
+
+                                        if (receiveAKey === indexes) {
+
+
+
+
+                                            if (["touch", "click"].includes(ev.type) && value === "Create list") {
+
+
+
+
+
+                                            }
+
+                                            if (["touch", "click"].includes(ev.type) && value === "Add movie") {
+
+
+                                                utilities.addMovie(xhr, "", utilities.state.count, results[receiveAKey].id, selectedMovie);
+
+                                                return false;
+
+
+                                            }
+
+
+
+                                        }
+
+                                    });
+
+
+
 
                             }
+                             if(["touch", "click"].includes(ev.type)){
+
+
+                                 if(key===itemIndex) {
+
+                                     if(utilities.getIsList()){
 
 
 
-                            if(["click","mouseenter","mouseleave"].includes(ev.type) && key===itemIndex){
+                                         if(ev.type==="mouseover"){
 
-                                selectedMovie.innerHTML=""+results[key].original_title;
-                                receiveAKey=key;
-                                utilities.setResult(results[key].id);
-                                utilities.getWatchList(results[key].id,xhr,el,ev,itemIndex,utilities)
-
-
-
-
-                            }
-                        });
-                    });
-
-                    addToList.forEach(function (el,key) {
-
-                        deleteEl.addEventListener("click",function (ev) {
-                            ev.stopImmediatePropagation();
-                            ev.preventDefault();
-                            ev.stopPropagation();
-                            if(key===itemIndex){
-
-                                utilities.deleteList(xhr,createdList,"",itemIndex,utilities.state.count);
-
-
-                            }
-
-
-
-                        });
-                        el.addEventListener(event, function (ev) {
-
-
-                            ev.preventDefault();
-                            ev.stopPropagation();
-
-
-                            if(key===itemIndex){
-
-                                selectedListContent.item(0).scrollIntoView(true);
-
-                            }
-
-
-
-                            if(["mouseover","click"].includes(ev.type) && key===itemIndex){
-                                selectedMovie.innerHTML=""+results[key].original_title;
-                                 receiveAKey=key;
-                                 receivedItemId=results[key].id;
-
-                                //get created list
-                                utilities.getCreatedList(xhr,createdList,utilities.state.count,utilities,ev.target);
-                                utilities.conformation(key, "Add to list");
-                                 if(utilities.getIsList()){
-
-
-
-                                     if(ev.type==="mouseover"){
-
-                                         el.innerHTML = '&times;';
-                                         el.title = "Remove item";
-
-                                     }
-
-                                     if(ev.type==="click"){
-                                         if(key===itemIndex){
-
-                                             //delete movie from list
-                                             utilities.deleteMovie(xhr,el,listItems,utilities.getListId()[key],utilities.getListMoviesDetails()[key].id)
+                                             el.innerHTML = '&times;';
+                                             el.title = "Remove item";
 
                                          }
 
+                                         if(ev.type==="click"){
+                                             if(key===itemIndex){
+
+                                                 //delete movie from list
+                                                 utilities.deleteMovie(xhr,el,listItems,utilities.getListId()[key],utilities.getListMoviesDetails()[key].id)
+
+                                             }
+
+                                         }
+
+
+
+                                         selectedListContent.item(0).style.display="none";
+
+
+                                     }else {
+
+                                         if(ev.type==="click"){
+                                             selectedListContent.item(0).style.display="block";
+                                         }
+
+
                                      }
-
-
-
-                                     selectedListContent.item(0).style.display="none";
-
-
-                                 }else {
-
-                                     if(ev.type==="click"){
-                                         selectedListContent.item(0).style.display="block";
-                                     }
-
-
-                                 }
-
-
-
-                            }
-                        });
-
-                    });
-
-                    watchTrailer.forEach(function (el, key) {
-
-                        el.addEventListener(event, function (ev) {
-                            ev.preventDefault();
-
-
-                            if(ev.type==="mouseover"){
-                                utilities.conformation(key, "Play trailer");
-                            }
-                            if (ev.type === "click") {
-
-
-                                player.forEach(function (val) {
-
-                                    let closePlayer = document.querySelectorAll(".close_player");
-                                    let movieSource = document.querySelectorAll(".video_1");
-                                    val.style.display = "inline-block";
-
-
-                                    if (key === itemIndex && ![undefined].includes(results[itemIndex].id)) {
-
-                                        utilities.watchTrailer(xhr, key, movieSource, results[itemIndex].id);
-
-                                        return false;
-                                    }
-
-
-                                    utilities.exitPlayer(closePlayer,player,movieSource);
+                                     //Receive movie id here;
+                                     selectedListContent.item(0).scrollIntoView(true);
+                                     indexes =""+itemIndex;
+                                     selectedListContent.item(0).style.display="block";
 
 
 
 
-                                });
 
 
-                            }
+                               }
+
+
+                             }
+
+
+
+
+
+
+
+
+                                ev.preventDefault();
+                                ev.stopPropagation();
+
+
+
+
+
+
+
+                            })
+
 
                         });
 
 
-                    });
 
-
-                    favorite.forEach(function (el, key) {
-
+                    addToWatchlist.forEach(function (el,key) {
 
 
                         el.addEventListener(event, function (ev) {
@@ -2191,95 +2846,362 @@ class View  extends React.Component{
                             ev.stopPropagation();
 
 
-
-                            if(ev.type==="mouseleave"){
-
-                                el.innerHTML = '&heartsuit;';
-                                el.title = "Favorite";
-                            }
+                            if(key===itemIndex){
 
 
-                            if (itemIndex === key && ![undefined].includes(results[itemIndex].id)) {
-
-
-                               utilities.getFavorite(xhr,results[itemIndex],key,el,ev,utilities);
+                                selectedListContent.item(0).scrollIntoView(true);
 
                             }
 
 
+
+                            if(["click","mouseenter","mouseleave","mouseover"].includes(ev.type) && key===itemIndex){
+
+                                selectedMovie.innerHTML=""+results[key].original_title;
+                                receiveAKey=key;
+
+                                utilities.getWatchLater(xhr,results[key].id,itemIndex,el,ev,utilities);
+
+
+
+
+                            }
                         });
-
-
-                        return false;
                     });
 
 
-
-                    rating.forEach(function (rating, index) {
-
-                        rating.addEventListener(event, function (ev) {
+                    return false;
 
 
-                            if (index === itemIndex) {
-
-
-                                ratingContent.item(itemIndex).addEventListener(event, function (ev) {
-
-                                    if (ev.type === "mouseleave") {
-
-                                        ratingContent.item(itemIndex).style.display = "none";
-                                        return false;
-                                    }
-                                    if (ev.type === "mouseenter") {
+                });*/
 
 
 
-                                        ratingContent.item(itemIndex).style.display = "block";
-
-                                        return false;
-                                    }
-
+                                      /*
+                                      let isAddNewList=true;
+                                      addToList.forEach(function (el,key) {
 
 
-                                });
+                                          el.addEventListener(event, function (ev) {
+
+
+
+                                              if(key===itemIndex){
+                                                  receiveAKey=key;
+                                                  indexes=itemIndex;
+                                                  receivedItemId=results[key].id;
 
 
 
 
+                                              }
 
 
 
 
-                                if (ev.type === "mouseleave") {
-                                    ratingContent.item(itemIndex).style.display = "none";
-
-                                    return false;
-                                }
-
-                                if (ev.type === "mouseover") {
-                                    movieId=results[itemIndex].id;
-                                    indexes=itemIndex;
-
-                                    utilities.getRating(xhr,results[itemIndex],index,ev.target,utilities);
-
-                                    ratingContent.item(itemIndex).style.display = "block";
-
-                                    return false;
-                                }
+                                              if(["mouseover","click","touch"].includes(ev.type) && key===itemIndex){
 
 
 
-                            }
-                        })
-                    })
+                                                  utilities.conformation(itemIndex,"Add to list");
+                                                  selectedMovie.innerHTML=""+results[key].original_title;
+                                                  receiveAKey=key;
+                                                  utilities.getCreatedList(createdList,utilities);
 
 
+
+                                                   if(utilities.getIsList()){
+
+
+                                                       if(ev.type==="mouseover"){
+
+                                                           utilities.conformation(key, "Remove item");
+                                                           el.innerHTML = '&times;';
+                                                           el.title = "Remove item";
+
+                                                       }
+
+                                                       if(ev.type==="click"){
+                                                           if(key===itemIndex){
+
+                                                               //delete movie from list
+                                                              utilities.deleteMovie(xhr,el,listItems,utilities.getListId()[key],utilities.getListMoviesDetails()[key].id)
+
+                                                           }
+
+                                                       }
+
+
+
+                                                       selectedListContent.item(0).style.display="none";
+
+
+                                                   }else {
+                                                       utilities.getCreatedList(createdList,utilities);
+                                                       if(["touch", "click"].includes(ev.type) ){
+
+
+                                                           if(isAddNewList){
+                                                               isAddNewList=false;
+
+                                                               selectedListContent.item(0).style.display="block";
+
+                                                           }else
+                                                           if(isAddNewList===false){
+
+                                                               selectedListContent.item(0).style.display="none";
+                                                               isAddNewList=true;
+                                                           }
+
+
+                                                       }
+
+
+                                                   }
+
+                                                 return false;
+
+                                              }
+
+
+
+                                              ev.preventDefault();
+                                              ev.stopPropagation();
+
+
+
+                                          });
+
+                                      });
+
+
+
+                                      watchTrailer.forEach(function (el, key) {
+
+                                          el.addEventListener(event, function (ev) {
+
+
+                                              if(ev.type==="mouseover"){
+                                                  utilities.conformation(key, "Play trailer");
+                                              }
+                                              let movieSource = document.querySelectorAll(".video_1");
+                                              if (ev.type === "click") {
+                                                  utilities.setIsLoaded(true);
+                                                  player.forEach(function (val) {
+
+
+
+                                                      val.style.display = "inline-block";
+
+
+                                                      if (key === itemIndex && ![undefined].includes(results[itemIndex].id)) {
+
+                                                          utilities.watchTrailer(xhr, key, movieSource, results[itemIndex].id);
+
+                                                          return false;
+                                                      }
+
+
+
+
+
+
+                                                  });
+
+
+                                              }
+
+                                              let closePlayer = document.querySelectorAll(".close_player");
+                                              utilities.exitPlayer(closePlayer,player,movieSource);
+
+                                          });
+
+
+                                      });
+
+
+                                      favorite.forEach(function (el, key) {
+
+
+
+                                          el.addEventListener(event, function (ev) {
+
+                                              ev.preventDefault();
+                                              ev.stopPropagation();
+
+
+
+                                              if(ev.type==="mouseleave"){
+
+                                                  el.innerHTML = '&heartsuit;';
+                                                  el.title = "Favorite";
+                                              }
+
+
+                                              if (itemIndex === key && ![undefined].includes(results[itemIndex].id)) {
+
+
+                                                 utilities.getFavorite(xhr,results[itemIndex],key,el,ev,utilities);
+
+                                              }
+
+
+                                          });
+
+
+                                          return false;
+                                      });
+
+
+
+                                      rating.forEach(function (rating, index) {
+
+                                          rating.addEventListener(event, function (ev) {
+
+
+                                              if (index === itemIndex) {
+
+
+                                                  ratingContent.item(itemIndex).addEventListener(event, function (ev) {
+
+                                                      if (ev.type === "mouseleave") {
+
+                                                          ratingContent.item(itemIndex).style.display = "none";
+                                                          return false;
+                                                      }
+                                                      if (ev.type === "mouseenter") {
+
+
+
+                                                          ratingContent.item(itemIndex).style.display = "block";
+
+                                                          return false;
+                                                      }
+
+
+
+                                                  });
+
+
+
+
+
+
+
+
+                                                  if (ev.type === "mouseleave") {
+                                                      ratingContent.item(itemIndex).style.display = "none";
+
+                                                      return false;
+                                                  }
+
+                                                  if (ev.type === "mouseover") {
+                                                      movieId=results[itemIndex].id;
+                                                      indexes=itemIndex;
+                                                      utilities.conformation(itemIndex,"Make rating");
+                                                      utilities.getRating(xhr,results[itemIndex],index,ev.target,utilities);
+
+                                                      ratingContent.item(itemIndex).style.display = "block";
+
+                                                      return false;
+                                                  }
+
+
+
+                                              }
+                                          })
+                                      })
+
+                                      */
 
                 });
 
 
-                return false;
-            });
+
+
+
+
+                /*
+                if (["touch", "click"].includes(event)){
+
+                    createList.item(receiveAKey).addEventListener("click",function (ev) {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+
+
+                    });
+
+
+                    createList.forEach(function (el){
+
+
+
+
+                    el.addEventListener(event,function (ev) {
+
+
+                        ev.preventDefault();
+                        ev.stopPropagation();
+
+
+                        let listed=document.querySelectorAll('.listed');
+
+
+                        let listItem=document.querySelector('#list_name');
+                        let listDescription=document.querySelector('#list_description');
+                        let createContentConfirm = document.querySelector("#create_content_confirm");
+
+
+                        if(receiveAKey===indexes) {
+
+
+                            let value = el.getAttribute("value");
+
+                            if (["touch", "click"].includes(ev.type) && value === "Create list") {
+
+
+                                let listName = listItem.value;
+                                let listDesc = listDescription.value;
+
+
+                                if (!["", " ", null, undefined].includes(listName)) {
+
+
+                                    let listContentName = "";
+                                    listed.forEach(function (el) {
+                                        listContentName = el.value;
+
+
+                                    });
+
+
+                                    let createContentConfirm = document.querySelector("#create_content_confirm");
+                                    utilities.makeList(xhr, listName, listDesc, utilities, createContentConfirm, visibility.value, sorted.value);
+
+
+                                } else {
+
+                                    utilities.listMessage(createContentConfirm, "List name must be provided");
+
+                                    return false;
+
+
+                                }
+
+
+                            }
+
+
+                            if (["touch", "click"].includes(ev.type) && value === "Add movie") {
+
+
+                                utilities.addMovie(xhr, el, utilities.state.count, results[receiveAKey].id, selectedMovie);
+
+                                return false;
+
+
+                            }
+                        }
 
 
 
@@ -2288,13 +3210,34 @@ class View  extends React.Component{
 
 
 
-            stars.forEach(function (el, key, parent) {
+                    });
+
+
+                    return false;
+                });
+
+                    return false;
+                }*/
+
+
+
+
+
+
+
+
+
+
+
+            stars.forEach(function (el) {
 
 
                 el.addEventListener('click',function (ev) {
 
                     utilities.makeRating(xhr,el.getAttribute('title'),movieId,indexes,utilities);
                     ev.stopPropagation();
+                     ev.stopImmediatePropagation();
+                     ev.preventDefault();
 
 
 
@@ -2302,6 +3245,11 @@ class View  extends React.Component{
                 })
 
             });
+
+
+
+
+
 
 
         } else {
@@ -2321,6 +3269,8 @@ class View  extends React.Component{
 
         }
 
+
+
     }
 
     exitPlayer(closePlayer,player,movieSource){
@@ -2333,6 +3283,7 @@ class View  extends React.Component{
 
                     player.forEach(function (value, index) {
                         if (index === key) {
+
 
                             movieSource.forEach(function (el) {
 
@@ -2358,25 +3309,33 @@ class View  extends React.Component{
     setPages(page){
         this.page=page;
    }
-    getPage(){
+    getPages(){
         return this.page;
   }
+
     setTotalPages(page){
         this.page=page;
     }
     getTotalPages(){
         return this.page;
     }
+
+
     getListMoviesDetails() {
      return this.listMoviesDetails;
     }
     setlistMoviesDetails(list){
         this.listMoviesDetails=list;
     }
-    renderMovieDetails(xhr,data) {
 
+
+    renderMovieDetails(xhr,data) {
+        let count=0;
         let utilities=this;
          if(xhr !==undefined){
+
+
+
 
 
              let isProgress=false;
@@ -2388,23 +3347,91 @@ class View  extends React.Component{
                   if(xhr.readyState===4 && [200,201,202,203].includes(xhr.status)){
 
                       let scroller= document.querySelector("#scroll_list" );
-                      let closePlayer= document.querySelector("#video_player");
-
 
 
 
                       let selectedListContent = document.querySelectorAll(".create_list" );
+                      selectedListContent[0].style.display="none";
 
-                      if(utilities.getIsFavorite() || utilities.getIsList() || utilities.getIsWatchList()){
+                      if(utilities.getIsSearch()){
 
+
+                          count++;
 
                           selectedListContent[0].style.display="none";
+                          if(utilities.getIsLoaded()){
+                              document.querySelectorAll(".restore_down")[0].click();
 
-                          closePlayer.style.display="none";
+                          }
+
                           scroller.style.overflowY="scroll";
+
+                         // utilities.readyModeRatings(utilities);
+                          //utilities.readyModeListResults(utilities);
+                          //utilities.readyModeFavorite(utilities);
+                          //utilities.readyModeListResults(utilities);
+                         // utilities.readyModeRatings(utilities);
+                          //utilities.readyModeWatchLater(utilities);
+
+
+                      }
+                      if(utilities.getIsFavorite()){
+
+
+                          count++;
+
+                          selectedListContent[0].style.display="none";
+                          if(utilities.getIsLoaded()){
+                              document.querySelectorAll(".restore_down")[0].click();
+
+                          }
+
+                          scroller.style.overflowY="scroll";
+
+                          utilities.readyModeFavorite(utilities);
+                          utilities.readyModeListResults(utilities);
+                          utilities.readyModeRatings(utilities);
+                          utilities.readyModeWatchLater(utilities);
+
+                      }
+                      if(utilities.getIsList()){
+
+
+                          count++;
+
+                          selectedListContent[0].style.display="none";
+                          if(utilities.getIsLoaded()){
+                              document.querySelectorAll(".restore_down")[0].click();
+
+                          }
+
+                          scroller.style.overflowY="scroll";
+
+                          utilities.readyModeRatings(utilities);
+                          utilities.readyModeListResults(utilities);
+
                       }
 
 
+
+                      if(utilities.getIsWatchList()){
+
+
+                           count++;
+
+                          selectedListContent[0].style.display="none";
+                          if(utilities.getIsLoaded()){
+                            document.querySelectorAll(".restore_down")[0].click();
+
+                          }
+
+                          scroller.style.overflowY="scroll";
+
+                          utilities.readyModeRatings(utilities);
+                          utilities.readyModeWatchLater(utilities);
+
+
+                      }
                       utilities.setTotalPages(JSON.parse(this.responseText).total_pages);
 
                  if(![" ","",undefined].includes(xhr.responseText)) {
@@ -2418,6 +3445,7 @@ class View  extends React.Component{
                          results = JSON.parse(xhr.responseText).results;
 
 
+
                      }else {
                          results = JSON.parse(xhr.responseText).items;
                      }
@@ -2428,8 +3456,6 @@ class View  extends React.Component{
                          value.remove();
 
                      });
-
-
 
 
 
@@ -2501,7 +3527,7 @@ class View  extends React.Component{
                           <div className="create_list">
 
                           <div className="create_list_title">
-                              <span title="Close" className="close_createList">X</span>
+                              <span title="Close" className="close_createList">&times;</span>
                               Create New List  <span id="create_content_confirm"> </span>
                           </div>
                           <div className="">
@@ -2526,7 +3552,7 @@ class View  extends React.Component{
 
                           <div className="list_description">Description</div>
                           <div>
-                              <textarea value={this.state.value} id="list_description" onChange={this.handleChange} />
+                              <textarea  id="list_description"/>
                           </div>
 
 
@@ -2550,8 +3576,8 @@ class View  extends React.Component{
                                   <option id="sorted_list" >Yes</option>
                                   <option>No</option>
                               </select>
-                              <div className="list_Names">
-                                  My List Bank <span id="delete_list" title="Delete this list">X</span>
+                              <div className="list_Name">
+                                  My List Bank <span id="delete_list" title="Delete this list">&times;</span>
                               </div>
 
                               <div className="">
@@ -2564,8 +3590,8 @@ class View  extends React.Component{
 
 
 
-                              <input type="button"  className="create_new_list" value="Create list"/>
-                              <input type="button"  id="add_movie_to_list" className="create_new_list" value="Add to list"/>
+                              <input type="button"   id="add_new_list"  className="create_new_list" value="Create list"/>
+                              <input type="button"  id="add_movie_to_list" className="create_new_list" value="Add movie"/>
 
                           </div>
                       </div>
@@ -2619,6 +3645,8 @@ class View  extends React.Component{
         let title=document.querySelector("#movie_title_iframe");
         let player=document.querySelector("#video_player ");
         let isRestoreDown=true;
+        let classInst
+
 
             restore.forEach(function (el,key) {
 
@@ -2626,6 +3654,7 @@ class View  extends React.Component{
                     event.preventDefault();
                     if(isRestoreDown){
                         isRestoreDown=false;
+
                         video[0].style.cssText="height: 140%;";
                         el.style.cssText="margin-left: 2%;";
                         if(title.textContent.length>=42){
@@ -2634,9 +3663,10 @@ class View  extends React.Component{
                         }else {
                             title.style.cssText="padding-right:16%;"
                         }
-                        player.style.cssText=" width: 40%; height: 25%;display:block;margin-top:272px;padding-top:1%;padding-bottom:8%;margin-left:800px"
+                        player.style.cssText="  border-radius: 2px; width: 40%; height: 25%;display:block;margin-top:272px;padding-top:1%;padding-bottom:8%;margin-left:800px"
                     }else {
                         isRestoreDown=true;
+
                         if(title.textContent.length>30){
 
                             title.style.cssText=" padding-right:38%;"
@@ -2644,7 +3674,7 @@ class View  extends React.Component{
                             title.style.cssText="padding-right:54%;"
                         }
                         video[0].style.cssText="height: 60%;";
-                        player.style.cssText=" width: 100%; height: 100%;display:block;margin-top:0;margin-left:0px;padding-top:5%;padding-bottom:7%;"
+                        player.style.cssText="  border-radius: none; width: 100%; height: 100%;display:block;margin-top:0;margin-left:0px;padding-top:5%;padding-bottom:7%;"
 
                     }
 

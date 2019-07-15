@@ -76,7 +76,7 @@ table{
     border-radius: 2px;
     width: 100%;
 }
-.list_Names{
+.list_Name{
     margin: 6px 0 6px 0;
 }
 #delete_list{
@@ -379,17 +379,42 @@ table{
 .rating:hover{
 
     color: #6e6e6e;;
+    font-weight: bolder;
 
 
 }
-.feelings, .add_to_list, .list_items:hover{
+.delete_items:hover{
     cursor: pointer;
-    background: #a3a3a3;
-    color: white;
+    color:  #731e73;
+    font-weight: bolder;
+
 
 
 }
 
+.list_items:hover{
+    cursor: pointer;
+    color: #a3a3a3;
+    font-weight: bolder;
+
+
+}
+.add_to_list,:hover{
+    cursor: pointer;
+    color: #a3a3a3;
+    font-weight: bolder;
+
+
+
+}
+
+.feelings:hover{
+     cursor: pointer;
+     color: #a3a3a3;
+    font-weight: bolder;
+
+
+ }
 td{
     border: none;
 }
@@ -399,6 +424,7 @@ td{
     color: #6e6e6e;;
     width: 30px;
     height: 28px;
+    font-weight: bolder;
 }
 
 .favorite, .favorite_count{
@@ -463,7 +489,7 @@ td{
     border: 1px solid #a0a0a0;
 
 }
-.feelings, .add_to_list, .add_to_watchlist, .rating, .list_items{
+.feelings, .add_to_list, .add_to_watchlist, .rating, .list_items, .delete_items{
     background: gold;
     float: left;
     cursor: pointer;
@@ -517,14 +543,16 @@ td{
     background: #0d2d3d;
     position: fixed;
     display: none;
-    top: 70px;
-    width: border-box;
-    border-radius: 4px;
+    top: 68px;
+
+    border-radius: 0;
+
 
     left: 0;
     right: 0;
     z-index: 1;
-    padding-bottom:8%;
+
+    width: 100%; height: 100%;margin-top:0;margin-left:0;padding-top:5%;padding-bottom:7%;
 
     border: none;
     text-align: center;
@@ -541,6 +569,7 @@ td{
 
     margin-top: 2px;
     border: none;
+    height: 60%;
     border-radius: 6px;
     box-shadow: 0 0 8px 0 #252525;
     background: rgb(13, 45, 61);
