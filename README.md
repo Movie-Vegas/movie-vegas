@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React MovieVegasApp](https://github.com/facebook/create-react-app).
+This project was created by Dan Ayettey.
 
 ## Available Scripts
 
