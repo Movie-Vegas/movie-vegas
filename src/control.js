@@ -14,11 +14,11 @@ class Control extends React.Component{
      * @param view
      * @param model
      */
-    constructor(view, model){
+    constructor(view, model) {
         super(view, model);
 
-        this.model=model;
-        this.view=view;
+        this.model = model;
+        this.view = view;
 
 
     }
@@ -41,7 +41,7 @@ class Control extends React.Component{
      * @param flag
      */
     setXHRequest(method, url, key, flag) {
-        this.model.XHRequest(method,url,key,flag);
+        this.model.XHRequest(method, url, key, flag);
     }
 
     /**
@@ -53,7 +53,7 @@ class Control extends React.Component{
 
 
     }
-
+      
 
     /**
      * updateView
@@ -62,15 +62,15 @@ class Control extends React.Component{
     updateView() {
 
 
-        let data=JSON.stringify('{}');
-        if(this.model.getIsXhrInProgress()){
+        let data = JSON.stringify('{}');
+        if (this.model.getIsXhrInProgress()) {
 
-            return (<div id="view_ready">{this.view.renderMovieDetails(this.model.getXHR(),data)}</div>);
+            return (<div id="view_ready">{this.view.renderMovieDetails(this.model.getXHR(), data)}</div>);
 
 
-        }else {
+        } else {
 
-            return (<div id="view_ready">{this.view.renderMovieDetails(this.model.getXHR(),data)}</div>);
+            return (<div id="view_ready">{this.view.renderMovieDetails(this.model.getXHR(), data)}</div>);
 
 
         }

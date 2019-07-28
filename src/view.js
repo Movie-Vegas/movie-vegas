@@ -18,6 +18,7 @@ class View  extends React.Component{
      */
 
 
+
     /**
      * The Control constructor used to instantiate View and Model
      *
@@ -136,11 +137,11 @@ class View  extends React.Component{
      * The function readyModeFavorite makes list of movies ready for later use
      * @param classInst
      */
-    readyModeFavorite(classInst){
+    readyModeFavorite(classInst) {
 
-        let count=1;
+        let count = 1;
 
-        let url="https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite/movies?page=1&sort_by=" +
+        let url = "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite/movies?page=1&sort_by=" +
             "created_at.asc&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=" +
             "a8ac0ce418f28d6ec56424ebad76ed12";
 
@@ -148,16 +149,16 @@ class View  extends React.Component{
         fetch(url, {
             method: 'GET',
 
-        }).then(function(response){
+        }).then(function (response) {
 
             return response.json();
 
             // extract token from JSON response
             // return token
-        }).then(function(token) {
+        }).then(function (token) {
             // endpoint where file will be uploaded
 
-            let results=token.total_pages;
+            let results = token.total_pages;
             classInst.setPages(results);
             classInst.setFavoriteResults(count, token.results);
 
@@ -166,9 +167,9 @@ class View  extends React.Component{
             for (let x = 2; x <= results; x++) {
 
 
-                fetch("https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite/movies?page="+x+"&sort_by=" +
+                fetch("https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/favorite/movies?page=" + x + "&sort_by=" +
                     "created_at.asc&language=en-US&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=" +
-                    "a8ac0ce418f28d6ec56424ebad76ed12",{
+                    "a8ac0ce418f28d6ec56424ebad76ed12", {
                     method: 'GET',
 
                 }).then(function (response) {
@@ -184,7 +185,7 @@ class View  extends React.Component{
 
             }
 
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log(error)
             // handle error
         });
@@ -195,7 +196,7 @@ class View  extends React.Component{
      * The function readyModeListResults makes list of movies ready for later use
      * @param classInst
      */
-    readyModeListResults(classInst){
+    readyModeListResults(classInst) {
 
         let count=1;
 
@@ -234,6 +235,10 @@ class View  extends React.Component{
                     classInst.setListResults(x, token.results);
 
 
+
+
+
+
                 });
 
 
@@ -248,12 +253,12 @@ class View  extends React.Component{
      * The function readyModeRatings  makes list of rating ready for later use
      * @param classInst
      */
-    readyModeRatings(classInst){
+    readyModeRatings(classInst) {
 
 
-        let count=1;
+        let count = 1;
 
-        let url="https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/rated/movies?api_key=" +
+        let url = "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/rated/movies?api_key=" +
             "a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by=" +
             "created_at.desc&page=1&append_to_response=content_ratings";
 
@@ -261,15 +266,15 @@ class View  extends React.Component{
         fetch(url, {
             method: 'GET',
 
-        }).then(function(response){
+        }).then(function (response) {
 
             return response.json();
 
 
-        }).then(function(token) {
+        }).then(function (token) {
 
 
-            let results=token.total_pages;
+            let results = token.total_pages;
 
             classInst.setRatingResults(count, token.results);
             classInst.setPages(results);
@@ -277,7 +282,7 @@ class View  extends React.Component{
 
             for (let x = 2; x <= results; x++) {
 
-                classInst.setRatingResults(x, "");
+
                 fetch("https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/rated/movies?" +
                     "api_key=a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&sort_by" +
                     "=created_at.desc&page=" + x + "&append_to_response=content_ratings", {
@@ -287,7 +292,7 @@ class View  extends React.Component{
                     return response.json();
                 }).then(function (token) {
 
-                    setTimeout(classInst.setRatingResults(count, token.results), 300);
+                    classInst.setRatingResults(x, token.results);
 
 
                 });
@@ -295,7 +300,7 @@ class View  extends React.Component{
             }
 
 
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log(error)
             // handle error
         });
@@ -359,6 +364,7 @@ class View  extends React.Component{
 
                         xhr = new XMLHttpRequest();
                         xhr.withCredentials = false;
+
 
 
                         xhr.addEventListener("readystatechange", function () {
@@ -470,6 +476,7 @@ class View  extends React.Component{
         });
 
 
+
         xhr.open("GET", "http://api.themoviedb.org/3/movie/"+movieId+"/videos?api_key=a8ac0ce418f28d6ec56424ebad76ed12&append_to_response=videos",true);
         xhr.responseType="text";
 
@@ -503,6 +510,7 @@ class View  extends React.Component{
             xhr = new XMLHttpRequest();
             xhr.withCredentials=false;
             xhr.addEventListener("readystatechange", function () {
+
 
 
                 if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
@@ -592,6 +600,7 @@ class View  extends React.Component{
             }
 
 
+
         });
         xhr.open("POST", "https://api.themoviedb.org/3/account/5cc983f092514119e5f94e46/" +
             "favorite?session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b&api_key=a8ac0ce" +
@@ -658,12 +667,12 @@ class View  extends React.Component{
                                         }
 
 
-                                        if(event.type==="mouseleave"){
+                                        if (event.type === "mouseleave") {
 
 
                                             element.innerHTML = '&heartsuit;';
-                                            element.style.background="gold";
-                                            element.style.color="black";
+                                            element.style.background = "gold";
+                                            element.style.color = "black";
                                             element.title = "Remove favorite";
 
                                             return false;
@@ -706,18 +715,22 @@ class View  extends React.Component{
             let items = document.querySelectorAll('.item');
 
             items.forEach(function (v, k) {
-                if(k===index){
+                if (k === index) {
 
 
-                    isResults=true;
+                    isResults = true;
 
                     return false;
                 }
             });
 
 
+
+
+
         }
         if(isResults){
+
 
 
             let items = document.querySelectorAll('.item');
@@ -728,11 +741,11 @@ class View  extends React.Component{
 
                     classInstance.confirmation(index, "Make rating");
 
-                    if(event.type==="click"){
+                    if (event.type === "click") {
 
-                        movieCount.textContent=""+Number( movieCount.textContent)-1;
+                        movieCount.textContent = "" + Number(movieCount.textContent) - 1;
 
-                        classInstance.makeFavorite(xhr,response,index,true,element,classInstance);
+                        classInstance.makeFavorite(xhr, response, index, true, element, classInstance);
 
                         return false;
 
@@ -740,6 +753,7 @@ class View  extends React.Component{
                 }
             })
         }
+
 
 
     }
@@ -810,6 +824,10 @@ class View  extends React.Component{
         }
 
 
+
+
+
+
     }
 
     /**
@@ -848,13 +866,13 @@ class View  extends React.Component{
 
 
                         if (["mouseover", "click"].includes(event.type))
+
                             for (let result of results[x]) {
 
 
                                 if (result.hasOwnProperty("id")) {
 
                                     if (![undefined].includes(result.id)) {
-
 
                                         if (result.id === response && isMakeRating) {
 
@@ -881,8 +899,6 @@ class View  extends React.Component{
                                         }
 
 
-                                    } else {
-                                        results = "";
                                     }
 
 
@@ -895,6 +911,7 @@ class View  extends React.Component{
                     }
 
                 }
+
 
 
             }
@@ -968,6 +985,7 @@ class View  extends React.Component{
         if (![" ", "", null, undefined].includes(movieId)) {
 
 
+
             let data = JSON.stringify({
                 "value": value,
             });
@@ -990,6 +1008,7 @@ class View  extends React.Component{
                             clearInterval(timer)
                         }
                     }, 1000);
+
 
 
                     classInstance.confirmation(index, message.status_message);
@@ -1021,7 +1040,7 @@ class View  extends React.Component{
      * @param element
      * @param classInstance
      */
-    makeWatchLater(xhr, movieId, index, flag, element, classInstance){
+    makeWatchLater(xhr, movieId, index, flag, element, classInstance) {
 
 
         if(![" ","",null,undefined].includes(movieId)){
@@ -1037,6 +1056,7 @@ class View  extends React.Component{
             xhr = new XMLHttpRequest();
             xhr.withCredentials=false;
             xhr.addEventListener("readystatechange", function () {
+
 
 
                 if (xhr.readyState === xhr.DONE && [200,201,202].includes(xhr.status)) {
@@ -1123,6 +1143,7 @@ class View  extends React.Component{
                     }
 
                 })
+
 
 
             }
@@ -1212,6 +1233,7 @@ class View  extends React.Component{
                                     }
 
 
+
                                 }
 
 
@@ -1225,9 +1247,11 @@ class View  extends React.Component{
                 }
 
 
+
             }
 
         }else {
+
 
 
             let items = document.querySelectorAll('.item');
@@ -1245,6 +1269,7 @@ class View  extends React.Component{
 
         }
         if(isResults){
+
 
 
             let items = document.querySelectorAll('.item');
@@ -1271,6 +1296,7 @@ class View  extends React.Component{
         }
 
 
+
     }
 
 
@@ -1287,7 +1313,7 @@ class View  extends React.Component{
      * @param index
      * @param responseText
      */
-    setRatingResults(index, responseText){
+    setRatingResults(index, responseText) {
         this.ratingResults[index]=responseText;
     }
 
@@ -1296,7 +1322,7 @@ class View  extends React.Component{
      * @param index
      * @param listResults
      */
-    setListResults(index, listResults){
+    setListResults(index, listResults) {
         this.listResults[index]=listResults;
     }
 
@@ -1329,7 +1355,7 @@ class View  extends React.Component{
      * @param index
      * @param favorites
      */
-    setFavoriteResults(index, favorites){
+    setFavoriteResults(index, favorites) {
         this.favoriteDetails[index]=favorites;
     }
 
@@ -1346,7 +1372,7 @@ class View  extends React.Component{
      * @param index
      * @param watchLaterResults
      */
-    setWatchLaterResults(index, watchLaterResults){
+    setWatchLaterResults(index, watchLaterResults) {
         this.watchLaterResults[index]=watchLaterResults;
     }
 
@@ -1395,7 +1421,7 @@ class View  extends React.Component{
      * @param id
      * @param responseText
      */
-    confirmation(id, responseText){
+    confirmation(id, responseText) {
         let element=document.querySelectorAll(".rating_content_confirm");
 
 
@@ -1403,7 +1429,7 @@ class View  extends React.Component{
         if(![" ","",undefined,null].includes(element.item(id))){
             element.item(id).textContent=""+responseText;
 
-            let  timer=setInterval(function () {
+            let timer = setInterval(function () {
 
 
                 count++;
@@ -1432,7 +1458,7 @@ class View  extends React.Component{
      * @param createdList
      * @param classInstance
      */
-    getListItem(createdList, classInstance){
+    getListItem(createdList, classInstance) {
 
         let results=classInstance.getListResults();
 
@@ -1445,15 +1471,15 @@ class View  extends React.Component{
             }
 
 
-            if(![undefined,0].includes(results.length)){
+            if (![undefined, 0].includes(results.length)) {
 
 
-                for(let x=0; x<=results.length; x++){
+                for (let x = 0; x <= results.length; x++) {
 
-                    if(![undefined].includes(results[x])) {
+                    if (![undefined].includes(results[x])) {
 
-                        createdList.innerHTML=" ";
-                        if(results[x].hasOwnProperty(0)){
+                        createdList.innerHTML = " ";
+                        if (results[x].hasOwnProperty(0)) {
                             results[x].forEach(function (results) {
 
 
@@ -1475,6 +1501,9 @@ class View  extends React.Component{
         }, 1000);
 
 
+
+
+
     }
 
     /**
@@ -1487,7 +1516,7 @@ class View  extends React.Component{
      * @param publicList
      * @param sortedList
      */
-    makeList(xhr, name, description, utilities, element, publicList, sortedList){
+    makeList(xhr, name, description, utilities, element, publicList, sortedList) {
         let count = 0;
 
         let data = JSON.stringify({
@@ -1508,13 +1537,13 @@ class View  extends React.Component{
         utilities.readyModeListResults(utilities);
         xhr.addEventListener("readystatechange", function () {
 
-            if (xhr.readyState === xhr.DONE ) {
+            if (xhr.readyState === xhr.DONE) {
 
 
-                let listed=document.querySelector("#created_list");
-                let message="Successfully created";
+                let listed = document.querySelector("#created_list");
+                let message = "Successfully created";
 
-                utilities.listMessage(createContentConfirm,message);
+                utilities.listMessage(createContentConfirm, message);
                 listed.setAttribute("selected", name);
 
                 let timer = setInterval(function () {
@@ -1533,10 +1562,13 @@ class View  extends React.Component{
         });
 
 
+
+
         xhr.open("POST","https://api.themoviedb.org/3/list?api_key=a8ac0ce418f28d6ec56424ebad76ed12&session_id=" +
             "968092a83b4016a49c3ddde1cc030d149fc6ba0b",true);
         xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
         xhr.send(data);
+
 
 
     }
@@ -1551,7 +1583,8 @@ class View  extends React.Component{
      * @param index
      * @param classInstance
      */
-    getListDetails(xhr, listId, event, element, response, index, classInstance){
+    getListDetails(xhr, listId, event, element, response, index, classInstance) {
+
 
 
         let data=JSON.stringify({});
@@ -1589,6 +1622,7 @@ class View  extends React.Component{
                 }
 
 
+
             }
         });
 
@@ -1599,6 +1633,7 @@ class View  extends React.Component{
             element.title = "Add to list";
 
         }
+
 
 
         if (["click","mouseenter"].includes(event.type)){
@@ -1631,7 +1666,7 @@ class View  extends React.Component{
         if(![undefined,0].includes(results.length)){
 
 
-            for(let x=0; x<=results.length; x++){
+            for (let x = 0; x <= results.length; x++) {
 
                 if(![undefined].includes(results[x])) {
                     if(results[x].hasOwnProperty(0)){
@@ -1650,6 +1685,7 @@ class View  extends React.Component{
                         }
 
 
+
                     }
 
 
@@ -1659,6 +1695,7 @@ class View  extends React.Component{
 
 
         }
+
 
 
     }
@@ -1722,6 +1759,27 @@ class View  extends React.Component{
         xhr.send(data);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
@@ -1760,7 +1818,9 @@ class View  extends React.Component{
                 }
 
 
+
             }
+
 
 
             if (isFavorite) {
@@ -1819,6 +1879,7 @@ class View  extends React.Component{
             } else {
                 count = ++this.temp.count;
             }
+
 
 
             if (isFavorite) {
@@ -1913,6 +1974,7 @@ class View  extends React.Component{
                 }
 
 
+
             }
         });
 
@@ -1920,6 +1982,7 @@ class View  extends React.Component{
             "a8ac0ce418f28d6ec56424ebad76ed12&session_id=968092a83b4016a49c3ddde1cc030d149fc6ba0b",true);
         xhr.setRequestHeader("content-type", "application/json;charset=utf-8");
         xhr.send(data);
+
 
 
     }
@@ -1937,6 +2000,7 @@ class View  extends React.Component{
 
         let classInstance = this;
         let data = JSON.stringify({"media_id": mediaId});
+
 
 
         xhr = new XMLHttpRequest();
@@ -1968,7 +2032,7 @@ class View  extends React.Component{
      * @param element
      * @param message
      */
-    listMessage(element, message){
+    listMessage(element, message) {
         element.style.display="inline";
         element.innerHTML=""+message;
 
@@ -1990,7 +2054,7 @@ class View  extends React.Component{
      * @param id
      * @param key
      */
-    setListId(id, key){
+    setListId(id, key) {
         this.listId[key]=id;
     }
 
@@ -2040,7 +2104,7 @@ class View  extends React.Component{
      * @param results
      * @param resultText
      */
-    movieContent(xhr, results, resultText){
+    movieContent(xhr, results, resultText) {
         let utilities=this;
         utilities.setResult(results);
         let items = document.querySelector('#item');
@@ -2192,11 +2256,11 @@ class View  extends React.Component{
 
                     let items = document.querySelector('#item');
                     let img = "http://image.tmdb.org/t/p/w185/" + results[x].backdrop_path;
-                    let description="";
+                    let description = "";
 
-                    if(![""," ",undefined].includes(results[x].description)){
+                    if (!["", " ", undefined].includes(results[x].description)) {
 
-                        description=results[x].description.substr(0, 669);
+                        description = results[x].description.substr(0, 669);
                     }
                     if(![""," ",undefined].includes(results[x].overview)){
 
@@ -2302,7 +2366,7 @@ class View  extends React.Component{
                 let selectedListContent = document.querySelectorAll(".create_list" );
                 selectedListContent[0].style.display="none";
                 document.querySelector('#total_pages_title').innerHTML = "Total pages";
-                if(resultText.hasOwnProperty("total_pages")){
+                if (resultText.hasOwnProperty("total_pages")) {
                     movieCount.textContent = "" + resultText.total_results;
                     document.querySelector('#qty').innerHTML = resultText.total_pages;
 
@@ -2310,7 +2374,12 @@ class View  extends React.Component{
                 }
 
 
+
+
+
+
             }
+
 
 
             let ratingContent = document.querySelectorAll(".rating_content");
@@ -2427,6 +2496,7 @@ class View  extends React.Component{
                                 selectedMovie.innerHTML = "" + results[key].original_title;
 
 
+
                                 utilities.getWatchLater(xhr, results[key].id, itemIndex, el, ev, utilities);
 
 
@@ -2529,6 +2599,8 @@ class View  extends React.Component{
                                             rating, ev, el.getAttribute('title'), false, utilities);
 
 
+
+
                                         ev.stopPropagation();
                                         ev.stopImmediatePropagation();
 
@@ -2571,12 +2643,14 @@ class View  extends React.Component{
                                 if (["mouseover", "mouseleave", "click", "touch"].includes(ev.type)) {
 
 
+
                                     if (ev.type === "mouseenter") {
                                         utilities.confirmation(itemIndex, "Make rating");
                                     }
 
 
                                     utilities.getRating(xhr, results[itemIndex].id, itemIndex, rating, ev, "", true, utilities);
+
 
 
                                     return false;
@@ -2692,6 +2766,9 @@ class View  extends React.Component{
                                             utilities.deleteMovie(xhr, el, listItems, utilities.getListIdForQuery(), utilities.getResult()[itemIndex].id, utilities.getIndex())
 
                                         }
+
+
+
 
 
                                     }
@@ -2886,6 +2963,20 @@ class View  extends React.Component{
             });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         } else {
 
             let movieCount = document.querySelector("#movie_count");
@@ -2911,7 +3002,7 @@ class View  extends React.Component{
      * @param player
      * @param movieSource
      */
-    exitPlayer(closePlayer, player, movieSource){
+    exitPlayer(closePlayer, player, movieSource) {
 
         closePlayer.forEach(function (value) {
 
@@ -2930,6 +3021,7 @@ class View  extends React.Component{
 
 
                     return false;
+
 
 
                 }
@@ -2985,17 +3077,17 @@ class View  extends React.Component{
         if (![undefined, "", null].includes(xhr)) {
 
 
-            let isProgress=false;
+            let isProgress = false;
 
-            xhr.addEventListener("readystatechange",function (results) {
-                if(this.responseText.hasOwnProperty("total_pages")){
+            xhr.addEventListener("readystatechange", function (results) {
+                if (this.responseText.hasOwnProperty("total_pages")) {
                     utilities.setTotalPages(JSON.parse(this.responseText).total_pages)
                 }
-                if(xhr.readyState===4 && [200,201,202,203].includes(xhr.status)){
+                if (xhr.readyState === 4 && [200, 201, 202, 203].includes(xhr.status)) {
 
 
-                    let selectedListContent = document.querySelectorAll(".create_list" );
-                    selectedListContent[0].style.display="none";
+                    let selectedListContent = document.querySelectorAll(".create_list");
+                    selectedListContent[0].style.display = "none";
 
 
                     if (utilities.getIsLoaded()) {
@@ -3007,19 +3099,19 @@ class View  extends React.Component{
                     }
 
 
-                    if(![" ","",undefined].includes(xhr.responseText)) {
+                    if (![" ", "", undefined].includes(xhr.responseText)) {
 
                         utilities.setTotalPages(JSON.parse(this.responseText).total_pages);
 
                         let resultText = JSON.parse(xhr.responseText);
                         results = JSON.parse(xhr.responseText);
 
-                        if(results.hasOwnProperty("results")){
+                        if (results.hasOwnProperty("results")) {
 
                             results = JSON.parse(xhr.responseText).results;
 
 
-                        }else {
+                        } else {
                             results = JSON.parse(xhr.responseText).items;
                         }
 
@@ -3031,14 +3123,15 @@ class View  extends React.Component{
                         });
 
 
+
                         utilities.movieContent(xhr,results,resultText);
 
 
                     }
 
-                }else if ([500,501,502.503].includes(this.status)){
+                } else if ([500, 501, 502.503].includes(this.status)) {
 
-                    isProgress=true;
+                    isProgress = true;
                     alert("Hmm. We’re having trouble finding that Query.\n" +
                         "\n" +
                         "We can’t connect to the server at " + navigator.appName +
@@ -3051,16 +3144,16 @@ class View  extends React.Component{
                         " check that " + navigator.appName + "has permission to access the Web.");
 
 
-                }else if ([1,2,3].includes(this.status)){
+                } else if ([1, 2, 3].includes(this.status)) {
 
-                    isProgress=true;
+                    isProgress = true;
 
                 }
 
             });
 
 
-            if(isProgress){
+            if (isProgress) {
                 this.progress();
             }
 
@@ -3101,12 +3194,12 @@ class View  extends React.Component{
 
                         <div className="create_list_title">
                             <span title="Close" className="close_createList">&times;</span>
-                            Create New List  <span id="create_content_confirm"> </span>
+                            Create New List <span id="create_content_confirm"> </span>
                         </div>
                         <div className="">
-                            <select id="selected_Title" disabled={true} className="sorted" >
+                            <select id="selected_Title" disabled={true} className="sorted">
 
-                                <option id="selected_movie"> </option>
+                                <option id="selected_movie"></option>
 
                             </select>
 
@@ -3146,7 +3239,7 @@ class View  extends React.Component{
 
                         <div className="">
                             <select id="sorted" className="sorted">
-                                <option id="sorted_list" >Yes</option>
+                                <option id="sorted_list">Yes</option>
                                 <option>No</option>
                             </select>
                             <div className="list_Name">
@@ -3168,9 +3261,10 @@ class View  extends React.Component{
                         </div>
                     </div>
                 </div>
-                <div id="video_player" draggable="true"  >
-                    <div id="movie_title_iframe"> </div>
-                    <div className="restore_down" title="Restore down" > </div><div title="Exit player" className="close_player">  </div>
+                <div id="video_player" draggable="true">
+                    <div id="movie_title_iframe"></div>
+                    <div className="restore_down" title="Restore down"></div>
+                    <div title="Exit player" className="close_player"></div>
                     <div id="iframe">
                         <iframe title="IPlayer" className="video_1"
                                 data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'
@@ -3185,7 +3279,7 @@ class View  extends React.Component{
                 </div>
                 <div id='scroll_list'>
 
-                    <div id="item"> </div>
+                    <div id="item"></div>
 
                 </div>
 
@@ -3199,6 +3293,8 @@ class View  extends React.Component{
             </div>
 
         )
+
+
 
 
     }
@@ -3216,31 +3312,31 @@ class View  extends React.Component{
 
         restore.forEach(function (el) {
 
-            el.addEventListener("click",function (event) {
+            el.addEventListener("click", function (event) {
                 event.preventDefault();
-                if(isRestoreDown){
-                    isRestoreDown=false;
+                if (isRestoreDown) {
+                    isRestoreDown = false;
 
-                    video[0].style.cssText="height: 140%;";
-                    el.style.cssText="margin-left: 2%;";
-                    if(title.textContent.length>=42){
+                    video[0].style.cssText = "height: 140%;";
+                    el.style.cssText = "margin-left: 2%;";
+                    if (title.textContent.length >= 42) {
 
-                        title.style.cssText=" padding-right:1%;"
-                    }else {
-                        title.style.cssText="padding-right:16%;"
+                        title.style.cssText = " padding-right:1%;"
+                    } else {
+                        title.style.cssText = "padding-right:16%;"
                     }
-                    player.style.cssText="  border-radius: 2px; width: 40%; height: 25%;display:block;margin-top:272px;padding-top:1%;padding-bottom:8%;margin-left:800px"
-                }else {
-                    isRestoreDown=true;
+                    player.style.cssText = "  border-radius: 2px; width: 40%; height: 25%;display:block;margin-top:272px;padding-top:1%;padding-bottom:8%;margin-left:800px"
+                } else {
+                    isRestoreDown = true;
 
-                    if(title.textContent.length>30){
+                    if (title.textContent.length > 30) {
 
-                        title.style.cssText=" padding-right:38%;"
-                    }else {
-                        title.style.cssText="padding-right:54%;"
+                        title.style.cssText = " padding-right:38%;"
+                    } else {
+                        title.style.cssText = "padding-right:54%;"
                     }
-                    video[0].style.cssText="height: 60%;";
-                    player.style.cssText="  border-radius: none; width: 100%; height: 100%;display:block;margin-top:0;margin-left:0px;padding-top:5%;padding-bottom:7%;"
+                    video[0].style.cssText = "height: 60%;";
+                    player.style.cssText = "  border-radius: none; width: 100%; height: 100%;display:block;margin-top:0;margin-left:0px;padding-top:5%;padding-bottom:7%;"
 
                 }
 

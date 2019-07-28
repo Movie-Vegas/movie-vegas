@@ -1,3 +1,4 @@
+
 /**The CORS request was attempted with the credentials flag set, but the server is configured using the wildcard ("*")
  * as the value of Access-Control-Allow-Origin, which doesn't allow the use of credentials.
 
@@ -40,11 +41,12 @@ class Model {
 
 
         let request=new XMLHttpRequest();
-        request.withCredentials=flag;
+        request.withCredentials = flag;
         let loading=document.querySelector("#loading");
-        request.addEventListener('progress',function () {
+        request.addEventListener('progress', function () {
             let color=0;
             let  timer=setInterval(function () {
+
 
 
                 if(color<=800){
@@ -64,10 +66,12 @@ class Model {
             }, 100);
 
 
+
+
         });
 
 
-        request.open(method,"https://api.themoviedb.org/3"+url+key,true);
+        request.open(method, "https://api.themoviedb.org/3" + url + key, true);
         this.request= request;
 
 
