@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/Movie-Vegas/movie-vegas/static/css/main.6a8d19ba.chunk.css",
-    "main.js": "/Movie-Vegas/movie-vegas/static/js/main.c164e5e7.chunk.js",
-    "main.js.map": "/Movie-Vegas/movie-vegas/static/js/main.c164e5e7.chunk.js.map",
-    "runtime~main.js": "/Movie-Vegas/movie-vegas/static/js/runtime~main.15bee9dc.js",
-    "runtime~main.js.map": "/Movie-Vegas/movie-vegas/static/js/runtime~main.15bee9dc.js.map",
-    "static/js/2.764363f2.chunk.js": "/Movie-Vegas/movie-vegas/static/js/2.764363f2.chunk.js",
-    "static/js/2.764363f2.chunk.js.map": "/Movie-Vegas/movie-vegas/static/js/2.764363f2.chunk.js.map",
-    "index.html": "/Movie-Vegas/movie-vegas/index.html",
-    "precache-manifest.0fe26e6c1dc1e0dbe2dd1a87575bfb57.js": "/Movie-Vegas/movie-vegas/precache-manifest.0fe26e6c1dc1e0dbe2dd1a87575bfb57.js",
-    "service-worker.js": "/Movie-Vegas/movie-vegas/service-worker.js",
-    "static/css/main.6a8d19ba.chunk.css.map": "/Movie-Vegas/movie-vegas/static/css/main.6a8d19ba.chunk.css.map",
-    "static/media/icon.GIF": "/Movie-Vegas/movie-vegas/static/media/icon.c3003487.GIF"
+    "main.css": "/static/css/main.42962f65.chunk.css",
+    "main.js": "/static/js/main.6c3edbba.chunk.js",
+    "main.js.map": "/static/js/main.6c3edbba.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/js/2.b41502e9.chunk.js": "/static/js/2.b41502e9.chunk.js",
+    "static/js/2.b41502e9.chunk.js.map": "/static/js/2.b41502e9.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.f8aacdb4e9de2b4cfa6d3acaa21cfae7.js": "/precache-manifest.f8aacdb4e9de2b4cfa6d3acaa21cfae7.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.42962f65.chunk.css.map": "/static/css/main.42962f65.chunk.css.map",
+    "static/media/logo.svg": "/static/media/logo.5d5d9eef.svg"
   }
 }

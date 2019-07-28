@@ -1,17 +1,17 @@
+/**The CORS request was attempted with the credentials flag set, but the server is configured using the wildcard ("*")
+ * as the value of Access-Control-Allow-Origin, which doesn't allow the use of credentials.
 
-
+ To correct this problem, simply ensure that the xhr with-credentials flag's value is set false when issuing your CORS request.
+ **/
 class Model {
 
+
     /**
-     * model for Movie-vegas
-     * declare class variables/attributes as private (local var and Accessor as a object literal);
-     * @type {{rating: string, likes: string, goodMovies: Array, badMovies: Array, result: string, favourites: string, movieList: Array, watchLater: string, setRating: Model.services.setRating, setLikes: Model.services.setLikes, addGoodMovies: Model.services.addGoodMovies, addBadMovies: Model.services.addBadMovies, setResult: Model.services.setResult, setFavourites: Model.services.setFavourites, addMovies: Model.services.addMovies, setWatchLater: Model.services.setWatchLater, getResult: (function(): string), getLikes: (function(): string), getGoodMovie: (function(): Set<*>), getBadMovie: (function(): Set<*>), getFavorites: (function(): string), getMovieList: (function(): Set<*>), getRating: (function(): string), getWatchLater: (function(): string)}}
+     *
+     * setIsXhrInProgress function check if XMLHTTP is initialize
+     * function setIsXhrInProgress
+     * @param isXhrInProgress
      */
-
-
-
-
-
     setIsXhrInProgress(isXhrInProgress){
         this.isXhrInProgress=isXhrInProgress;
     }
@@ -20,26 +20,33 @@ class Model {
         return this.isXhrInProgress;
     }
 
+    /**
+     *
+     * @param account
+     */
     setAccount(account){
         this.account=account;
     }
-    getAccount(){
-        return this.account;
-    }
 
-
-     XHRequest(method,url,key,flag) {
+    /**
+     * The function XHRequest is used to initialized XMLHttpRequest
+     * @param method
+     * @param url
+     * @param key
+     * @param flag
+     * @constructor
+     */
+    XHRequest(method, url, key, flag) {
 
 
         let request=new XMLHttpRequest();
-         request.withCredentials=flag;
+        request.withCredentials=flag;
         let loading=document.querySelector("#loading");
-         request.addEventListener('progress',function () {
+        request.addEventListener('progress',function () {
             let color=0;
             let  timer=setInterval(function () {
 
 
-                color++;
                 if(color<=800){
 
 
@@ -53,39 +60,28 @@ class Model {
                     clearInterval(timer)
 
                 }
-
-            },50);
-
-
+                color++;
+            }, 100);
 
 
         });
 
 
-         request.open(method,"https://api.themoviedb.org/3"+url+key,true);
+        request.open(method,"https://api.themoviedb.org/3"+url+key,true);
         this.request= request;
 
 
-
     }
+
+    /**
+     * Return initialized XMLHttpRequest
+     * @returns {XMLHttpRequest}
+     */
     getXHR(){
 
         return this.request;
 
     }
-    setRating (rating) {
-        this.rating=rating;
-    }
-
-
-
-
-
-
-
-
-
-
 
 
 }
